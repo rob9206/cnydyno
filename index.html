@@ -7,7 +7,7 @@
   <!-- Primary SEO Meta Tags -->
   <title>CNY Dyno | Harley-Davidson Dyno Tuning & Mobile Service | Utica NY</title>
   <meta name="description" content="Professional Harley-Davidson dyno tuning in Utica, NY. Custom ECU calibration, mobile tuning across Central New York - Syracuse, Rome, Cooperstown. Proprietary tuning software for precision results.">
-  <meta name="keywords" content="Harley Davidson tuning, dyno tuning Utica NY, motorcycle tuning Central New York, Harley ECU tuning, mobile motorcycle tuning Syracuse, Harley performance shop CNY, motorcycle dyno near me">
+  <meta name="keywords" content="Harley Davidson tuning, dyno tuning Utica NY, motorcycle tuning Central New York, Harley ECU tuning, mobile motorcycle tuning Syracuse, Harley performance shop CNY, motorcycle dyno near me, Harley tuning Rome NY, dyno tuning Cooperstown, motorcycle performance Oneonta, Harley mechanic Utica, Stage 1 tune Syracuse, Harley exhaust tuning, big bore tuning CNY, Harley tuner near me, motorcycle dyno Syracuse, Sportster tuning, Road Glide tuning, Street Glide performance">
   <meta name="author" content="CNY Dyno - Dawson Motoring LLC">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://cnydyno.com/">
@@ -37,6 +37,15 @@
   <!-- Favicon (placeholder) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
   
+  <!-- Google Analytics - Replace GA_MEASUREMENT_ID with your actual ID -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script> -->
+  
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,8 +64,10 @@
     "email": "dawsonmotoring@gmail.com",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "Utica",
       "addressLocality": "Utica",
       "addressRegion": "NY",
+      "postalCode": "13501",
       "addressCountry": "US"
     },
     "geo": {
@@ -103,7 +114,38 @@
       "name": "Rob Dawson",
       "jobTitle": "Owner & Lead Dyno Operator"
     },
-    "sameAs": []
+    "sameAs": [],
+    "image": "https://cnydyno.com/og-image.jpg",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Harley-Davidson Tuning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Full Dyno Tune",
+            "description": "Complete ECU calibration on our in-house dyno for Harley-Davidson motorcycles"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mobile Tuning Service",
+            "description": "Mobile Harley tuning service across Central New York including Syracuse, Rome, and Cooperstown"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Stage 1-4 Upgrades",
+            "description": "Performance upgrades with professional installation and custom tuning"
+          }
+        }
+      ]
+    }
   }
   </script>
 
@@ -146,6 +188,56 @@
         }
       }
     ]
+  }
+  </script>
+
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://cnydyno.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://cnydyno.com/#services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "About",
+        "item": "https://cnydyno.com/#about"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Contact",
+        "item": "https://cnydyno.com/#contact"
+      }
+    ]
+  }
+  </script>
+
+  <!-- AggregateRating Schema (Add real reviews when available) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CNY Dyno",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "1",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   }
   </script>
 
