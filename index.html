@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- Primary SEO Meta Tags -->
-  <title>CNY Dyno | Harley-Davidson Dyno Tuning & Mobile Service | Utica NY</title>
+  <title>CNY Dyno | Precision Harley-Davidson Dyno Tuning & Mobile Service | Utica NY</title>
   <meta name="description" content="Professional Harley-Davidson dyno tuning in Utica, NY. Custom ECU calibration, mobile tuning across Central New York - Syracuse, Rome, Cooperstown. Proprietary tuning software for precision results.">
   <meta name="keywords" content="Harley Davidson tuning, dyno tuning Utica NY, motorcycle tuning Central New York, Harley ECU tuning, mobile motorcycle tuning Syracuse, Harley performance shop CNY, motorcycle dyno near me, Harley tuning Rome NY, dyno tuning Cooperstown, motorcycle performance Oneonta, Harley mechanic Utica, Stage 1 tune Syracuse, Harley exhaust tuning, big bore tuning CNY, Harley tuner near me, motorcycle dyno Syracuse, Sportster tuning, Road Glide tuning, Street Glide performance">
   <meta name="author" content="CNY Dyno - Dawson Motoring LLC">
@@ -15,8 +15,8 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cnydyno.com/">
-  <meta property="og:title" content="CNY Dyno | Harley-Davidson Performance Tuning | Utica NY">
-  <meta property="og:description" content="Professional Harley-Davidson dyno tuning in Central New York. In-house dyno & mobile service. Custom calibration, not copy-paste tunes.">
+  <meta property="og:title" content="CNY Dyno | Precision Harley-Davidson Tuning | Utica NY">
+  <meta property="og:description" content="Precision Harley-Davidson dyno tuning in Central New York. In-house dyno & mobile service. Engineered tunes, proven results.">
   <meta property="og:image" content="https://cnydyno.com/og-image.jpg">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="CNY Dyno">
@@ -24,8 +24,8 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://cnydyno.com/">
-  <meta name="twitter:title" content="CNY Dyno | Harley-Davidson Performance Tuning | Utica NY">
-  <meta name="twitter:description" content="Professional Harley-Davidson dyno tuning in Central New York. In-house dyno & mobile service.">
+  <meta name="twitter:title" content="CNY Dyno | Precision Harley-Davidson Tuning | Utica NY">
+  <meta name="twitter:description" content="Precision Harley-Davidson dyno tuning in Central New York. In-house dyno & mobile service. Engineered tunes, proven results.">
   <meta name="twitter:image" content="https://cnydyno.com/og-image.jpg">
 
   <!-- Geo Tags for Local SEO -->
@@ -33,6 +33,9 @@
   <meta name="geo.placename" content="Utica">
   <meta name="geo.position" content="43.1009;-75.2327">
   <meta name="ICBM" content="43.1009, -75.2327">
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#0a0a0a">
 
   <!-- Favicon (placeholder) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
@@ -46,10 +49,12 @@
     gtag('config', 'GA_MEASUREMENT_ID');
   </script> -->
   
-  <!-- Preconnect for performance -->
+  <!-- Preconnect & DNS Prefetch for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Crimson+Pro:wght@400;500;600&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="dns-prefetch" href="https://square.site">
+  <link rel="dns-prefetch" href="https://book.squareup.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Crimson+Pro:wght@400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- JSON-LD Structured Data for Local Business -->
   <script type="application/ld+json">
@@ -277,7 +282,7 @@
       overflow-x: hidden;
     }
 
-    /* Grain texture */
+    /* Grain texture - GPU accelerated */
     body::before {
       content: '';
       position: fixed;
@@ -285,10 +290,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       opacity: 0.03;
       pointer-events: none;
       z-index: 1000;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     /* Scroll animations */
@@ -346,7 +353,7 @@
 
     .nav-links a {
       font-family: 'Oswald', sans-serif;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 0.9rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1472,6 +1479,25 @@
         justify-content: center;
       }
     }
+
+    /* Respect user motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .hero h1, .hero-tagline, .hero-sub, .hero-buttons, .trust-badges, .hero-location {
+        animation: none;
+        opacity: 1;
+      }
+      .hero-lines::before, .hero-lines::after {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1506,7 +1532,7 @@
         Precision Harley
         <span class="accent">Performance</span>
       </h1>
-      <p class="hero-tagline">Where physics meets horsepower.</p>
+      <p class="hero-tagline">Engineered tunes. Proven results.</p>
       <p class="hero-sub">
         Professional Harley-Davidson dyno tuning in Central New York. In-house dyno or mobile service — Syracuse, Rome, Cooperstown, and beyond. Custom calibration, not copy-paste tunes.
       </p>
@@ -1895,14 +1921,14 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 CNY Dyno · Dawson Motoring LLC · Utica, NY</p>
+        <p>© 2025–2026 CNY Dyno · Dawson Motoring LLC · Utica, NY</p>
         <p>Harley-Davidson® is a registered trademark. CNY Dyno is not affiliated with Harley-Davidson Motor Company.</p>
       </div>
     </div>
   </footer>
 
   <!-- Square Appointments Widget -->
-  <script src='https://square.site/appointments/buyer/widget/xue8icpm57kptx/L2V4BHTQFX0AX.js'></script>
+  <script defer src='https://square.site/appointments/buyer/widget/xue8icpm57kptx/L2V4BHTQFX0AX.js'></script>
 
   <!-- Scroll Animations & Floating CTA -->
   <script>
