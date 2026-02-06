@@ -1,4 +1,4 @@
-# Thunder Horse Performance Website - Deployment Guide
+# Thunderhorse Tuning Website - Deployment Guide
 
 ## Quick Deploy Options
 
@@ -28,7 +28,7 @@ netlify deploy --prod
 2. Create a new repository
 3. Push your code:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/thunderhorse-performance.git
+   git remote add origin https://github.com/YOUR_USERNAME/thunderhorse-tuning.git
    git branch -M main
    git push -u origin main
    ```
@@ -59,7 +59,7 @@ vercel --prod
 
 ## Custom Domain Setup
 
-### For thunderhorseperformance.com:
+### For thunderhorsetuning.com:
 
 1. **Purchase domain** (if not already owned):
    - Namecheap, GoDaddy, Google Domains, etc.

@@ -1,4 +1,4 @@
-# 🚀 Quick Start - Deploy Your Thunder Horse Performance Website
+# 🚀 Quick Start - Deploy Your Thunderhorse Tuning Website
 
 ## ✅ What's Ready
 
@@ -27,8 +27,8 @@ This is the **FASTEST** way to get your site online:
 4. **Optional - Claim your site:**
    - Create a free Netlify account
    - Click "Claim site" to manage it
-   - Change the site name to something like `thunderhorse-performance.netlify.app`
-   - Add your custom domain `thunderhorseperformance.com` later
+   - Change the site name to something like `thunderhorse-tuning.netlify.app`
+   - Add your custom domain `thunderhorsetuning.com` later
 
 ### Method 2: GitHub + Netlify (Best for Long-Term)
 
@@ -40,7 +40,7 @@ This method lets you easily update your site later:
 
 **Step 2: Create a New Repository**
 - Click the "+" icon → "New repository"
-- Name it: `thunderhorse-performance` (or keep your existing repo name)
+- Name it: `thunderhorse-tuning` (or keep your existing repo name)
 - Keep it public
 - Don't initialize with README (we already have files)
 - Click "Create repository"

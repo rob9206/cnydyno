@@ -1,4 +1,4 @@
-# 📊 SEO Status Report - Thunder Horse Performance Website
+# 📊 SEO Status Report - Thunderhorse Tuning Website
 
 ## ✅ Your Current SEO Score: **8.5/10**
 
@@ -30,7 +30,7 @@ Your website is **already better optimized than 90% of local motorcycle shops**.
 **Impact:** You'll show up in "near me" searches and Google Maps
 
 ### On-Page SEO - **9/10**
-✅ **Perfect title tag** - "Thunder Horse Performance | Motorcycle Dyno Tuning & Mobile Service | Utica NY"
+✅ **Perfect title tag** - "Thunderhorse Tuning | V-Twin Dyno Specialists | Utica NY"
 ✅ **Compelling meta description** - 155 characters, includes keywords and CTA
 ✅ **Extended keywords** - 20+ relevant search terms
 ✅ **Proper heading structure** - H1, H2, H3 hierarchy
@@ -138,7 +138,7 @@ Ready to track visitors (just add your ID)
 
 ### Month 1-2: Foundation
 - Website indexed by Google
-- Appearing for brand searches ("Thunder Horse Performance")
+- Appearing for brand searches ("Thunderhorse Tuning", "DynoAI")
 - Google Business Profile live
 - First 10 reviews collected
 
@@ -212,7 +212,7 @@ Ready to track visitors (just add your ID)
 
 Your SEO is already better than competitors because:
 
-1. **Proprietary tuning software** - Unique selling point (mention everywhere)
+1. **DynoAI proprietary tuning software** - Unique selling point (mention everywhere)
 2. **Mobile service** - Not all competitors offer this
 3. **Engineering background** - Builds expertise/trust
 4. **Transparent pricing** - Listed on site (competitors often hide this)

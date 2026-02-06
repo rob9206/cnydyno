@@ -1,10 +1,10 @@
-# Thunder Horse Performance Website
+# Thunderhorse Tuning Website
 
-V-twin specialists. All bikes welcome. Professional motorcycle dyno tuning website for Thunder Horse Performance (Dawson Motoring LLC) in Utica, NY.
+V-twin specialists. All bikes welcome. Professional motorcycle dyno tuning website for Thunderhorse Tuning (Dawson Motoring LLC) in Utica, NY. Powered by DynoAI.
 
 ## About
 
-This is the official website for Thunder Horse Performance, a motorcycle performance tuning shop offering:
+This is the official website for Thunderhorse Tuning, a motorcycle performance tuning shop offering:
 - In-house dyno tuning services
 - Mobile tuning across Central New York
 - Custom ECU calibration
@@ -30,12 +30,12 @@ This site is a static HTML website that can be hosted on any static hosting plat
 
 ## Contact
 
-**Thunder Horse Performance**  
+**Thunderhorse Tuning**  
 Utica, New York  
 Phone: (607) 621-6885  
 Email: dawsonmotoring@gmail.com  
-Website: https://thunderhorseperformance.com
+Website: https://thunderhorsetuning.com
 
 ## License
 
-© 2026 Thunder Horse Performance · Dawson Motoring LLC
+© 2026 Thunderhorse Tuning · Dawson Motoring LLC · Powered by DynoAI

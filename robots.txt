@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thunderhorseperformance.com/sitemap.xml
+Sitemap: https://thunderhorsetuning.com/sitemap.xml
