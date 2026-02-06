@@ -34,8 +34,8 @@
   <meta name="geo.position" content="43.1009;-75.2327">
   <meta name="ICBM" content="43.1009, -75.2327">
 
-  <!-- Favicon (placeholder) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   
   <!-- Google Analytics - Replace GA_MEASUREMENT_ID with your actual ID -->
   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -321,21 +321,19 @@
     }
 
     .logo {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-weight: 900;
-      font-size: 1.6rem;
-      letter-spacing: 0.15em;
-      color: var(--signal-white);
       text-decoration: none;
       transition: transform 0.2s;
+      display: block;
+      line-height: 0;
     }
 
     .logo:hover {
       transform: scale(1.02);
     }
 
-    .logo span {
-      color: var(--voltage-red);
+    .logo svg {
+      height: 50px;
+      width: auto;
     }
 
     .nav-links {
@@ -444,9 +442,13 @@
       position: absolute;
       inset: 0;
       background: 
+        linear-gradient(180deg, rgba(15, 15, 20, 0.85) 0%, rgba(15, 15, 20, 0.95) 100%),
+        /* Replace with: url('hero-image.jpg'), */
         radial-gradient(ellipse at 20% 80%, rgba(199, 20, 20, 0.15) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 20%, rgba(217, 90, 13, 0.08) 0%, transparent 40%),
         var(--forge-black);
+      background-size: cover;
+      background-position: center;
     }
 
     /* Animated accent lines */
@@ -889,6 +891,78 @@
       color: var(--ash);
     }
 
+    /* Gallery */
+    .gallery {
+      background: var(--charcoal);
+      padding: 4rem 2rem;
+    }
+
+    .gallery-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .gallery-item {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--graphite), var(--steel));
+      border: 1px solid var(--chrome);
+      border-top: 3px solid var(--voltage-red);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      clip-path: polygon(0 0, 100% 0, 100% 96%, 97% 100%, 0 100%);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(199, 20, 20, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .gallery-item:hover {
+      border-color: var(--voltage-red);
+      transform: translateY(-5px);
+    }
+
+    .gallery-item:hover::before {
+      left: 100%;
+    }
+
+    .gallery-label {
+      font-family: 'Tektur', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--signal-white);
+      margin-bottom: 0.5rem;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .gallery-placeholder-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--chrome);
+      opacity: 0.6;
+      text-align: center;
+      z-index: 1;
+    }
+
     /* About */
     #about {
       background: var(--charcoal);
@@ -900,6 +974,34 @@
       gap: 4rem;
       max-width: 1100px;
       margin: 0 auto;
+    }
+
+    .about-grid .about-image-placeholder {
+      grid-column: 1 / -1;
+      max-width: 600px;
+      margin: 2rem auto 0;
+    }
+
+    .about-image-placeholder {
+      background: linear-gradient(135deg, var(--graphite), var(--steel));
+      border: 1px solid var(--chrome);
+      border-left: 4px solid var(--voltage-red);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--chrome);
+      font-family: 'Tektur', sans-serif;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 2rem;
+      clip-path: polygon(0 0, 100% 0, 100% 95%, 98% 100%, 0 100%);
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .about-image-placeholder:hover {
+      opacity: 1;
     }
 
     .about-text p {
@@ -1315,12 +1417,13 @@
     }
 
     .footer-brand .footer-logo {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: 0.1em;
-      color: var(--signal-white);
       margin-bottom: 1rem;
+      line-height: 0;
+    }
+
+    .footer-brand .footer-logo svg {
+      height: 60px;
+      width: auto;
     }
 
     .footer-brand .footer-logo span {
@@ -1518,7 +1621,20 @@
 <body>
   <!-- Navigation -->
   <nav>
-    <a href="#" class="logo" aria-label="Thunderhorse Tuning Home">THUNDERHORSE <span>TUNING</span></a>
+    <a href="#" class="logo" aria-label="Thunderhorse Tuning Home">
+      <svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <style>
+            .logo-text { fill: var(--signal-white); font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; letter-spacing: 0.15em; }
+            .logo-sub { fill: var(--signal-white); font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; letter-spacing: 0.2em; }
+            .logo-accent { fill: var(--voltage-red); }
+          </style>
+        </defs>
+        <text x="5" y="22" class="logo-text" font-size="20">THUNDERHORSE</text>
+        <text x="5" y="42" class="logo-sub" font-size="14">TUNING</text>
+        <polygon class="logo-accent" points="195,8 200,8 198,20 193,20" />
+      </svg>
+    </a>
     <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')" aria-label="Toggle navigation">☰</button>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
@@ -1711,6 +1827,36 @@
     </div>
   </section>
 
+  <!-- Gallery -->
+  <section class="gallery">
+    <div class="gallery-wrapper">
+      <p class="section-tag">Our Shop</p>
+      <h2 class="section-title">Where the Work Happens</h2>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item fade-in">
+          <div class="gallery-label">Dyno Room</div>
+          <div class="gallery-placeholder-text">Photo placeholder<br/>Replace with: dyno-room.jpg</div>
+        </div>
+        
+        <div class="gallery-item fade-in">
+          <div class="gallery-label">Mobile Setup</div>
+          <div class="gallery-placeholder-text">Photo placeholder<br/>Replace with: mobile-setup.jpg</div>
+        </div>
+        
+        <div class="gallery-item fade-in">
+          <div class="gallery-label">Bike on Dyno</div>
+          <div class="gallery-placeholder-text">Photo placeholder<br/>Replace with: bike-dyno.jpg</div>
+        </div>
+        
+        <div class="gallery-item fade-in">
+          <div class="gallery-label">Before/After Results</div>
+          <div class="gallery-placeholder-text">Photo placeholder<br/>Replace with: results.jpg</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- About -->
   <section id="about">
     <p class="section-tag">About Thunderhorse Tuning</p>
@@ -1762,6 +1908,11 @@
           <span class="credential">Custom Software Dev</span>
           <span class="credential">Racing Background</span>
         </div>
+      </div>
+      
+      <div class="about-image-placeholder fade-in">
+        Shop Photo Placeholder<br/>
+        <span style="font-size: 0.75rem; opacity: 0.7;">Replace with: shop-exterior.jpg or workshop.jpg</span>
       </div>
     </div>
   </section>
@@ -1915,7 +2066,20 @@
     <div class="footer-content">
       <div class="footer-top">
         <div class="footer-brand">
-          <div class="footer-logo">THUNDERHORSE <span>TUNING</span></div>
+          <div class="footer-logo">
+            <svg width="240" height="60" viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <style>
+                  .footer-logo-text { fill: var(--signal-white); font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; letter-spacing: 0.15em; }
+                  .footer-logo-sub { fill: var(--signal-white); font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; letter-spacing: 0.2em; }
+                  .footer-logo-accent { fill: var(--voltage-red); }
+                </style>
+              </defs>
+              <text x="5" y="28" class="footer-logo-text" font-size="24">THUNDERHORSE</text>
+              <text x="5" y="50" class="footer-logo-sub" font-size="16">TUNING</text>
+              <polygon class="footer-logo-accent" points="232,10 238,10 235,25 229,25" />
+            </svg>
+          </div>
           <p>V-twin specialists. All bikes welcome. Professional motorcycle dyno tuning in Utica, NY. Powered by DynoAI.</p>
         </div>
         <div class="footer-links">

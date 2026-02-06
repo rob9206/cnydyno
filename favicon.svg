@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .icon-bg { fill: #0F0F14; }
+      .icon-text { fill: #F2F2F2; font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; }
+      .icon-accent { fill: #C71414; }
+    </style>
+  </defs>
+  <rect class="icon-bg" width="64" height="64"/>
+  <text x="8" y="38" class="icon-text" font-size="32">TH</text>
+  <polygon class="icon-accent" points="54,12 60,12 58,22 52,22" transform="rotate(-15 56 17)"/>
+</svg>
