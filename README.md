@@ -1,14 +1,16 @@
-# CNY Dyno Website
+# Thunder Horse Performance Website
 
-Professional Harley-Davidson dyno tuning website for CNY Dyno (Dawson Motoring LLC) in Utica, NY.
+V-twin specialists. All bikes welcome. Professional motorcycle dyno tuning website for Thunder Horse Performance (Dawson Motoring LLC) in Utica, NY.
 
 ## About
 
-This is the official website for CNY Dyno, a Harley-Davidson performance tuning shop offering:
+This is the official website for Thunder Horse Performance, a motorcycle performance tuning shop offering:
 - In-house dyno tuning services
 - Mobile tuning across Central New York
 - Custom ECU calibration
 - Performance upgrades and builds
+
+Our specialty is V-twins (Harley-Davidson, Indian, Ducati), but we tune all motorcycles.
 
 ## Features
 
@@ -28,12 +30,12 @@ This site is a static HTML website that can be hosted on any static hosting plat
 
 ## Contact
 
-**CNY Dyno**  
+**Thunder Horse Performance**  
 Utica, New York  
 Phone: (607) 621-6885  
 Email: dawsonmotoring@gmail.com  
-Website: https://cnydyno.com
+Website: https://thunderhorseperformance.com
 
 ## License
 
-© 2025 CNY Dyno · Dawson Motoring LLC
+© 2026 Thunder Horse Performance · Dawson Motoring LLC

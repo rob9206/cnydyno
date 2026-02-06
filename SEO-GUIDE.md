@@ -1,4 +1,4 @@
-# 🚀 SEO Optimization Guide for CNY Dyno
+# 🚀 SEO Optimization Guide for Thunder Horse Performance
 
 ## ✅ What's Already Optimized
 
@@ -68,7 +68,7 @@ Reviews are the #1 ranking factor for local SEO.
 
 **Review Request Template:**
 ```
-Thanks for choosing CNY Dyno! If you're happy with your tune, 
+Thanks for choosing Thunder Horse Performance! If you're happy with your tune, 
 we'd appreciate a quick Google review:
 [Link to your Google Business Profile]
 
@@ -83,12 +83,13 @@ Your site currently has no images. Add these:
 - [ ] Dyno setup with bike on it
 - [ ] Rob working on a bike
 - [ ] Before/after dyno sheets (with customer permission)
-- [ ] Various Harley models you've tuned
+- [ ] V-twin builds you've tuned (Harley-Davidson, Indian, Ducati)
+- [ ] A few non V-twin bikes too (shows "all bikes welcome")
 - [ ] Mobile tuning setup
 
 **Create og-image.jpg:**
 - [ ] Create a 1200x630px image for social sharing
-- [ ] Include: CNY Dyno logo/name, "Harley Tuning", "Utica, NY"
+- [ ] Include: Thunder Horse Performance logo/name, "V-twin specialists. All bikes welcome.", "Utica, NY"
 - [ ] Save as `og-image.jpg` in your website folder
 - [ ] This shows when people share your site on Facebook/Twitter
 
@@ -98,7 +99,7 @@ Free tool to monitor your search performance.
 **Action Items:**
 - [ ] Go to https://search.google.com/search-console
 - [ ] Add and verify your website
-- [ ] Submit your sitemap: `https://cnydyno.com/sitemap.xml`
+- [ ] Submit your sitemap: `https://thunderhorseperformance.com/sitemap.xml`
 - [ ] Monitor which keywords bring traffic
 - [ ] Check for any crawl errors
 - [ ] Review weekly for insights
@@ -118,8 +119,8 @@ Add these pages/sections to rank for more keywords:
 
 **Blog/Resources Section:**
 - [ ] "Do I Need a Tune After Installing Pipes?" (FAQ expansion)
-- [ ] "Stage 1 vs Stage 2 vs Stage 3 Harley Upgrades Explained"
-- [ ] "Why Your Harley Runs Hot (And How Tuning Fixes It)"
+- [ ] "V-Twin Upgrades Explained (Intake, Exhaust, Cams, Big Bore)"
+- [ ] "Why Bikes Run Hot (And How Tuning Fixes It)"
 - [ ] "Mobile Tuning vs Shop Tuning: What's the Difference?"
 - [ ] "CNY Riding Routes: Best Motorcycle Roads in Central NY"
 
@@ -163,8 +164,8 @@ Social signals help SEO indirectly.
 **Update your schema:**
 ```javascript
 "sameAs": [
-  "https://www.facebook.com/cnydyno",
-  "https://www.instagram.com/cnydyno"
+  "https://www.facebook.com/thunderhorseperformance",
+  "https://www.instagram.com/thunderhorseperformance"
 ]
 ```
 
@@ -191,7 +192,7 @@ If you have a physical shop address customers can visit, update line 58:
 ## 📊 SEO Performance Checklist
 
 ### Week 1 (Launch)
-- [ ] Deploy website to cnydyno.com
+- [ ] Deploy website to thunderhorseperformance.com
 - [ ] Set up Google Business Profile
 - [ ] Set up Google Search Console
 - [ ] Submit sitemap
@@ -225,28 +226,29 @@ If you have a physical shop address customers can visit, update line 58:
 Your site is optimized for these high-value keywords:
 
 **Primary Keywords:**
-- Harley Davidson tuning Utica NY
+- V-twin tuning Utica NY
+- motorcycle dyno tuning Utica NY
 - dyno tuning Central New York
 - mobile motorcycle tuning Syracuse
-- Harley performance shop CNY
+- V-twin performance shop CNY
 
 **Secondary Keywords:**
-- Harley ECU tuning
+- ECU tuning Utica NY
 - motorcycle dyno near me
 - Stage 1 tune Syracuse
-- Harley tuning Rome NY
+- V-twin tuning Rome NY
 - dyno tuning Cooperstown
 
 **Long-tail Keywords:**
 - Do I need a tune after installing exhaust
-- mobile Harley tuning Syracuse
-- Harley dyno tuning near me
+- mobile motorcycle tuning Syracuse
+- V-twin dyno tuning near me
 - motorcycle performance shop Utica
 
 ## 🔍 Competitor Analysis
 
 **Research your competitors:**
-1. Google: "Harley tuning Syracuse NY"
+1. Google: "V-twin tuning Syracuse NY"
 2. Google: "motorcycle dyno Utica NY"
 3. Note who ranks #1-3
 4. Check their Google reviews count

@@ -1,4 +1,4 @@
-# CNY Dyno Website - Deployment Guide
+# Thunder Horse Performance Website - Deployment Guide
 
 ## Quick Deploy Options
 
@@ -28,7 +28,7 @@ netlify deploy --prod
 2. Create a new repository
 3. Push your code:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/cnydyno.git
+   git remote add origin https://github.com/YOUR_USERNAME/thunderhorse-performance.git
    git branch -M main
    git push -u origin main
    ```
@@ -59,7 +59,7 @@ vercel --prod
 
 ## Custom Domain Setup
 
-### For cnydyno.com:
+### For thunderhorseperformance.com:
 
 1. **Purchase domain** (if not already owned):
    - Namecheap, GoDaddy, Google Domains, etc.
@@ -70,7 +70,7 @@ vercel --prod
    
 3. **In Netlify Dashboard**:
    - Go to Domain settings
-   - Add custom domain: `cnydyno.com`
+   - Add custom domain: `thunderhorseperformance.com`
    - Enable HTTPS (automatic with Let's Encrypt)
 
 ## Post-Deployment Checklist

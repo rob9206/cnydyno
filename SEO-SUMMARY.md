@@ -1,4 +1,4 @@
-# 📊 SEO Status Report - CNY Dyno Website
+# 📊 SEO Status Report - Thunder Horse Performance Website
 
 ## ✅ Your Current SEO Score: **8.5/10**
 
@@ -30,7 +30,7 @@ Your website is **already better optimized than 90% of local motorcycle shops**.
 **Impact:** You'll show up in "near me" searches and Google Maps
 
 ### On-Page SEO - **9/10**
-✅ **Perfect title tag** - "CNY Dyno | Harley-Davidson Dyno Tuning & Mobile Service | Utica NY"
+✅ **Perfect title tag** - "Thunder Horse Performance | Motorcycle Dyno Tuning & Mobile Service | Utica NY"
 ✅ **Compelling meta description** - 155 characters, includes keywords and CTA
 ✅ **Extended keywords** - 20+ relevant search terms
 ✅ **Proper heading structure** - H1, H2, H3 hierarchy
@@ -87,7 +87,7 @@ Ready to display star ratings when you get reviews
 ### 4. **Expanded Keywords**
 ```
 Added 12 more location-specific keywords:
-- Harley tuning Rome NY
+- V-twin tuning Rome NY
 - dyno tuning Cooperstown
 - motorcycle performance Oneonta
 - Sportster tuning
@@ -138,7 +138,7 @@ Ready to track visitors (just add your ID)
 
 ### Month 1-2: Foundation
 - Website indexed by Google
-- Appearing for brand searches ("CNY Dyno")
+- Appearing for brand searches ("Thunder Horse Performance")
 - Google Business Profile live
 - First 10 reviews collected
 
@@ -305,7 +305,7 @@ You have an **enterprise-level SEO foundation** that most small businesses never
 - Add photos
 - Be consistent
 
-**Do those 5 things and you'll dominate local Harley tuning search results in Central New York.**
+**Do those 5 things and you'll dominate local V-twin and motorcycle tuning search results in Central New York.**
 
 The website is ready. The SEO is ready. Time to launch and execute. 🚀
 

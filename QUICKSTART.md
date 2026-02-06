@@ -1,4 +1,4 @@
-# 🚀 Quick Start - Deploy Your CNY Dyno Website
+# 🚀 Quick Start - Deploy Your Thunder Horse Performance Website
 
 ## ✅ What's Ready
 
@@ -27,8 +27,8 @@ This is the **FASTEST** way to get your site online:
 4. **Optional - Claim your site:**
    - Create a free Netlify account
    - Click "Claim site" to manage it
-   - Change the site name to something like `cnydyno.netlify.app`
-   - Add your custom domain `cnydyno.com` later
+   - Change the site name to something like `thunderhorse-performance.netlify.app`
+   - Add your custom domain `thunderhorseperformance.com` later
 
 ### Method 2: GitHub + Netlify (Best for Long-Term)
 
@@ -40,7 +40,7 @@ This method lets you easily update your site later:
 
 **Step 2: Create a New Repository**
 - Click the "+" icon → "New repository"
-- Name it: `cnydyno`
+- Name it: `thunderhorse-performance` (or keep your existing repo name)
 - Keep it public
 - Don't initialize with README (we already have files)
 - Click "Create repository"
@@ -53,7 +53,7 @@ Open PowerShell in your project folder and run:
 cd c:\Users\dawso\Downloads\cnydyno
 
 # Add GitHub as remote (replace YOUR_USERNAME with your GitHub username)
-git remote add origin https://github.com/YOUR_USERNAME/cnydyno.git
+git remote add origin https://github.com/YOUR_USERNAME/thunderhorse-performance.git
 
 # Rename branch to main
 git branch -M main
@@ -74,14 +74,14 @@ You'll be prompted to login to GitHub.
 
 **Done!** Your site is live and will auto-update whenever you push changes to GitHub.
 
-## 🌐 Setting Up Your Custom Domain (cnydyno.com)
+## 🌐 Setting Up Your Custom Domain (thunderhorseperformance.com)
 
-### If you already own cnydyno.com:
+### If you already own thunderhorseperformance.com:
 
 1. **In Netlify Dashboard:**
    - Go to Site settings → Domain management
    - Click "Add custom domain"
-   - Enter: `cnydyno.com`
+   - Enter: `thunderhorseperformance.com`
    - Click "Verify"
 
 2. **Update Your Domain's DNS Settings:**
@@ -105,7 +105,7 @@ You'll be prompted to login to GitHub.
    - Enable HTTPS (automatic with Let's Encrypt)
    - Wait 24 hours for DNS to propagate
 
-### If you DON'T own cnydyno.com yet:
+### If you DON'T own thunderhorseperformance.com yet:
 
 1. **Purchase the domain:**
    - Namecheap: https://www.namecheap.com
@@ -150,7 +150,7 @@ After your site is live:
 
 1. **Google Search Console**
    - Add your site: https://search.google.com/search-console
-   - Submit your sitemap: `https://cnydyno.com/sitemap.xml`
+   - Submit your sitemap: `https://thunderhorseperformance.com/sitemap.xml`
 
 2. **Google Analytics** (track visitors)
    - Create account: https://analytics.google.com
@@ -194,4 +194,4 @@ Your website is professional, fast, and ready to bring in customers. The easiest
 2. Drag your `cnydyno` folder
 3. Share your new URL!
 
-Good luck with CNY Dyno! 🏍️⚡
+Good luck with Thunder Horse Performance! 🏍️⚡
