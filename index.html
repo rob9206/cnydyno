@@ -1522,6 +1522,456 @@
       cursor: pointer;
     }
 
+    /* DynoAI Interactive Demo */
+    #dynoai {
+      background: var(--charcoal);
+    }
+
+    .dynoai-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .dynoai-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dynoai-tab {
+      padding: 0.75rem 1.25rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      color: var(--ash);
+      cursor: pointer;
+      font-family: 'Tektur', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+    }
+
+    .dynoai-tab:hover {
+      border-color: var(--voltage-red);
+      color: var(--signal-white);
+    }
+
+    .dynoai-tab.active {
+      background: var(--voltage-red);
+      border-color: var(--voltage-red);
+      color: var(--signal-white);
+    }
+
+    .dynoai-panel {
+      display: none;
+    }
+
+    .dynoai-panel.active {
+      display: block;
+    }
+
+    .dynoai-card {
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dynoai-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--voltage-red), transparent);
+    }
+
+    .dynoai-card-title {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-card p {
+      font-size: 0.95rem;
+      color: var(--ash);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .dynoai-card strong {
+      color: var(--signal-white);
+    }
+
+    .dynoai-slider-group {
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-slider-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--ash);
+      margin-bottom: 0.25rem;
+      font-family: 'Tektur', sans-serif;
+    }
+
+    .dynoai-slider-group label strong {
+      color: var(--signal-white);
+    }
+
+    .dynoai-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--steel);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .dynoai-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--voltage-red);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dynoai-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: var(--voltage-red);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .dynoai-result {
+      padding: 1.5rem;
+      border-radius: 0;
+      margin-top: 1rem;
+    }
+
+    .dynoai-result-green {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .dynoai-result-red {
+      background: rgba(199, 20, 20, 0.08);
+      border: 1px solid rgba(199, 20, 20, 0.3);
+    }
+
+    .dynoai-result h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--signal-white);
+    }
+
+    .dynoai-result p {
+      font-size: 0.9rem;
+      color: var(--ash);
+      margin-bottom: 0.5rem;
+    }
+
+    .dynoai-result hr {
+      border: none;
+      border-top: 1px solid var(--steel);
+      margin: 1rem 0;
+    }
+
+    .dynoai-result .ve-output {
+      font-size: 1.2rem;
+      color: var(--signal-white);
+      font-weight: 700;
+    }
+
+    .dynoai-result .ve-hint {
+      font-size: 0.85rem;
+      color: var(--ash);
+      margin-top: 0.5rem;
+    }
+
+    .dynoai-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-compare-col h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .dynoai-compare-col h4.text-red { color: var(--voltage-red); }
+    .dynoai-compare-col h4.text-green { color: #10b981; }
+
+    .dynoai-compare-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .dynoai-compare-col ul li {
+      font-size: 0.9rem;
+      color: var(--ash);
+      padding: 0.3rem 0;
+    }
+
+    .dynoai-compare-col ul li::before {
+      content: '→ ';
+      color: var(--voltage-red);
+    }
+
+    .dynoai-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background: var(--voltage-red);
+      border: none;
+      color: var(--signal-white);
+      font-family: 'Tektur', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-btn:hover:not(:disabled) {
+      background: var(--ember);
+    }
+
+    .dynoai-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .dynoai-progress {
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--ash);
+      font-family: 'Tektur', sans-serif;
+    }
+
+    .dynoai-progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: var(--steel);
+      overflow: hidden;
+    }
+
+    .dynoai-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--voltage-red), var(--ember));
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+
+    .dynoai-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-metric {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+    }
+
+    .dynoai-metric-value {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--voltage-red);
+    }
+
+    .dynoai-metric-label {
+      color: var(--ash);
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+    }
+
+    .dynoai-rpm-display {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      margin-bottom: 1.5rem;
+    }
+
+    .dynoai-rpm-value {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--voltage-red);
+    }
+
+    .dynoai-rpm-label {
+      color: var(--ash);
+      font-size: 0.85rem;
+    }
+
+    .dynoai-knock-alert {
+      padding: 1.5rem;
+      background: rgba(199, 20, 20, 0.08);
+      border: 1px solid rgba(199, 20, 20, 0.3);
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-knock-alert h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.1rem;
+      color: var(--voltage-red);
+      margin-bottom: 0.75rem;
+    }
+
+    .dynoai-knock-alert p {
+      font-size: 0.9rem;
+      color: var(--ash);
+      margin-bottom: 0.5rem;
+    }
+
+    .dynoai-knock-recs {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .dynoai-knock-recs strong {
+      color: var(--signal-white);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .dynoai-knock-recs ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .dynoai-knock-recs ul li {
+      font-size: 0.85rem;
+      color: var(--ash);
+      padding: 0.2rem 0;
+    }
+
+    .dynoai-knock-recs ul li::before {
+      content: '→ ';
+      color: var(--voltage-red);
+    }
+
+    .dynoai-stat-row {
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+    }
+
+    .dynoai-stat-label {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 0.95rem;
+      color: var(--signal-white);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .dynoai-stat-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .dynoai-stat-side {
+      text-align: center;
+    }
+
+    .dynoai-stat-side .label {
+      font-size: 0.75rem;
+      color: var(--ash);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .dynoai-stat-side .value {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .dynoai-stat-side .value.text-red { color: var(--voltage-red); }
+    .dynoai-stat-side .value.text-green { color: #10b981; }
+
+    .dynoai-stat-arrow {
+      font-size: 1.5rem;
+      color: var(--ash);
+    }
+
+    .dynoai-combustion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-combustion-box {
+      padding: 1.25rem;
+    }
+
+    .dynoai-combustion-box strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .dynoai-combustion-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .dynoai-combustion-box ul li {
+      font-size: 0.85rem;
+      color: var(--ash);
+      padding: 0.2rem 0;
+    }
+
+    .dynoai-problem-list {
+      margin-top: 1rem;
+    }
+
+    .dynoai-problem-list ol {
+      padding-left: 1.25rem;
+      color: var(--ash);
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
     /* Responsive */
     @media (max-width: 1000px) {
       .why-grid {
@@ -1654,6 +2104,12 @@
       .gallery-grid {
         grid-template-columns: 1fr;
       }
+
+      .dynoai-compare-grid,
+      .dynoai-combustion-grid,
+      .dynoai-metrics {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Skip to content link (accessibility) */
@@ -1702,6 +2158,7 @@
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#tech">Our Approach</a></li>
+      <li><a href="#dynoai">DynoAI</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="nav-book">Book Now</a></li>
@@ -2023,6 +2480,260 @@
     </div>
   </section>
 
+  <!-- DynoAI Interactive Demo -->
+  <section id="dynoai">
+    <div class="dynoai-wrapper">
+      <p class="section-tag">Our Technology</p>
+      <h2 class="section-title">DynoAI Interactive Demo</h2>
+      <p class="section-intro">See how AI-powered ECU calibration works — no guesswork, just data.</p>
+
+      <div class="dynoai-tabs">
+        <button class="dynoai-tab active" onclick="dynoaiSwitchTab('basics', this)">📚 VE Tuning 101</button>
+        <button class="dynoai-tab" onclick="dynoaiSwitchTab('onepull', this)">⚡ One-Pull Baseline</button>
+        <button class="dynoai-tab" onclick="dynoaiSwitchTab('knock', this)">🔊 Knock Detection</button>
+        <button class="dynoai-tab" onclick="dynoaiSwitchTab('compare', this)">📈 Comparison</button>
+      </div>
+
+      <!-- VE Tuning 101 Panel -->
+      <div id="dynoai-basics" class="dynoai-panel active fade-in">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">What is VE Tuning?</div>
+          <p>When you tune a Harley EFI system, you're telling the ECU how much air the engine actually breathes at different RPM and throttle positions. This is called <strong>Volumetric Efficiency (VE)</strong>.</p>
+          <p>Your engine has a certain cylinder volume. If it was 100% efficient, it would fill those cylinders completely. In reality, engines are 70-95% efficient due to restrictions.</p>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Interactive VE Calculator</div>
+          <p>Adjust the values to see how VE correction works:</p>
+
+          <div class="dynoai-slider-group">
+            <label>RPM: <strong id="dynoai-rpm-val">3000</strong></label>
+            <input type="range" class="dynoai-slider" min="2000" max="6000" step="500" value="3000" id="dynoai-rpm" oninput="dynoaiUpdateCalc()">
+          </div>
+
+          <div class="dynoai-slider-group">
+            <label>kPa: <strong id="dynoai-kpa-val">70</strong></label>
+            <input type="range" class="dynoai-slider" min="40" max="100" step="10" value="70" id="dynoai-kpa" oninput="dynoaiUpdateCalc()">
+          </div>
+
+          <div class="dynoai-slider-group">
+            <label>Measured AFR: <strong id="dynoai-afr-val">14.5</strong></label>
+            <input type="range" class="dynoai-slider" min="12.5" max="15.5" step="0.1" value="14.5" id="dynoai-afr" oninput="dynoaiUpdateCalc()">
+          </div>
+
+          <div class="dynoai-result dynoai-result-green">
+            <h4>The Math</h4>
+            <p>Current VE: <strong>85%</strong></p>
+            <p>Target AFR: <strong>13.2</strong></p>
+            <p>Measured AFR: <strong id="dynoai-math-afr">14.5</strong></p>
+            <p>Correction Factor: <strong id="dynoai-math-factor">0.910</strong></p>
+            <hr>
+            <p class="ve-output">New VE = <strong id="dynoai-math-ve">77.3%</strong></p>
+            <p class="ve-hint" id="dynoai-math-hint">Running LEAN — need MORE fuel, INCREASE VE</p>
+          </div>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">The Traditional Problem</div>
+          <div class="dynoai-result dynoai-result-red">
+            <p><strong>The Iteration Trap:</strong></p>
+            <div class="dynoai-problem-list">
+              <ol>
+                <li>Make a pull at one load point</li>
+                <li>Calculate VE correction</li>
+                <li>Flash new tune</li>
+                <li><strong>Repeat 15-20 times</strong></li>
+                <li>Takes 5-6 hours</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- One-Pull Baseline Panel -->
+      <div id="dynoai-onepull" class="dynoai-panel fade-in">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">One-Pull Baseline™</div>
+          <p>DynoAI captures AFR data across the entire RPM range in one WOT pull. Instead of just correcting tested cells, it uses AI to understand your engine's breathing pattern and generates the entire VE table.</p>
+
+          <div class="dynoai-compare-grid">
+            <div class="dynoai-compare-col">
+              <h4 class="text-red">Traditional</h4>
+              <ul>
+                <li>15-20 pulls</li>
+                <li>5-6 hours</li>
+                <li>Tested cells only</li>
+              </ul>
+            </div>
+            <div class="dynoai-compare-col">
+              <h4 class="text-green">DynoAI</h4>
+              <ul>
+                <li>1 WOT + 2-4 refine</li>
+                <li>2-3 hours</li>
+                <li>Complete map</li>
+              </ul>
+            </div>
+          </div>
+
+          <button class="dynoai-btn" id="dynoai-sim-btn" onclick="dynoaiRunSim()">Run Simulation</button>
+
+          <div class="dynoai-progress" id="dynoai-progress" style="display:none;">
+            <div class="dynoai-progress-header">
+              <span id="dynoai-progress-label">Collecting data...</span>
+              <span id="dynoai-progress-pct">0%</span>
+            </div>
+            <div class="dynoai-progress-bar-bg">
+              <div class="dynoai-progress-bar" id="dynoai-progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="dynoai-metrics" id="dynoai-sim-results" style="display:none;">
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">1</div>
+              <div class="dynoai-metric-label">Pull Used</div>
+            </div>
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">97.5%</div>
+              <div class="dynoai-metric-label">Accuracy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Knock Detection Panel -->
+      <div id="dynoai-knock" class="dynoai-panel fade-in">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">What is Knock?</div>
+          <p>Knock (detonation) is when the air/fuel mixture ignites before the spark plug fires. Instead of controlled combustion, you get an explosion that damages pistons and rings.</p>
+
+          <div class="dynoai-combustion-grid">
+            <div class="dynoai-combustion-box dynoai-result-green">
+              <strong>Normal Combustion</strong>
+              <ul>
+                <li>Controlled burn</li>
+                <li>Single flame front</li>
+                <li>Smooth pressure rise</li>
+              </ul>
+            </div>
+            <div class="dynoai-combustion-box dynoai-result-red">
+              <strong>Detonation</strong>
+              <ul>
+                <li>Uncontrolled explosion</li>
+                <li>Multiple flame fronts</li>
+                <li>Damages engine</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Live Monitoring</div>
+          <div class="dynoai-rpm-display">
+            <div class="dynoai-rpm-value" id="dynoai-knock-rpm">2000</div>
+            <div class="dynoai-rpm-label">RPM</div>
+          </div>
+
+          <button class="dynoai-btn" id="dynoai-knock-btn" onclick="dynoaiStartKnock()">Start Pull</button>
+
+          <div class="dynoai-knock-alert" id="dynoai-knock-alert" style="display:none;">
+            <h4>⚠️ KNOCK DETECTED</h4>
+            <p><strong>Location:</strong> <span id="dynoai-knock-loc">5,547 RPM</span> @ 95 kPa</p>
+            <p><strong>Action:</strong> Pull aborted</p>
+            <div class="dynoai-knock-recs">
+              <strong>Recommendations:</strong>
+              <ul>
+                <li>Reduce timing 2-3°</li>
+                <li>Enrich AFR to 12.8</li>
+                <li>Check for carbon buildup</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison Panel -->
+      <div id="dynoai-compare" class="dynoai-panel fade-in">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Traditional vs DynoAI</div>
+
+          <div class="dynoai-stat-row">
+            <div class="dynoai-stat-label">Dyno Pulls</div>
+            <div class="dynoai-stat-compare">
+              <div class="dynoai-stat-side">
+                <div class="label">Traditional</div>
+                <div class="value text-red">15-20</div>
+              </div>
+              <div class="dynoai-stat-arrow">→</div>
+              <div class="dynoai-stat-side">
+                <div class="label">DynoAI</div>
+                <div class="value text-green">3-5</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dynoai-stat-row">
+            <div class="dynoai-stat-label">Time</div>
+            <div class="dynoai-stat-compare">
+              <div class="dynoai-stat-side">
+                <div class="label">Traditional</div>
+                <div class="value text-red">5-6 hrs</div>
+              </div>
+              <div class="dynoai-stat-arrow">→</div>
+              <div class="dynoai-stat-side">
+                <div class="label">DynoAI</div>
+                <div class="value text-green">2-3 hrs</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dynoai-stat-row">
+            <div class="dynoai-stat-label">Coverage</div>
+            <div class="dynoai-stat-compare">
+              <div class="dynoai-stat-side">
+                <div class="label">Traditional</div>
+                <div class="value text-red">~80%</div>
+              </div>
+              <div class="dynoai-stat-arrow">→</div>
+              <div class="dynoai-stat-side">
+                <div class="label">DynoAI</div>
+                <div class="value text-green">~98%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dynoai-stat-row">
+            <div class="dynoai-stat-label">Accuracy</div>
+            <div class="dynoai-stat-compare">
+              <div class="dynoai-stat-side">
+                <div class="label">Traditional</div>
+                <div class="value text-red">Variable</div>
+              </div>
+              <div class="dynoai-stat-arrow">→</div>
+              <div class="dynoai-stat-side">
+                <div class="label">DynoAI</div>
+                <div class="value text-green">97.5%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Bottom Line</div>
+          <div class="dynoai-metrics">
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">2-3x</div>
+              <div class="dynoai-metric-label">More bikes per day</div>
+            </div>
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">60-70%</div>
+              <div class="dynoai-metric-label">Time savings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section id="faq">
     <div class="faq-wrapper">
@@ -2160,6 +2871,7 @@
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#tech">Our Approach</a></li>
+            <li><a href="#dynoai">DynoAI</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -2236,6 +2948,109 @@
         document.querySelector('.nav-links').classList.remove('active');
       });
     });
+
+    // DynoAI Interactive Demo
+    function dynoaiSwitchTab(tabId, btn) {
+      document.querySelectorAll('.dynoai-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.dynoai-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.getElementById('dynoai-' + tabId).classList.add('active');
+      btn.classList.add('active');
+      // Trigger fade-in for the newly visible panel
+      var panel = document.getElementById('dynoai-' + tabId);
+      if (!panel.classList.contains('visible')) {
+        observer.observe(panel);
+      }
+    }
+
+    function dynoaiUpdateCalc() {
+      var afr = parseFloat(document.getElementById('dynoai-afr').value);
+      var rpm = document.getElementById('dynoai-rpm').value;
+      var kpa = document.getElementById('dynoai-kpa').value;
+      var target = 13.2;
+      var currentVE = 85;
+      var factor = target / afr;
+      var newVE = currentVE * factor;
+
+      document.getElementById('dynoai-rpm-val').textContent = rpm;
+      document.getElementById('dynoai-kpa-val').textContent = kpa;
+      document.getElementById('dynoai-afr-val').textContent = afr.toFixed(1);
+      document.getElementById('dynoai-math-afr').textContent = afr.toFixed(1);
+      document.getElementById('dynoai-math-factor').textContent = factor.toFixed(3);
+      document.getElementById('dynoai-math-ve').textContent = newVE.toFixed(1) + '%';
+      document.getElementById('dynoai-math-hint').textContent = afr > target
+        ? 'Running LEAN — need MORE fuel, INCREASE VE'
+        : 'Running RICH — need LESS fuel, DECREASE VE';
+    }
+
+    var dynoaiSimInterval = null;
+    function dynoaiRunSim() {
+      var btn = document.getElementById('dynoai-sim-btn');
+      var progressEl = document.getElementById('dynoai-progress');
+      var resultsEl = document.getElementById('dynoai-sim-results');
+      var bar = document.getElementById('dynoai-progress-bar');
+      var label = document.getElementById('dynoai-progress-label');
+      var pct = document.getElementById('dynoai-progress-pct');
+
+      btn.disabled = true;
+      btn.textContent = 'Processing...';
+      resultsEl.style.display = 'none';
+      progressEl.style.display = 'block';
+      bar.style.width = '0%';
+
+      var p = 0;
+      if (dynoaiSimInterval) clearInterval(dynoaiSimInterval);
+      dynoaiSimInterval = setInterval(function() {
+        p += 2;
+        bar.style.width = p + '%';
+        pct.textContent = p + '%';
+        if (p < 40) label.textContent = 'Collecting data...';
+        else if (p < 70) label.textContent = 'Analyzing...';
+        else if (p < 100) label.textContent = 'Generating VE table...';
+        else label.textContent = 'Complete!';
+
+        if (p >= 100) {
+          clearInterval(dynoaiSimInterval);
+          btn.disabled = false;
+          btn.textContent = 'Run Again';
+          resultsEl.style.display = 'grid';
+        }
+      }, 50);
+    }
+
+    var dynoaiKnockInterval = null;
+    function dynoaiStartKnock() {
+      var btn = document.getElementById('dynoai-knock-btn');
+      var rpmEl = document.getElementById('dynoai-knock-rpm');
+      var alertEl = document.getElementById('dynoai-knock-alert');
+      var locEl = document.getElementById('dynoai-knock-loc');
+
+      btn.disabled = true;
+      btn.textContent = 'Monitoring...';
+      alertEl.style.display = 'none';
+
+      var rpm = 2000;
+      rpmEl.textContent = rpm;
+
+      if (dynoaiKnockInterval) clearInterval(dynoaiKnockInterval);
+      dynoaiKnockInterval = setInterval(function() {
+        rpm += 200;
+        rpmEl.textContent = rpm.toLocaleString();
+        if (rpm > 5500 && Math.random() > 0.7) {
+          clearInterval(dynoaiKnockInterval);
+          locEl.textContent = rpm.toLocaleString() + ' RPM';
+          alertEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Start Pull';
+        }
+        if (rpm > 7000) {
+          clearInterval(dynoaiKnockInterval);
+          locEl.textContent = rpm.toLocaleString() + ' RPM';
+          alertEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Start Pull';
+        }
+      }, 100);
+    }
   </script>
 </body>
 </html>
