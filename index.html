@@ -1522,6 +1522,552 @@
       cursor: pointer;
     }
 
+    /* DynoAI Explainer Section */
+    #dynoai {
+      background: var(--charcoal);
+    }
+
+    .dynoai-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Hero intro block */
+    .dynoai-hero {
+      margin-bottom: 3rem;
+    }
+
+    .dynoai-hero-headline {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .dynoai-hero-headline span {
+      color: var(--voltage-red);
+    }
+
+    .dynoai-hero p {
+      font-size: 1.1rem;
+      color: var(--ash);
+      line-height: 1.7;
+      max-width: 800px;
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-hero p strong {
+      color: var(--signal-white);
+    }
+
+    /* Key stats banner */
+    .dynoai-stats-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+
+    .dynoai-stat {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dynoai-stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--voltage-red), transparent);
+    }
+
+    .dynoai-stat-number {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--voltage-red);
+      line-height: 1;
+    }
+
+    .dynoai-stat-desc {
+      color: var(--ash);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    /* How It Works steps */
+    .dynoai-section-label {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 2rem;
+    }
+
+    .dynoai-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .dynoai-step {
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .dynoai-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--voltage-red), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .dynoai-step:hover {
+      border-color: var(--voltage-red);
+      transform: translateY(-5px);
+    }
+
+    .dynoai-step:hover::before {
+      opacity: 1;
+    }
+
+    .dynoai-step-num {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--voltage-red);
+      margin-bottom: 0.75rem;
+    }
+
+    .dynoai-step h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 0.75rem;
+    }
+
+    .dynoai-step p {
+      font-size: 0.9rem;
+      color: var(--ash);
+      line-height: 1.6;
+    }
+
+    /* Audience tabs */
+    .dynoai-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dynoai-tab {
+      padding: 0.75rem 1.5rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      color: var(--ash);
+      cursor: pointer;
+      font-family: 'Tektur', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+    }
+
+    .dynoai-tab:hover {
+      border-color: var(--voltage-red);
+      color: var(--signal-white);
+    }
+
+    .dynoai-tab.active {
+      background: var(--voltage-red);
+      border-color: var(--voltage-red);
+      color: var(--signal-white);
+    }
+
+    .dynoai-panel {
+      display: none;
+    }
+
+    .dynoai-panel.active {
+      display: block;
+    }
+
+    /* Cards */
+    .dynoai-card {
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dynoai-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--voltage-red), transparent);
+    }
+
+    .dynoai-card-title {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-card p {
+      font-size: 0.95rem;
+      color: var(--ash);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .dynoai-card strong {
+      color: var(--signal-white);
+    }
+
+    .dynoai-card ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-card ul:last-child {
+      margin-bottom: 0;
+    }
+
+    .dynoai-card ul li {
+      font-size: 0.95rem;
+      color: var(--ash);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .dynoai-card ul li::before {
+      content: '→';
+      color: var(--voltage-red);
+      position: absolute;
+      left: 0;
+    }
+
+    /* Feature grid (2-col within a card) */
+    .dynoai-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .dynoai-feature {
+      padding: 1.25rem;
+      background: rgba(15, 15, 20, 0.5);
+      border: 1px solid var(--steel);
+    }
+
+    .dynoai-feature h5 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dynoai-feature p {
+      font-size: 0.85rem;
+      margin-bottom: 0;
+    }
+
+    /* Metrics row */
+    .dynoai-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .dynoai-metric {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+    }
+
+    .dynoai-metric-value {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--voltage-red);
+    }
+
+    .dynoai-metric-label {
+      color: var(--ash);
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+    }
+
+    /* Comparison table */
+    .dynoai-compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .dynoai-compare-table th,
+    .dynoai-compare-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--steel);
+      font-size: 0.9rem;
+    }
+
+    .dynoai-compare-table th {
+      font-family: 'Tektur', sans-serif;
+      font-weight: 600;
+      color: var(--signal-white);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .dynoai-compare-table td {
+      color: var(--ash);
+    }
+
+    .dynoai-compare-table td:first-child {
+      color: var(--signal-white);
+      font-weight: 500;
+    }
+
+    .dynoai-compare-table .val-old {
+      color: var(--voltage-red);
+    }
+
+    .dynoai-compare-table .val-new {
+      color: #10b981;
+    }
+
+    /* Interactive demo */
+    .dynoai-slider-group {
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-slider-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--ash);
+      margin-bottom: 0.25rem;
+      font-family: 'Tektur', sans-serif;
+    }
+
+    .dynoai-slider-group label strong {
+      color: var(--signal-white);
+    }
+
+    .dynoai-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--steel);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .dynoai-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--voltage-red);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dynoai-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: var(--voltage-red);
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    .dynoai-result {
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .dynoai-result-green {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .dynoai-result-red {
+      background: rgba(199, 20, 20, 0.08);
+      border: 1px solid rgba(199, 20, 20, 0.3);
+    }
+
+    .dynoai-result h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--signal-white);
+    }
+
+    .dynoai-result p {
+      font-size: 0.9rem;
+      color: var(--ash);
+      margin-bottom: 0.5rem;
+    }
+
+    .dynoai-result hr {
+      border: none;
+      border-top: 1px solid var(--steel);
+      margin: 1rem 0;
+    }
+
+    .dynoai-result .ve-output {
+      font-size: 1.2rem;
+      color: var(--signal-white);
+      font-weight: 700;
+    }
+
+    .dynoai-result .ve-hint {
+      font-size: 0.85rem;
+      color: var(--ash);
+      margin-top: 0.5rem;
+    }
+
+    /* CTA block */
+    .dynoai-cta {
+      margin-top: 4rem;
+      padding: 3rem;
+      background: var(--graphite);
+      border: 1px solid var(--steel);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dynoai-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--voltage-red), var(--ember));
+    }
+
+    .dynoai-cta h3 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--signal-white);
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-cta p {
+      font-size: 1rem;
+      color: var(--ash);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .dynoai-cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .dynoai-cta-btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      font-family: 'Tektur', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .dynoai-cta-btn-primary {
+      background: var(--voltage-red);
+      color: var(--signal-white);
+    }
+
+    .dynoai-cta-btn-primary:hover {
+      background: var(--ember);
+    }
+
+    .dynoai-cta-btn-secondary {
+      background: transparent;
+      color: var(--signal-white);
+      border: 1px solid var(--chrome);
+    }
+
+    .dynoai-cta-btn-secondary:hover {
+      border-color: var(--voltage-red);
+      color: var(--voltage-red);
+    }
+
+    /* Highlight box */
+    .dynoai-highlight {
+      padding: 1.5rem;
+      background: rgba(199, 20, 20, 0.06);
+      border-left: 3px solid var(--voltage-red);
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .dynoai-highlight p {
+      font-size: 0.95rem;
+      color: var(--signal-white);
+      margin-bottom: 0;
+    }
+
     /* Responsive */
     @media (max-width: 1000px) {
       .why-grid {
@@ -1648,10 +2194,45 @@
         width: 100%;
         justify-content: center;
       }
+
+      .dynoai-stats-banner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dynoai-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dynoai-feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dynoai-cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .dynoai-cta-btn {
+        width: 100%;
+        text-align: center;
+      }
     }
 
     @media (max-width: 480px) {
       .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dynoai-feature-grid,
+      .dynoai-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .dynoai-stats-banner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dynoai-steps {
         grid-template-columns: 1fr;
       }
     }
@@ -1702,6 +2283,7 @@
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#tech">Our Approach</a></li>
+      <li><a href="#dynoai">DynoAI</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="nav-book">Book Now</a></li>
@@ -2023,6 +2605,285 @@
     </div>
   </section>
 
+  <!-- DynoAI Explainer -->
+  <section id="dynoai">
+    <div class="dynoai-wrapper">
+      <p class="section-tag">Our Technology</p>
+      <h2 class="section-title">DynoAI</h2>
+
+      <!-- Hero intro -->
+      <div class="dynoai-hero fade-in">
+        <div class="dynoai-hero-headline">AI-Powered ECU Calibration.<br><span>Built for the Real World.</span></div>
+        <p>DynoAI is proprietary tuning software developed in-house by Thunderhorse Tuning. It uses <strong>physics-based modeling and real-time data analysis</strong> to generate accurate VE (Volumetric Efficiency) tables from minimal dyno pulls — replacing the slow, repetitive trial-and-error process that most shops still rely on.</p>
+        <p>Whether you're a tuner looking for better tools, a shop owner looking to scale, or a potential partner exploring the motorcycle performance market — this is <strong>what DynoAI does and why it matters.</strong></p>
+      </div>
+
+      <!-- Key stats banner -->
+      <div class="dynoai-stats-banner fade-in">
+        <div class="dynoai-stat">
+          <div class="dynoai-stat-number">97.5%</div>
+          <div class="dynoai-stat-desc">VE table accuracy from a single WOT pull</div>
+        </div>
+        <div class="dynoai-stat">
+          <div class="dynoai-stat-number">60-70%</div>
+          <div class="dynoai-stat-desc">Reduction in dyno time per bike</div>
+        </div>
+        <div class="dynoai-stat">
+          <div class="dynoai-stat-number">2-3x</div>
+          <div class="dynoai-stat-desc">More bikes tuned per day</div>
+        </div>
+        <div class="dynoai-stat">
+          <div class="dynoai-stat-number">98%</div>
+          <div class="dynoai-stat-desc">VE map cell coverage vs ~80% traditional</div>
+        </div>
+      </div>
+
+      <!-- How It Works -->
+      <div class="dynoai-section-label fade-in">How It Works</div>
+      <div class="dynoai-steps fade-in">
+        <div class="dynoai-step">
+          <div class="dynoai-step-num">01</div>
+          <h4>One-Pull Baseline™</h4>
+          <p>A single wide-open-throttle pull captures AFR data across the entire RPM range. DynoAI builds a physics model of your engine's breathing pattern from this data alone.</p>
+        </div>
+        <div class="dynoai-step">
+          <div class="dynoai-step-num">02</div>
+          <h4>AI-Generated VE Table</h4>
+          <p>Instead of correcting only the cells you tested, DynoAI uses engine physics to predict and fill the entire VE table — including part-throttle and cruise cells most shops never touch.</p>
+        </div>
+        <div class="dynoai-step">
+          <div class="dynoai-step-num">03</div>
+          <h4>Real-Time Safety</h4>
+          <p>During every pull, DynoAI monitors knock, AFR deviation, and torque curves in real time. If something looks wrong, the pull is aborted before your engine gets hurt.</p>
+        </div>
+        <div class="dynoai-step">
+          <div class="dynoai-step-num">04</div>
+          <h4>Refine &amp; Validate</h4>
+          <p>2-4 refinement pulls dial in the calibration. You get full dyno sheets, before/after numbers, and a complete explanation of every change — no black box, no mystery.</p>
+        </div>
+      </div>
+
+      <!-- Audience tabs -->
+      <div class="dynoai-section-label fade-in">Who DynoAI Is For</div>
+
+      <div class="dynoai-tabs fade-in" role="tablist" aria-label="DynoAI audience sections">
+        <button class="dynoai-tab active" role="tab" aria-selected="true" aria-controls="dynoai-tuners" onclick="dynoaiSwitchTab('tuners', this)">🔧 For Tuners</button>
+        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-shops" onclick="dynoaiSwitchTab('shops', this)">🏪 For Shop Owners</button>
+        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-investors" onclick="dynoaiSwitchTab('investors', this)">📊 For Investors &amp; Partners</button>
+      </div>
+
+      <!-- FOR TUNERS -->
+      <div id="dynoai-tuners" class="dynoai-panel active fade-in" role="tabpanel">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Stop Guessing. Start Modeling.</div>
+          <p>Traditional tuning is a repetitive loop: make a pull, read the AFR, adjust a few VE cells, flash the ECU, repeat. You might do this <strong>15-20 times</strong> before the map is dialed in — and you're still only correcting the cells you actually tested.</p>
+          <p>DynoAI takes a fundamentally different approach. It uses <strong>physics-based volumetric efficiency modeling</strong> to understand how your engine breathes, then generates a complete VE table from as few as one WOT pull.</p>
+
+          <div class="dynoai-highlight">
+            <p><strong>The math is simple:</strong> Correction Factor = Target AFR / Measured AFR. DynoAI applies this principle across the entire operating envelope — not just the cells you happened to test.</p>
+          </div>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">What You Get</div>
+          <div class="dynoai-feature-grid">
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">📊</span> Complete VE Coverage</h5>
+              <p>~98% of all VE table cells populated, including part-throttle and cruise — vs ~80% with traditional methods.</p>
+            </div>
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">🎯</span> Bike-Specific Calibration</h5>
+              <p>Not a copy-paste from a similar build. Your motor, your altitude, your fuel — calibrated for exactly what you're running.</p>
+            </div>
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">⚡</span> Real-Time Knock Detection</h5>
+              <p>Continuous monitoring during pulls. If detonation is detected, the pull aborts automatically and DynoAI recommends timing and AFR corrections.</p>
+            </div>
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">📋</span> Full Transparency</h5>
+              <p>Complete dyno sheets, before/after data, and we walk you through every change. No proprietary mystery. You see what we did and why.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Try the VE Calculator</div>
+          <p>Adjust the sliders to see how VE correction works in real time:</p>
+
+          <div class="dynoai-slider-group">
+            <label>RPM: <strong id="dynoai-rpm-val">3000</strong></label>
+            <input type="range" class="dynoai-slider" min="2000" max="6000" step="500" value="3000" id="dynoai-rpm" oninput="dynoaiUpdateCalc()">
+          </div>
+
+          <div class="dynoai-slider-group">
+            <label>kPa: <strong id="dynoai-kpa-val">70</strong></label>
+            <input type="range" class="dynoai-slider" min="40" max="100" step="10" value="70" id="dynoai-kpa" oninput="dynoaiUpdateCalc()">
+          </div>
+
+          <div class="dynoai-slider-group">
+            <label>Measured AFR: <strong id="dynoai-afr-val">14.5</strong></label>
+            <input type="range" class="dynoai-slider" min="12.5" max="15.5" step="0.1" value="14.5" id="dynoai-afr" oninput="dynoaiUpdateCalc()">
+          </div>
+
+          <div class="dynoai-result dynoai-result-green">
+            <h4>The Math</h4>
+            <p>Current VE: <strong>85%</strong></p>
+            <p>Target AFR: <strong>13.2</strong></p>
+            <p>Measured AFR: <strong id="dynoai-math-afr">14.5</strong></p>
+            <p>Correction Factor: <strong id="dynoai-math-factor">0.910</strong></p>
+            <hr>
+            <p class="ve-output">New VE = <strong id="dynoai-math-ve">77.3%</strong></p>
+            <p class="ve-hint" id="dynoai-math-hint">Running LEAN — need MORE fuel, INCREASE VE</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOR SHOP OWNERS -->
+      <div id="dynoai-shops" class="dynoai-panel fade-in" role="tabpanel">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">More Bikes. Less Time. Higher Revenue.</div>
+          <p>Every hour a bike sits on your dyno is an hour you're not tuning the next one. Traditional tuning takes <strong>5-6 hours per bike</strong> — that's 1, maybe 2 bikes per day. DynoAI cuts that to <strong>2-3 hours</strong>, meaning you can realistically tune <strong>2-3 bikes per day</strong> with the same equipment and staff.</p>
+          <p>That's not a marginal improvement. That's a <strong>fundamental change in your shop's revenue capacity.</strong></p>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">The Business Case</div>
+
+          <table class="dynoai-compare-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Traditional</th>
+                <th>With DynoAI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dyno pulls per tune</td>
+                <td class="val-old">15-20</td>
+                <td class="val-new">3-5</td>
+              </tr>
+              <tr>
+                <td>Time per tune</td>
+                <td class="val-old">5-6 hours</td>
+                <td class="val-new">2-3 hours</td>
+              </tr>
+              <tr>
+                <td>Bikes per day</td>
+                <td class="val-old">1-2</td>
+                <td class="val-new">2-3</td>
+              </tr>
+              <tr>
+                <td>VE map coverage</td>
+                <td class="val-old">~80%</td>
+                <td class="val-new">~98%</td>
+              </tr>
+              <tr>
+                <td>Result consistency</td>
+                <td class="val-old">Operator-dependent</td>
+                <td class="val-new">Repeatable &amp; data-driven</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Why This Matters for Your Shop</div>
+          <ul>
+            <li><strong>Faster turnaround</strong> — Customers get their bikes back sooner. Happier customers, more referrals.</li>
+            <li><strong>Consistent results</strong> — DynoAI removes operator variability. Every tune is data-driven, not feel-driven.</li>
+            <li><strong>Reduced liability</strong> — Real-time knock detection catches problems before they damage an engine. That's protection for you and your customer.</li>
+            <li><strong>Competitive edge</strong> — Most shops in your market are still doing it the old way. AI-assisted tuning is a differentiator that matters.</li>
+            <li><strong>Premium positioning</strong> — Transparency and technology justify premium pricing. Customers see the data — they know they're getting a real tune.</li>
+          </ul>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Revenue Impact</div>
+          <div class="dynoai-metrics">
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">2-3x</div>
+              <div class="dynoai-metric-label">More bikes per day</div>
+            </div>
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">60-70%</div>
+              <div class="dynoai-metric-label">Time savings per tune</div>
+            </div>
+            <div class="dynoai-metric">
+              <div class="dynoai-metric-value">$0</div>
+              <div class="dynoai-metric-label">Additional dyno hardware needed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOR INVESTORS & PARTNERS -->
+      <div id="dynoai-investors" class="dynoai-panel fade-in" role="tabpanel">
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">The Opportunity</div>
+          <p>The motorcycle aftermarket industry generates <strong>billions annually</strong> in the US alone. ECU calibration is a critical part of that market — every exhaust swap, air cleaner upgrade, or big bore kit requires a retune. Yet the tuning process itself hasn't fundamentally changed in decades.</p>
+          <p>DynoAI is <strong>purpose-built software that replaces trial-and-error with physics</strong>. It's not a bolt-on product from a dyno manufacturer — it's an independent platform developed by a working tuner who saw the problem firsthand and built the solution.</p>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Market Position</div>
+          <div class="dynoai-feature-grid">
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">🎯</span> Underserved Market</h5>
+              <p>Most tuning shops use manual, repetitive methods. There is no dominant AI-assisted tuning platform on the market today.</p>
+            </div>
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">🔒</span> Technical Moat</h5>
+              <p>Proprietary physics-based VE modeling algorithms developed from real-world dyno data. Not a wrapper around existing tools — built from scratch.</p>
+            </div>
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">📈</span> Scalable Model</h5>
+              <p>DynoAI works as shop-owned software today, with clear pathways to SaaS licensing, per-tune pricing, or OEM integration.</p>
+            </div>
+            <div class="dynoai-feature">
+              <h5><span aria-hidden="true">🔧</span> Platform Expandable</h5>
+              <p>Currently optimized for V-twin motorcycles. The underlying physics model extends to any EFI platform — sport bikes, UTVs, automotive, marine.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Proven In Production</div>
+          <p>DynoAI isn't a prototype or a pitch deck concept. It's <strong>deployed and running at Thunderhorse Tuning today</strong> — calibrating real customer bikes on a real dyno, producing measurable results:</p>
+          <ul>
+            <li><strong>97.5% VE table accuracy</strong> from a single baseline pull</li>
+            <li><strong>~98% cell coverage</strong> across the entire VE map (vs ~80% traditional)</li>
+            <li><strong>60-70% reduction</strong> in total dyno time per calibration</li>
+            <li><strong>Real-time knock detection</strong> with automatic pull abort and corrective recommendations</li>
+            <li><strong>Full data transparency</strong> — every tune generates complete before/after documentation</li>
+          </ul>
+        </div>
+
+        <div class="dynoai-card">
+          <div class="dynoai-card-title">Growth Pathways</div>
+          <ul>
+            <li><strong>SaaS licensing</strong> — Per-shop or per-seat subscriptions for tuning shops nationwide</li>
+            <li><strong>Per-tune pricing</strong> — Pay-per-use model for shops that want lower upfront commitment</li>
+            <li><strong>OEM partnerships</strong> — Integration with dyno manufacturers (Dynojet, Land &amp; Sea) as a software add-on</li>
+            <li><strong>Training &amp; certification</strong> — DynoAI-certified tuner program for standardized quality across partner shops</li>
+            <li><strong>Platform expansion</strong> — Extend to automotive, marine, and powersports ECU calibration</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="dynoai-cta fade-in">
+        <h3>Interested in DynoAI?</h3>
+        <p>Whether you want your bike tuned with DynoAI, want to bring DynoAI to your shop, or want to explore partnership opportunities — let's talk.</p>
+        <div class="dynoai-cta-buttons">
+          <a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="dynoai-cta-btn dynoai-cta-btn-primary">Book a Tune</a>
+          <a href="mailto:dawsonmotoring@gmail.com?subject=DynoAI%20Inquiry" class="dynoai-cta-btn dynoai-cta-btn-secondary">Contact About DynoAI</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- FAQ -->
   <section id="faq">
     <div class="faq-wrapper">
@@ -2160,6 +3021,7 @@
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#tech">Our Approach</a></li>
+            <li><a href="#dynoai">DynoAI</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -2236,6 +3098,43 @@
         document.querySelector('.nav-links').classList.remove('active');
       });
     });
+
+    // DynoAI Explainer
+    function dynoaiSwitchTab(tabId, btn) {
+      document.querySelectorAll('.dynoai-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelectorAll('.dynoai-tab').forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.getElementById('dynoai-' + tabId).classList.add('active');
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      // Trigger fade-in for the newly visible panel
+      var panel = document.getElementById('dynoai-' + tabId);
+      if (!panel.classList.contains('visible')) {
+        observer.observe(panel);
+      }
+    }
+
+    function dynoaiUpdateCalc() {
+      var afr = parseFloat(document.getElementById('dynoai-afr').value);
+      var rpm = document.getElementById('dynoai-rpm').value;
+      var kpa = document.getElementById('dynoai-kpa').value;
+      var target = 13.2;
+      var currentVE = 85;
+      var factor = target / afr;
+      var newVE = currentVE * factor;
+
+      document.getElementById('dynoai-rpm-val').textContent = rpm;
+      document.getElementById('dynoai-kpa-val').textContent = kpa;
+      document.getElementById('dynoai-afr-val').textContent = afr.toFixed(1);
+      document.getElementById('dynoai-math-afr').textContent = afr.toFixed(1);
+      document.getElementById('dynoai-math-factor').textContent = factor.toFixed(3);
+      document.getElementById('dynoai-math-ve').textContent = newVE.toFixed(1) + '%';
+      document.getElementById('dynoai-math-hint').textContent = afr > target
+        ? 'Running LEAN — need MORE fuel, INCREASE VE'
+        : 'Running RICH — need LESS fuel, DECREASE VE';
+    }
   </script>
 </body>
 </html>
