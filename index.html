@@ -2487,15 +2487,15 @@
       <h2 class="section-title">DynoAI Interactive Demo</h2>
       <p class="section-intro">See how AI-powered ECU calibration works — no guesswork, just data.</p>
 
-      <div class="dynoai-tabs">
-        <button class="dynoai-tab active" onclick="dynoaiSwitchTab('basics', this)">📚 VE Tuning 101</button>
-        <button class="dynoai-tab" onclick="dynoaiSwitchTab('onepull', this)">⚡ One-Pull Baseline</button>
-        <button class="dynoai-tab" onclick="dynoaiSwitchTab('knock', this)">🔊 Knock Detection</button>
-        <button class="dynoai-tab" onclick="dynoaiSwitchTab('compare', this)">📈 Comparison</button>
+      <div class="dynoai-tabs" role="tablist" aria-label="DynoAI demo sections">
+        <button class="dynoai-tab active" role="tab" aria-selected="true" aria-controls="dynoai-basics" onclick="dynoaiSwitchTab('basics', this)">📚 VE Tuning 101</button>
+        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-onepull" onclick="dynoaiSwitchTab('onepull', this)">⚡ One-Pull Baseline</button>
+        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-knock" onclick="dynoaiSwitchTab('knock', this)">🔊 Knock Detection</button>
+        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-compare" onclick="dynoaiSwitchTab('compare', this)">📈 Comparison</button>
       </div>
 
       <!-- VE Tuning 101 Panel -->
-      <div id="dynoai-basics" class="dynoai-panel active fade-in">
+      <div id="dynoai-basics" class="dynoai-panel active fade-in" role="tabpanel">
         <div class="dynoai-card">
           <div class="dynoai-card-title">What is VE Tuning?</div>
           <p>When you tune a Harley EFI system, you're telling the ECU how much air the engine actually breathes at different RPM and throttle positions. This is called <strong>Volumetric Efficiency (VE)</strong>.</p>
@@ -2551,7 +2551,7 @@
       </div>
 
       <!-- One-Pull Baseline Panel -->
-      <div id="dynoai-onepull" class="dynoai-panel fade-in">
+      <div id="dynoai-onepull" class="dynoai-panel fade-in" role="tabpanel">
         <div class="dynoai-card">
           <div class="dynoai-card-title">One-Pull Baseline™</div>
           <p>DynoAI captures AFR data across the entire RPM range in one WOT pull. Instead of just correcting tested cells, it uses AI to understand your engine's breathing pattern and generates the entire VE table.</p>
@@ -2601,7 +2601,7 @@
       </div>
 
       <!-- Knock Detection Panel -->
-      <div id="dynoai-knock" class="dynoai-panel fade-in">
+      <div id="dynoai-knock" class="dynoai-panel fade-in" role="tabpanel">
         <div class="dynoai-card">
           <div class="dynoai-card-title">What is Knock?</div>
           <p>Knock (detonation) is when the air/fuel mixture ignites before the spark plug fires. Instead of controlled combustion, you get an explosion that damages pistons and rings.</p>
@@ -2652,7 +2652,7 @@
       </div>
 
       <!-- Comparison Panel -->
-      <div id="dynoai-compare" class="dynoai-panel fade-in">
+      <div id="dynoai-compare" class="dynoai-panel fade-in" role="tabpanel">
         <div class="dynoai-card">
           <div class="dynoai-card-title">Traditional vs DynoAI</div>
 
@@ -2952,9 +2952,13 @@
     // DynoAI Interactive Demo
     function dynoaiSwitchTab(tabId, btn) {
       document.querySelectorAll('.dynoai-panel').forEach(function(p) { p.classList.remove('active'); });
-      document.querySelectorAll('.dynoai-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.dynoai-tab').forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
       document.getElementById('dynoai-' + tabId).classList.add('active');
       btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
       // Trigger fade-in for the newly visible panel
       var panel = document.getElementById('dynoai-' + tabId);
       if (!panel.classList.contains('visible')) {
@@ -3018,6 +3022,10 @@
     }
 
     var dynoaiKnockInterval = null;
+    var KNOCK_THRESHOLD_RPM = 5500;
+    var KNOCK_PROBABILITY = 0.7;
+    var KNOCK_MAX_RPM = 7000;
+
     function dynoaiStartKnock() {
       var btn = document.getElementById('dynoai-knock-btn');
       var rpmEl = document.getElementById('dynoai-knock-rpm');
@@ -3031,23 +3039,20 @@
       var rpm = 2000;
       rpmEl.textContent = rpm;
 
+      function triggerKnock() {
+        clearInterval(dynoaiKnockInterval);
+        locEl.textContent = rpm.toLocaleString() + ' RPM';
+        alertEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Start Pull';
+      }
+
       if (dynoaiKnockInterval) clearInterval(dynoaiKnockInterval);
       dynoaiKnockInterval = setInterval(function() {
         rpm += 200;
         rpmEl.textContent = rpm.toLocaleString();
-        if (rpm > 5500 && Math.random() > 0.7) {
-          clearInterval(dynoaiKnockInterval);
-          locEl.textContent = rpm.toLocaleString() + ' RPM';
-          alertEl.style.display = 'block';
-          btn.disabled = false;
-          btn.textContent = 'Start Pull';
-        }
-        if (rpm > 7000) {
-          clearInterval(dynoaiKnockInterval);
-          locEl.textContent = rpm.toLocaleString() + ' RPM';
-          alertEl.style.display = 'block';
-          btn.disabled = false;
-          btn.textContent = 'Start Pull';
+        if ((rpm > KNOCK_THRESHOLD_RPM && Math.random() > KNOCK_PROBABILITY) || rpm > KNOCK_MAX_RPM) {
+          triggerKnock();
         }
       }, 100);
     }
