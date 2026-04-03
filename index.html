@@ -855,6 +855,23 @@
       border-color: var(--signal-white);
     }
 
+    .services-cta-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .services-cta .btn-consult {
+      background: transparent;
+      border: 2px solid var(--forge-black);
+      color: var(--forge-black);
+    }
+
+    .services-cta .btn-consult:hover {
+      background: var(--forge-black);
+      color: var(--signal-white);
+    }
+
     /* Why Choose Us */
     #why-us {
       background: var(--black);
@@ -2498,9 +2515,9 @@
 
       <div class="services-cta fade-in">
         <p>No Guesswork. No Compromise. Just Results.</p>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <div class="services-cta-buttons">
           <a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="btn">Book Your Appointment</a>
-          <a href="https://calendly.com/dawsonmotoring/30min" target="_blank" rel="noopener" class="btn" style="background: transparent; border: 2px solid var(--forge-black); color: var(--forge-black);">Free Consultation</a>
+          <a href="https://calendly.com/dawsonmotoring/30min" target="_blank" rel="noopener" class="btn btn-consult">Free Consultation</a>
         </div>
       </div>
     </div>
