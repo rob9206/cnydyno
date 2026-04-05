@@ -855,6 +855,23 @@
       border-color: var(--signal-white);
     }
 
+    .services-cta-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .services-cta .btn-consult {
+      background: transparent;
+      border: 2px solid var(--forge-black);
+      color: var(--forge-black);
+    }
+
+    .services-cta .btn-consult:hover {
+      background: var(--forge-black);
+      color: var(--signal-white);
+    }
+
     /* Why Choose Us */
     #why-us {
       background: var(--black);
@@ -1384,6 +1401,32 @@
 
     .square-btn:hover {
       background: var(--signal-white);
+      transform: translateY(-2px);
+    }
+
+    .consult-btn {
+      background: transparent;
+      border: 2px solid var(--voltage-red);
+      color: var(--signal-white);
+      height: 52px;
+      text-transform: uppercase;
+      font-family: 'Big Shoulders Display', sans-serif;
+      letter-spacing: 0.12em;
+      line-height: 48px;
+      padding: 0 2.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.2s;
+      margin-top: 0.75rem;
+    }
+
+    .consult-btn:hover {
+      background: var(--voltage-red);
+      color: var(--forge-black);
       transform: translateY(-2px);
     }
 
@@ -2472,7 +2515,10 @@
 
       <div class="services-cta fade-in">
         <p>No Guesswork. No Compromise. Just Results.</p>
-        <a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="btn">Book Your Appointment</a>
+        <div class="services-cta-buttons">
+          <a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="btn">Book Your Appointment</a>
+          <a href="https://calendly.com/dawsonmotoring/30min" target="_blank" rel="noopener" class="btn btn-consult">Free Consultation</a>
+        </div>
       </div>
     </div>
   </section>
@@ -2883,7 +2929,7 @@
         <p>Whether you want your bike tuned with DynoAI, want to bring DynoAI to your shop, or want to explore partnership opportunities — let's talk.</p>
         <div class="dynoai-cta-buttons">
           <a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="dynoai-cta-btn dynoai-cta-btn-primary">Book a Tune</a>
-          <a href="mailto:dawsonmotoring@gmail.com?subject=DynoAI%20Inquiry" class="dynoai-cta-btn dynoai-cta-btn-secondary">Contact About DynoAI</a>
+          <a href="https://calendly.com/dawsonmotoring/30min" target="_blank" rel="noopener" class="dynoai-cta-btn dynoai-cta-btn-secondary">Schedule a Consultation</a>
         </div>
       </div>
 
@@ -2992,8 +3038,10 @@
         
         <a target="_blank" class="square-btn" href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" rel="noopener nofollow">Book Your Appointment</a>
         
+        <a target="_blank" class="consult-btn" href="https://calendly.com/dawsonmotoring/30min" rel="noopener">Free 30-Min Consultation</a>
+        
         <p class="booking-note">
-          Custom builds, forced induction, or group/club events? Call or email first — those need a conversation before we can quote.
+          Custom builds, forced induction, or group/club events? <a href="https://calendly.com/dawsonmotoring/30min" target="_blank" rel="noopener" style="color: var(--voltage-red);">Schedule a free consultation</a> — those need a conversation before we can quote.
         </p>
       </div>
     </div>
