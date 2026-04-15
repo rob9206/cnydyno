@@ -3140,6 +3140,7 @@
     let menuOpen = false;
 
     const handleDocumentClick = (event) => {
+      if (!menuOpen) return;
       if (event.target.closest('nav')) return;
       closeMobileMenu();
     };
@@ -3207,11 +3208,7 @@
       syncFadeInState();
     };
 
-    if (typeof motionQuery.addEventListener === 'function') {
-      motionQuery.addEventListener('change', handleMotionPreferenceChange);
-    } else if (typeof motionQuery.addListener === 'function') {
-      motionQuery.addListener(handleMotionPreferenceChange);
-    }
+    motionQuery.addEventListener('change', handleMotionPreferenceChange);
 
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
