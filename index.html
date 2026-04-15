@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js-enhanced');</script>
   
   <!-- Primary SEO Meta Tags -->
   <title>Thunderhorse Tuning | V-Twin Dyno Specialists | Utica NY</title>
@@ -326,12 +327,17 @@
 
     /* Scroll animations */
     .fade-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .js-enhanced .fade-in {
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .fade-in.visible {
+    .js-enhanced .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -651,6 +657,12 @@
       box-shadow: 0 4px 20px rgba(199, 20, 20, 0.4);
     }
 
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--voltage-red);
+      outline-offset: 3px;
+    }
+
     .btn-outline {
       background: transparent;
       color: var(--signal-white);
@@ -691,6 +703,11 @@
     section {
       padding: 6rem 2rem;
       position: relative;
+      scroll-margin-top: 6.5rem;
+    }
+
+    header[id] {
+      scroll-margin-top: 6.5rem;
     }
 
     section::before {
@@ -1587,11 +1604,22 @@
     /* Mobile nav */
     .nav-toggle {
       display: none;
-      background: none;
-      border: none;
+      font-family: 'Tektur', sans-serif;
+      line-height: 1;
       color: var(--signal-white);
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      background: transparent;
+      border: 1px solid var(--steel);
+      border-radius: 4px;
+      padding: 0.55rem 0.7rem;
       cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+
+    .nav-toggle:hover {
+      color: var(--voltage-red);
+      border-color: var(--voltage-red);
+      background: rgba(199, 20, 20, 0.08);
     }
 
     /* DynoAI Explainer Section */
@@ -2211,6 +2239,11 @@
         flex-direction: column;
       }
 
+      .js-enhanced .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+
       .btn {
         text-align: center;
         width: 100%;
@@ -2312,6 +2345,24 @@
       }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .js-enhanced .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
     /* Skip to content link (accessibility) */
     .skip-link {
       position: absolute;
@@ -2352,8 +2403,8 @@
         <polygon class="logo-accent" points="195,8 200,8 198,20 193,20" />
       </svg>
     </a>
-    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')" aria-label="Toggle navigation">☰</button>
-    <ul class="nav-links">
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+    <ul class="nav-links" id="primary-navigation">
       <li><a href="#services">Services</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#about">About</a></li>
@@ -3082,6 +3133,49 @@
 
   <!-- Scroll Animations & Floating CTA -->
   <script>
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileBreakpoint = 768;
+    let prefersReducedMotion = motionQuery.matches;
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    let menuOpen = false;
+    let resizeFrame = null;
+
+    const handleDocumentClick = (event) => {
+      if (!menuOpen) return;
+      if (event.target.closest('nav')) return;
+      closeMobileMenu();
+    };
+
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape') {
+        closeMobileMenu();
+      }
+    };
+
+    const setMobileMenuState = (isOpen) => {
+      menuOpen = isOpen;
+      navLinks.classList.toggle('active', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+
+      if (isOpen) {
+        document.addEventListener('click', handleDocumentClick);
+        document.addEventListener('keydown', handleEscapeKey);
+      } else {
+        document.removeEventListener('click', handleDocumentClick);
+        document.removeEventListener('keydown', handleEscapeKey);
+      }
+    };
+
+    const closeMobileMenu = () => {
+      if (!menuOpen) return;
+      setMobileMenuState(false);
+    };
+
+    navToggle?.addEventListener('click', () => {
+      setMobileMenuState(!menuOpen);
+    });
+
     // Intersection Observer for fade-in animations
     const observerOptions = {
       root: null,
@@ -3097,8 +3191,38 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
+    const syncFadeInState = () => {
+      const shouldShowImmediately = prefersReducedMotion || window.innerWidth <= mobileBreakpoint;
+      document.querySelectorAll('.fade-in').forEach(el => {
+        if (shouldShowImmediately) {
+          el.classList.add('visible');
+          observer.unobserve(el);
+        } else if (!el.classList.contains('visible')) {
+          observer.observe(el);
+        }
+      });
+    };
+
+    syncFadeInState();
+
+    const handleMotionPreferenceChange = (event) => {
+      prefersReducedMotion = event.matches;
+      syncFadeInState();
+    };
+
+    motionQuery.addEventListener('change', handleMotionPreferenceChange);
+
+    window.addEventListener('resize', () => {
+      if (resizeFrame) {
+        cancelAnimationFrame(resizeFrame);
+      }
+      resizeFrame = requestAnimationFrame(() => {
+        if (window.innerWidth > mobileBreakpoint) {
+          closeMobileMenu();
+        }
+        syncFadeInState();
+        resizeFrame = null;
+      });
     });
 
     // Floating CTA visibility
@@ -3121,18 +3245,18 @@
         e.preventDefault();
         if (href === '#') {
           // Logo click — scroll to top
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         } else {
           const target = document.querySelector(href);
           if (target) {
             target.scrollIntoView({
-              behavior: 'smooth',
+              behavior: prefersReducedMotion ? 'auto' : 'smooth',
               block: 'start'
             });
           }
         }
         // Close mobile menu if open
-        document.querySelector('.nav-links').classList.remove('active');
+        closeMobileMenu();
       });
     });
 
