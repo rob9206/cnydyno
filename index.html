@@ -2239,6 +2239,11 @@
         flex-direction: column;
       }
 
+      .js-enhanced .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+
       .btn {
         text-align: center;
         width: 100%;
@@ -3128,30 +3133,44 @@
 
   <!-- Scroll Animations & Floating CTA -->
   <script>
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let prefersReducedMotion = motionQuery.matches;
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
+    let menuOpen = false;
 
-    const closeMobileMenu = () => {
-      navLinks.classList.remove('active');
-      navToggle.setAttribute('aria-expanded', 'false');
-    };
-
-    navToggle?.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('active');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!navLinks.classList.contains('active')) return;
+    const handleDocumentClick = (event) => {
       if (event.target.closest('nav')) return;
       closeMobileMenu();
-    });
+    };
 
-    document.addEventListener('keydown', (event) => {
+    const handleEscapeKey = (event) => {
       if (event.key === 'Escape') {
         closeMobileMenu();
       }
+    };
+
+    const setMobileMenuState = (isOpen) => {
+      menuOpen = isOpen;
+      navLinks.classList.toggle('active', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+
+      if (isOpen) {
+        document.addEventListener('click', handleDocumentClick);
+        document.addEventListener('keydown', handleEscapeKey);
+      } else {
+        document.removeEventListener('click', handleDocumentClick);
+        document.removeEventListener('keydown', handleEscapeKey);
+      }
+    };
+
+    const closeMobileMenu = () => {
+      if (!menuOpen) return;
+      setMobileMenuState(false);
+    };
+
+    navToggle?.addEventListener('click', () => {
+      setMobileMenuState(!menuOpen);
     });
 
     // Intersection Observer for fade-in animations
@@ -3161,7 +3180,7 @@
       threshold: 0.1
     };
 
-    const observer = prefersReducedMotion ? null : new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
@@ -3169,12 +3188,30 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => {
-      if (prefersReducedMotion) {
-        el.classList.add('visible');
-        return;
+    const syncFadeInState = () => {
+      const shouldShowImmediately = prefersReducedMotion || window.innerWidth <= 768;
+      document.querySelectorAll('.fade-in').forEach(el => {
+        if (shouldShowImmediately) {
+          el.classList.add('visible');
+          observer?.unobserve(el);
+        } else if (!el.classList.contains('visible')) {
+          observer?.observe(el);
+        }
+      });
+    };
+
+    syncFadeInState();
+
+    motionQuery.addEventListener?.('change', (event) => {
+      prefersReducedMotion = event.matches;
+      syncFadeInState();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        closeMobileMenu();
       }
-      observer.observe(el);
+      syncFadeInState();
     });
 
     // Floating CTA visibility
@@ -3224,7 +3261,7 @@
         const selected = document.getElementById(btn.dataset.tab);
         if (!selected) return;
         selected.classList.add('active');
-        if (observer && !selected.classList.contains('visible')) {
+        if (!selected.classList.contains('visible')) {
           observer.observe(selected);
         }
       });
