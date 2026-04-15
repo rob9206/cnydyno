@@ -172,10 +172,18 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Do you offer mobile motorcycle tuning in Syracuse?",
+        "name": "How much does a tune cost?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes — we offer mobile tuning services throughout Central New York including Syracuse, Rome, Cooperstown, and surrounding areas within 60 miles of Utica. We're V-twin specialists, but all bikes are welcome. Mobile tunes start at $350 for local service."
+          "text": "Full dyno tunes start at $650 and most land between $650-$850 depending on what's bolted to your bike. Diagnostic and tune corrections start at $300. Big bore, stroker, and forced induction builds are quoted individually — call or book a free consultation and we'll give you a real number, not a range."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you travel for tunes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our dyno lives at the shop in Utica — that's where individual tunes happen. For MC clubs, rallies, and shop events across Central New York, we'll come to you with a minimum of five bikes. Below that, hauling the equipment isn't worth it for anyone. Come to the shop and we'll take care of you."
         }
       },
       {
@@ -200,6 +208,14 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Yes. Any change to your intake or exhaust affects your air/fuel ratio. Running without a proper tune after modifications can cause poor performance, excessive heat, and potential engine damage. We recommend tuning after any Stage 1 or higher modifications."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "My bike was tuned somewhere else but runs like crap. Can you fix it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We see this all the time. Lean cruise, rich idle, timing that makes no sense — bad tunes are unfortunately common. We'll diagnose what's wrong, show you the data, and recalibrate it properly. Diagnostic and tune correction starts at $300."
         }
       }
     ]
@@ -403,6 +419,11 @@
       transform: translateY(-2px);
     }
 
+    .nav-phone {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
     /* Floating CTA */
     .floating-cta {
       position: fixed;
@@ -594,6 +615,14 @@
       flex-wrap: wrap;
       animation: fadeSlideUp 0.8s ease 0.4s forwards;
       opacity: 0;
+    }
+
+    .trust-anchor {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.7;
     }
 
     .btn {
@@ -1723,40 +1752,33 @@
     /* Audience tabs */
     .dynoai-tabs {
       display: flex;
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .dynoai-tab {
-      padding: 0.75rem 1.5rem;
-      background: var(--graphite);
-      border: 1px solid var(--steel);
-      color: var(--ash);
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      color: inherit;
+      opacity: 0.6;
       cursor: pointer;
-      font-family: 'Tektur', sans-serif;
-      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
-      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
     }
 
-    .dynoai-tab:hover {
-      border-color: var(--voltage-red);
-      color: var(--signal-white);
+    .tab-btn.active {
+      opacity: 1;
+      border-bottom-color: currentColor;
     }
 
-    .dynoai-tab.active {
-      background: var(--voltage-red);
-      border-color: var(--voltage-red);
-      color: var(--signal-white);
-    }
-
-    .dynoai-panel {
+    .tab-content {
       display: none;
     }
 
-    .dynoai-panel.active {
+    .tab-content.active {
       display: block;
     }
 
@@ -2164,6 +2186,10 @@
         display: block;
       }
 
+      .nav-phone {
+        display: none;
+      }
+
       section {
         padding: 4rem 1.5rem;
       }
@@ -2335,6 +2361,7 @@
       <li><a href="#dynoai">DynoAI</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a href="tel:6076216885" class="nav-phone">📞 (607) 621-6885</a></li>
       <li><a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="nav-book">Book Now</a></li>
     </ul>
   </nav>
@@ -2358,20 +2385,21 @@
       </h1>
       <p class="hero-tagline">Tuned by Thunder. Powered by Intelligence.</p>
       <p class="hero-sub">
-        <strong>V-twin specialists. All bikes welcome.</strong> Where iron meets algorithm. Professional motorcycle dyno tuning in Central New York. In-house dyno or mobile service — Syracuse, Rome, Cooperstown, and beyond.
+        <strong>V-twin specialists. All bikes welcome.</strong> Where iron meets algorithm. Professional motorcycle dyno tuning in Central New York — in-house dyno in Utica, group events across CNY.
       </p>
       <div class="hero-buttons">
         <a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="btn btn-primary">Book Your Tune</a>
         <a href="#services" class="btn btn-outline">Services & Pricing</a>
       </div>
+      <p class="trust-anchor">Licensed &amp; Insured · Dawson Motoring LLC · Utica, NY</p>
       <div class="trust-badges">
         <div class="trust-badge">
           <span class="icon" aria-hidden="true">🔧</span>
           <span>Proprietary Tuning Software</span>
         </div>
         <div class="trust-badge">
-          <span class="icon" aria-hidden="true">📍</span>
-          <span>Mobile Service Available</span>
+          <span class="icon" aria-hidden="true">⚡</span>
+          <span>V-Twin Specialists</span>
         </div>
         <div class="trust-badge">
           <span class="icon" aria-hidden="true">📊</span>
@@ -2390,9 +2418,9 @@
         <p>Custom tuning for your specific bike, mods, and riding conditions</p>
       </div>
       <div class="why-item fade-in">
-        <div class="why-icon" aria-hidden="true">🚐</div>
-        <h3>Mobile Service</h3>
-        <p>We come to you — Syracuse, Rome, Cooperstown & surrounding CNY</p>
+        <div class="why-icon" aria-hidden="true">⚡</div>
+        <h3>Real-Time Knock Detection</h3>
+        <p>DynoAI monitors knock, AFR, and torque live. If something's wrong, the pull aborts before your engine gets hurt.</p>
       </div>
       <div class="why-item fade-in">
         <div class="why-icon" aria-hidden="true">💻</div>
@@ -2400,9 +2428,9 @@
         <p>Proprietary tuning tools built in-house for better results</p>
       </div>
       <div class="why-item fade-in">
-        <div class="why-icon" aria-hidden="true">📋</div>
-        <h3>Full Transparency</h3>
-        <p>You get the data — dyno sheets, before/after numbers, everything</p>
+        <div class="why-icon" aria-hidden="true">🏁</div>
+        <h3>Group &amp; Event Tuning</h3>
+        <p>Rallies, MC club meets, and shop events across CNY (5+ bikes)</p>
       </div>
     </div>
   </section>
@@ -2413,7 +2441,7 @@
       <p class="section-tag">Services & Pricing</p>
       <h2 class="section-title">Motorcycle Tuning Services</h2>
       <p class="section-intro">
-        Full dyno tuning at our Utica shop or mobile service across Central New York. We specialize in V-twins (Harley-Davidson, Indian, Ducati) — and we tune everything else too.
+        Full dyno tuning at our Utica shop. We specialize in V-twins — Harley-Davidson, Indian, Ducati — and tune everything else too.
       </p>
 
       <article class="service-category fade-in">
@@ -2425,37 +2453,23 @@
           <div class="service-item">
             <div>
               <h4 class="service-name">Full Dyno Tune</h4>
-              <p class="service-desc">Complete ECU calibration on our in-house dyno. Fueling, timing, idle — everything dialed in for your specific motor and modifications. V-twin specialty, all bikes welcome. Not a copy-paste from another bike.</p>
+              <p class="service-desc">Complete ECU calibration on our in-house dyno. Fueling, timing, idle — dialed in for your motor and your mods, not copy-pasted from someone else's bike. V-twin specialty, all bikes welcome. Most tunes run $650–$850 depending on modifications.</p>
             </div>
-            <div class="service-price">$450 <span>starting</span></div>
+            <div class="service-price">$650 <span>starting at</span></div>
           </div>
           <div class="service-item">
             <div>
-              <h4 class="service-name">Performance Upgrades</h4>
-              <p class="service-desc">Intake, exhaust, cams, big bore — parts, professional install, and the tune to match. V-twins are our bread and butter, but we build and calibrate all kinds of bikes.</p>
+              <h4 class="service-name">Diagnostic &amp; Tune Correction</h4>
+              <p class="service-desc">ECU scan plus a baseline dyno pull to see where your bike actually sits. Same service covers fixing a bad tune from another shop — lean cruise, rich idle, timing that makes no sense. We'll show you the data and fix it right.</p>
             </div>
-            <div class="service-price">$800+ <span>parts & labor</span></div>
+            <div class="service-price">$300 <span>starting at</span></div>
           </div>
           <div class="service-item">
             <div>
-              <h4 class="service-name">Diagnostic / Baseline Health Check</h4>
-              <p class="service-desc">Full scan, baseline dyno pull, see where your bike actually sits. Essential before committing to upgrades — know exactly what you're working with.</p>
+              <h4 class="service-name">Performance Builds &amp; Custom Work</h4>
+              <p class="service-desc">Parts, install, and calibration — Stage 1 upgrades through big bore, strokers, and forced induction. Builds get quoted individually because no two are the same.</p>
             </div>
-            <div class="service-price">$150 <span>flat rate</span></div>
-          </div>
-          <div class="service-item">
-            <div>
-              <h4 class="service-name">Re-Flash / Tune Correction</h4>
-              <p class="service-desc">Already tuned somewhere else and running like shit? We'll validate what's there and fix it. Lean cruise, rich idle, bad timing — we've seen it all.</p>
-            </div>
-            <div class="service-price">$250 <span>flat rate</span></div>
-          </div>
-          <div class="service-item">
-            <div>
-              <h4 class="service-name">Dyno Time Rental</h4>
-              <p class="service-desc">Need dyno time for your own testing or development? Operator included. Serious inquiries only.</p>
-            </div>
-            <div class="service-price">$200 <span>per hour</span></div>
+            <div class="service-price">Call <span>for quote</span></div>
           </div>
         </div>
       </article>
@@ -2463,52 +2477,15 @@
       <article class="service-category fade-in">
         <div class="category-header">
           <div class="category-icon" aria-hidden="true">🚐</div>
-          <h3 class="category-title">Mobile Tuning — Central New York</h3>
+          <h3 class="category-title">Group &amp; Event Tuning — Central New York</h3>
         </div>
         <div class="service-list">
           <div class="service-item">
             <div>
-              <h4 class="service-name">Mobile Tune — Utica Area (30mi)</h4>
-              <p class="service-desc">We come to you within 30 miles of Utica. Same quality street tune at your location — garage, driveway, wherever works. V-twins are our specialty, and we tune all bikes. Rome, Herkimer, and surrounding areas.</p>
+              <h4 class="service-name">Club Rides, Rallies &amp; Shop Events</h4>
+              <p class="service-desc">We'll bring the operation out for MC meets, rallies, and shop events across CNY. Minimum five bikes makes the move worth it — below that, come to the shop.</p>
             </div>
-            <div class="service-price">$350 <span>starting</span></div>
-          </div>
-          <div class="service-item">
-            <div>
-              <h4 class="service-name">Mobile Tune — Syracuse / Extended (30-60mi)</h4>
-              <p class="service-desc">Syracuse, Cooperstown, Oneonta, and surrounding areas. Full mobile tuning service with travel included. Call ahead to schedule.</p>
-            </div>
-            <div class="service-price">$400+ <span>includes travel</span></div>
-          </div>
-          <div class="service-item">
-            <div>
-              <h4 class="service-name">Event / Club / Group Tuning</h4>
-              <p class="service-desc">Got a crew that needs tunes? Rallies, shop events, MC club meets — we'll set up on-site anywhere in CNY. Volume discounts for 5+ bikes.</p>
-            </div>
-            <div class="service-price">Call <span>for quote</span></div>
-          </div>
-        </div>
-      </article>
-
-      <article class="service-category fade-in">
-        <div class="category-header">
-          <div class="category-icon" aria-hidden="true">🔧</div>
-          <h3 class="category-title">Custom & Performance Builds</h3>
-        </div>
-        <div class="service-list">
-          <div class="service-item">
-            <div>
-              <h4 class="service-name">Big Bore / Stroker Motor Tuning</h4>
-              <p class="service-desc">Serious motor work needs serious calibration. Big bore V-twins, high-compression builds, and custom motors — we'll work with you or your builder to dial it in right.</p>
-            </div>
-            <div class="service-price">Call <span>for quote</span></div>
-          </div>
-          <div class="service-item">
-            <div>
-              <h4 class="service-name">Forced Induction Tuning</h4>
-              <p class="service-desc">Turbo, supercharger setups. This isn't plug-and-play territory — requires consultation and custom calibration strategy.</p>
-            </div>
-            <div class="service-price">Call <span>for quote</span></div>
+            <div class="service-price">Call <span>for quote, 5+ bikes</span></div>
           </div>
         </div>
       </article>
@@ -2575,7 +2552,7 @@
         </p>
         
         <p>
-          We run our own dyno in-house and offer <strong>mobile tuning service across Central New York</strong> — Syracuse, Rome, Cooperstown, Oneonta, and everywhere in between. We're <strong>V-twin specialists</strong> (Harley-Davidson, Indian, Ducati) — and <strong>all bikes are welcome</strong>. Same calibration quality whether you come to us or we come to you.
+          We run our own dyno in-house in Utica. For MC clubs, rallies, and shop events across Central New York — Syracuse, Rome, Cooperstown, Oneonta — we'll bring the operation out for groups of five or more. We're <strong>V-twin specialists</strong> (Harley-Davidson, Indian, Ducati) — and <strong>all bikes are welcome</strong>.
         </p>
 
         <div class="about-quote">
@@ -2718,14 +2695,12 @@
       <!-- Audience tabs -->
       <div class="dynoai-section-label fade-in">Who DynoAI Is For</div>
 
-      <div class="dynoai-tabs fade-in" role="tablist" aria-label="DynoAI audience sections">
-        <button class="dynoai-tab active" role="tab" aria-selected="true" aria-controls="dynoai-tuners" onclick="dynoaiSwitchTab('tuners', this)">🔧 For Tuners</button>
-        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-shops" onclick="dynoaiSwitchTab('shops', this)">🏪 For Shop Owners</button>
-        <button class="dynoai-tab" role="tab" aria-selected="false" aria-controls="dynoai-investors" onclick="dynoaiSwitchTab('investors', this)">📊 For Investors &amp; Partners</button>
+      <div class="dynoai-tabs fade-in">
+        <button class="tab-btn active" data-tab="customers">For Customers &amp; Shops</button>
+        <button class="tab-btn" data-tab="investors">For Investors &amp; Partners</button>
       </div>
 
-      <!-- FOR TUNERS -->
-      <div id="dynoai-tuners" class="dynoai-panel active fade-in" role="tabpanel">
+      <div class="tab-content active fade-in" id="customers">
         <div class="dynoai-card">
           <div class="dynoai-card-title">Stop Guessing. Start Modeling.</div>
           <p>Traditional tuning is a repetitive loop: make a pull, read the AFR, adjust a few VE cells, flash the ECU, repeat. You might do this <strong>15-20 times</strong> before the map is dialed in — and you're still only correcting the cells you actually tested.</p>
@@ -2788,10 +2763,8 @@
             <p class="ve-hint" id="dynoai-math-hint">Running LEAN — need MORE fuel, INCREASE VE</p>
           </div>
         </div>
-      </div>
-
-      <!-- FOR SHOP OWNERS -->
-      <div id="dynoai-shops" class="dynoai-panel fade-in" role="tabpanel">
+        <!-- FOR SHOP OWNERS -->
+        <div class="fade-in">
         <div class="dynoai-card">
           <div class="dynoai-card-title">More Bikes. Less Time. Higher Revenue.</div>
           <p>Every hour a bike sits on your dyno is an hour you're not tuning the next one. Traditional tuning takes <strong>5-6 hours per bike</strong> — that's 1, maybe 2 bikes per day. DynoAI cuts that to <strong>2-3 hours</strong>, meaning you can realistically tune <strong>2-3 bikes per day</strong> with the same equipment and staff.</p>
@@ -2867,10 +2840,10 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
 
-      <!-- FOR INVESTORS & PARTNERS -->
-      <div id="dynoai-investors" class="dynoai-panel fade-in" role="tabpanel">
+      <div class="tab-content fade-in" id="investors">
         <div class="dynoai-card">
           <div class="dynoai-card-title">The Opportunity</div>
           <p>The motorcycle aftermarket industry generates <strong>billions annually</strong> in the US alone. ECU calibration is a critical part of that market — every exhaust swap, air cleaner upgrade, or big bore kit requires a retune. Yet the tuning process itself hasn't fundamentally changed in decades.</p>
@@ -2944,11 +2917,21 @@
       
       <div class="faq-item fade-in">
         <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
-          <h3>Do you offer mobile motorcycle tuning in Syracuse?</h3>
+          <h3>How much does a tune cost?</h3>
           <span class="icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>Yes — we offer mobile tuning services throughout Central New York including Syracuse, Rome, Cooperstown, Oneonta, and surrounding areas within 60 miles of Utica. We're V-twin specialists, but all bikes are welcome. Mobile tunes start at $350 for local service (within 30 miles) and $400+ for extended range including Syracuse.</p>
+          <p>Full dyno tunes start at $650 and most land between $650–$850 depending on what's bolted to your bike. Diagnostic and tune corrections start at $300. Big bore, stroker, and forced induction builds are quoted individually — call or book a free consultation and we'll give you a real number, not a range.</p>
+        </div>
+      </div>
+
+      <div class="faq-item fade-in">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+          <h3>Do you travel for tunes?</h3>
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Our dyno lives at the shop in Utica — that's where individual tunes happen. For MC clubs, rallies, and shop events across Central New York, we'll come to you with a minimum of five bikes. Below that, hauling the equipment isn't worth it for anyone. Come to the shop and we'll take care of you.</p>
         </div>
       </div>
 
@@ -2988,7 +2971,7 @@
           <span class="icon">+</span>
         </button>
         <div class="faq-answer">
-          <p>We see this all the time. Lean cruise, rich idle, timing that makes no sense — bad tunes are unfortunately common. We'll diagnose what's wrong, show you the data, and recalibrate it properly. Re-tune / correction service is $250 flat rate.</p>
+          <p>We see this all the time. Lean cruise, rich idle, timing that makes no sense — bad tunes are unfortunately common. We'll diagnose what's wrong, show you the data, and recalibrate it properly. Diagnostic and tune correction starts at $300.</p>
         </div>
       </div>
     </div>
@@ -2997,13 +2980,13 @@
   <!-- Contact -->
   <section id="contact">
     <p class="section-tag">Get In Touch</p>
-    <h2 class="section-title">Book or Ask Questions</h2>
-    <p class="section-intro">Ready to schedule? Book online. Got questions first? Call or text — we're real people.</p>
+      <h2 class="section-title">Book or Ask Questions</h2>
+      <p class="section-intro">Ready to schedule? Book online. Got questions first? Call or text — we're real people.</p>
     
     <div class="contact-wrapper">
       <div class="contact-info fade-in">
         <h3>Contact Thunderhorse Tuning</h3>
-        <p>Shop's in Utica, NY. Mobile service covers most of Central New York — Syracuse, Rome, Cooperstown, Oneonta, and surrounding areas. V-twin specialty. All bikes welcome.</p>
+        <p>Shop's in Utica, NY. Group and event tuning available across Central New York for crews of five or more. V-twin specialty. All bikes welcome.</p>
         
         <div class="contact-detail">
           <span class="icon" aria-hidden="true">📍</span>
@@ -3023,12 +3006,12 @@
           <p>Tuesday – Friday: 9am – 6pm</p>
           <p>Saturday: 9am – 3pm</p>
           <p>Sunday – Monday: Closed</p>
-          <p class="note">Mobile appointments available outside shop hours — just ask.</p>
+          <p class="note">Event bookings available outside shop hours — just ask.</p>
         </div>
 
         <div class="service-area">
-          <h4>Mobile Service Area</h4>
-          <p>Utica • Rome • Syracuse • Cooperstown • Oneonta • Herkimer • and surrounding CNY</p>
+          <h4>Group &amp; Event Service Area</h4>
+          <p>Rallies, MC club meets, and shop events across CNY — Utica, Rome, Syracuse, Cooperstown, Oneonta, Herkimer and surrounding areas. Five-bike minimum.</p>
         </div>
       </div>
 
@@ -3153,22 +3136,18 @@
       });
     });
 
-    // DynoAI Explainer
-    function dynoaiSwitchTab(tabId, btn) {
-      document.querySelectorAll('.dynoai-panel').forEach(function(p) { p.classList.remove('active'); });
-      document.querySelectorAll('.dynoai-tab').forEach(function(t) {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const selected = document.getElementById(btn.dataset.tab);
+        selected.classList.add('active');
+        if (!selected.classList.contains('visible')) {
+          observer.observe(selected);
+        }
       });
-      document.getElementById('dynoai-' + tabId).classList.add('active');
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-      // Trigger fade-in for the newly visible panel
-      var panel = document.getElementById('dynoai-' + tabId);
-      if (!panel.classList.contains('visible')) {
-        observer.observe(panel);
-      }
-    }
+    });
 
     function dynoaiUpdateCalc() {
       var afr = parseFloat(document.getElementById('dynoai-afr').value);
