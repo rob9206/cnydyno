@@ -2361,7 +2361,7 @@
       <li><a href="#dynoai">DynoAI</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="tel:6076216885" class="nav-phone">📞 (607) 621-6885</a></li>
+      <li><a href="tel:6076216885" class="nav-phone"><span aria-hidden="true">📞</span> (607) 621-6885</a></li>
       <li><a href="https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services" target="_blank" rel="noopener" class="nav-book">Book Now</a></li>
     </ul>
   </nav>
@@ -2695,12 +2695,12 @@
       <!-- Audience tabs -->
       <div class="dynoai-section-label fade-in">Who DynoAI Is For</div>
 
-      <div class="dynoai-tabs fade-in">
-        <button class="tab-btn active" data-tab="customers">For Customers &amp; Shops</button>
-        <button class="tab-btn" data-tab="investors">For Investors &amp; Partners</button>
+      <div class="dynoai-tabs fade-in" role="tablist" aria-label="DynoAI audience sections">
+        <button class="tab-btn active" id="tab-customers" role="tab" aria-selected="true" aria-controls="customers" data-tab="customers">For Customers &amp; Shops</button>
+        <button class="tab-btn" id="tab-investors" role="tab" aria-selected="false" aria-controls="investors" data-tab="investors">For Investors &amp; Partners</button>
       </div>
 
-      <div class="tab-content active fade-in" id="customers">
+      <div class="tab-content active fade-in" id="customers" role="tabpanel" aria-labelledby="tab-customers">
         <div class="dynoai-card">
           <div class="dynoai-card-title">Stop Guessing. Start Modeling.</div>
           <p>Traditional tuning is a repetitive loop: make a pull, read the AFR, adjust a few VE cells, flash the ECU, repeat. You might do this <strong>15-20 times</strong> before the map is dialed in — and you're still only correcting the cells you actually tested.</p>
@@ -2843,7 +2843,7 @@
         </div>
       </div>
 
-      <div class="tab-content fade-in" id="investors">
+      <div class="tab-content fade-in" id="investors" role="tabpanel" aria-labelledby="tab-investors">
         <div class="dynoai-card">
           <div class="dynoai-card-title">The Opportunity</div>
           <p>The motorcycle aftermarket industry generates <strong>billions annually</strong> in the US alone. ECU calibration is a critical part of that market — every exhaust swap, air cleaner upgrade, or big bore kit requires a retune. Yet the tuning process itself hasn't fundamentally changed in decades.</p>
@@ -3138,9 +3138,13 @@
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
         const selected = document.getElementById(btn.dataset.tab);
         selected.classList.add('active');
         if (!selected.classList.contains('visible')) {
