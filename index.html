@@ -3134,10 +3134,12 @@
   <!-- Scroll Animations & Floating CTA -->
   <script>
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileBreakpoint = 768;
     let prefersReducedMotion = motionQuery.matches;
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     let menuOpen = false;
+    let resizeFrame = null;
 
     const handleDocumentClick = (event) => {
       if (!menuOpen) return;
@@ -3190,7 +3192,7 @@
     }, observerOptions);
 
     const syncFadeInState = () => {
-      const shouldShowImmediately = prefersReducedMotion || window.innerWidth <= 768;
+      const shouldShowImmediately = prefersReducedMotion || window.innerWidth <= mobileBreakpoint;
       document.querySelectorAll('.fade-in').forEach(el => {
         if (shouldShowImmediately) {
           el.classList.add('visible');
@@ -3211,10 +3213,16 @@
     motionQuery.addEventListener('change', handleMotionPreferenceChange);
 
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        closeMobileMenu();
+      if (resizeFrame) {
+        cancelAnimationFrame(resizeFrame);
       }
-      syncFadeInState();
+      resizeFrame = requestAnimationFrame(() => {
+        if (window.innerWidth > mobileBreakpoint) {
+          closeMobileMenu();
+        }
+        syncFadeInState();
+        resizeFrame = null;
+      });
     });
 
     // Floating CTA visibility
