@@ -3146,6 +3146,7 @@
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
         const selected = document.getElementById(btn.dataset.tab);
+        if (!selected) return;
         selected.classList.add('active');
         if (!selected.classList.contains('visible')) {
           observer.observe(selected);
