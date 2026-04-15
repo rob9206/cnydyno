@@ -3193,19 +3193,25 @@
       document.querySelectorAll('.fade-in').forEach(el => {
         if (shouldShowImmediately) {
           el.classList.add('visible');
-          observer?.unobserve(el);
+          observer.unobserve(el);
         } else if (!el.classList.contains('visible')) {
-          observer?.observe(el);
+          observer.observe(el);
         }
       });
     };
 
     syncFadeInState();
 
-    motionQuery.addEventListener?.('change', (event) => {
+    const handleMotionPreferenceChange = (event) => {
       prefersReducedMotion = event.matches;
       syncFadeInState();
-    });
+    };
+
+    if (typeof motionQuery.addEventListener === 'function') {
+      motionQuery.addEventListener('change', handleMotionPreferenceChange);
+    } else if (typeof motionQuery.addListener === 'function') {
+      motionQuery.addListener(handleMotionPreferenceChange);
+    }
 
     window.addEventListener('resize', () => {
       if (window.innerWidth > 768) {
