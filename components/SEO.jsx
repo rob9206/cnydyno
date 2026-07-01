@@ -9,7 +9,10 @@
    ================================================================ */
 
 const SITE_URL = 'https://thunderhorsetuning.com';
-const OG_IMAGE  = SITE_URL + '/assets/photos/dyno-rider-plaid.jpg';
+// Branded banner for social share cards (og:image / twitter:image)
+const OG_IMAGE  = SITE_URL + '/assets/og-image.jpg';
+// Real shop photo for LocalBusiness structured data (Google prefers a photo)
+const BUSINESS_IMAGE = SITE_URL + '/assets/photos/dyno-rider-plaid.jpg';
 
 /* ── Per-route copy ─────────────────────────────────────────── */
 const PAGE_META = {
@@ -51,7 +54,7 @@ const LOCAL_BUSINESS_LD = {
   url: SITE_URL,
   telephone: '+16076216885',
   logo: SITE_URL + '/assets/logos/thunderhorse-badge-red.png',
-  image: OG_IMAGE,
+  image: BUSINESS_IMAGE,
   address: {
     '@type': 'PostalAddress',
     streetAddress: '609 Columbia St',
@@ -248,8 +251,8 @@ function useSEOMeta(route) {
     setMeta('meta[property="og:description"]',  'content', m.description);
     setMeta('meta[property="og:url"]',          'content', url);
     setMeta('meta[property="og:image"]',        'content', OG_IMAGE);
-    setMeta('meta[property="og:image:width"]',  'content', '1200');
-    setMeta('meta[property="og:image:height"]', 'content', '630');
+    setMeta('meta[property="og:image:width"]',  'content', '1024');
+    setMeta('meta[property="og:image:height"]', 'content', '537');
     setMeta('meta[property="og:image:alt"]',    'content', 'Thunderhorse Tuning — Precision V-Twin Dyno Tuning, Utica NY');
 
     // Twitter Card
