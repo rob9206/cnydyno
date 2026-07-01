@@ -11,30 +11,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# --- Clean-URL redirects (bare path -> trailing-slash directory) ---
-[[redirects]]
-  from = "/services"
-  to = "/services/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/dynoai"
-  to = "/dynoai/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/book"
-  to = "/book/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/worth-the-drive"
-  to = "/worth-the-drive/"
-  status = 301
-  force = true
+# NOTE: No clean-URL redirect rules here on purpose. Each route is a real
+# directory index (services/index.html, etc.), so Netlify serves /services/
+# with a 200 and automatically 301s /services -> /services/ via its default
+# pretty-URL handling. Adding explicit `from = "/services"` rules with
+# force = true caused an infinite redirect loop, because Netlify treats the
+# trailing slash in `from` as optional and the forced rule then matched
+# /services/ and redirected it to itself.
 
 # --- Security headers ---
 [[headers]]
