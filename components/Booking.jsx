@@ -1,14 +1,65 @@
-/* Booking flow — bike + service form, then confirmation. */
+/* Booking flow — bike + service form, then confirmation.
+ * Submit POSTs to Netlify Forms (hidden static form in book/index.html is
+ * detected at deploy time; field names must match). Also offers direct
+ * booking via Square Appointments and a free consult via Calendly. */
+const SQUARE_URL = 'https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services';
+const CALENDLY_URL = 'https://calendly.com/dawsonmotoring/30min';
+const SHOP_EMAIL = 'dawsonmotoring@gmail.com';
+const FORM_ENDPOINT = '/book/'; // path where the hidden Netlify form lives
+
 function Booking({ go }) {
   const { Input, Select, Checkbox, Switch, Button, Card, CardTitle, Badge } = window.DS;
   const { isMobile } = useViewport();
   const [done, setDone] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [error, setError] = React.useState(null);
   const [f, setF] = React.useState({
     bike: '2021 Harley Street Glide', make: 'Harley-Davidson', email: '', service: 'Full Dyno Tune',
     diag: false, mobile: false, notes: '',
   });
   const set = (k) => (e) => setF((s) => ({ ...s, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
   const price = f.service === 'Full Dyno Tune' ? '650' : f.service === 'Diagnostic & Correction' ? '300' : 'Quote';
+
+  async function submit() {
+    setSubmitting(true);
+    setError(null);
+    const body = new URLSearchParams({
+      'form-name': 'booking',
+      bike: f.bike,
+      make: f.make,
+      email: f.email,
+      service: f.service,
+      diag: f.diag ? 'Yes (+$300)' : 'No',
+      mobile: f.mobile ? 'Yes' : 'No',
+      notes: f.notes || '(none)',
+      'bot-field': '',
+    }).toString();
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      setDone(true);
+    } catch (err) {
+      // Fallback: open a pre-filled email so the request still reaches the shop.
+      const subject = 'Dyno tune request — ' + f.service + ' — ' + f.bike;
+      const bodyText = [
+        'Service: ' + f.service,
+        'Bike: ' + f.bike,
+        'Make: ' + f.make,
+        'Email: ' + f.email,
+        'Diagnostic pull: ' + (f.diag ? 'Yes (+$300)' : 'No'),
+        'Group / event: ' + (f.mobile ? 'Yes' : 'No'),
+        'Notes: ' + (f.notes || '(none)'),
+      ].join('\n');
+      setError('Could not submit online. Your email app will open with the request pre-filled.');
+      window.location.href = 'mailto:' + SHOP_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyText);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   if (done) {
     return (
@@ -21,9 +72,15 @@ function Booking({ go }) {
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--text-muted)', margin: '12px 0 24px' }}>
             We’ll confirm your <strong style={{ color: 'var(--text-brand)' }}>{f.service}</strong> for the <strong>{f.bike}</strong> within 24 hours. {f.mobile ? 'Include your location in the notes for mobile/event service.' : ''}
           </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
-            <Button variant="primary" onClick={() => go('home')}>Back Home</Button>
-            <Button variant="secondary" onClick={() => setDone(false)}>Edit Request</Button>
+          <div style={{ height: 1, background: 'var(--divider)', margin: '8px 0 22px' }} />
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 12 }}>Or book directly</div>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Button variant="primary" onClick={() => window.open(SQUARE_URL, '_blank', 'noopener')} iconLeft={<Ico n="Calendar" s={16} />}>Book via Square</Button>
+            <Button variant="secondary" onClick={() => window.open(CALENDLY_URL, '_blank', 'noopener')} iconLeft={<Ico n="MessageSquare" s={16} />}>Free Consultation</Button>
+          </div>
+          <div style={{ marginTop: 22, display: 'flex', gap: 12, justifyContent: 'center' }}>
+            <Button variant="ghost" size="sm" onClick={() => go('home')}>Back Home</Button>
+            <Button variant="ghost" size="sm" onClick={() => setDone(false)}>Edit Request</Button>
           </div>
         </Card>
       </Section>
@@ -77,8 +134,16 @@ function Booking({ go }) {
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Est. From</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 28, color: 'var(--text-brand)' }}>{price === 'Quote' ? 'Quote' : '$' + (f.diag && price !== 'Quote' ? (parseInt(price) + 300).toLocaleString() : price)}</span>
             </div>
-            <Button block size="lg" style={{ marginTop: 18 }} onClick={() => setDone(true)} iconRight={<Ico n="ArrowRight" s={18} />}>Submit Request</Button>
+            <Button block size="lg" style={{ marginTop: 18 }} onClick={submit} disabled={submitting} iconRight={submitting ? null : <Ico n="ArrowRight" s={18} />}>{submitting ? 'Sending…' : 'Submit Request'}</Button>
+            {error && <p style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--red-500)', textAlign: 'center', margin: '10px 0 0' }}>{error}</p>}
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--text-faint)', textAlign: 'center', margin: '12px 0 0' }}>No charge until your appointment is confirmed.</p>
+
+            <div style={{ height: 1, background: 'var(--divider)', margin: '18px 0' }} />
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 10 }}>Or book directly</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <Button block variant="secondary" size="sm" onClick={() => window.open(SQUARE_URL, '_blank', 'noopener')} iconLeft={<Ico n="Calendar" s={15} />}>Book via Square</Button>
+              <Button block variant="ghost" size="sm" onClick={() => window.open(CALENDLY_URL, '_blank', 'noopener')} iconLeft={<Ico n="MessageSquare" s={15} />}>Free 30-min Consultation</Button>
+            </div>
           </div>
         </Card>
       </div>
