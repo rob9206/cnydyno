@@ -18,16 +18,16 @@ const BUSINESS_IMAGE = SITE_URL + '/assets/photos/dyno-rider-plaid.jpg';
 const PAGE_META = {
   home: {
     title: 'Thunderhorse Tuning | Precision V-Twin Dyno Tuning — Utica, NY',
-    description: 'Professional motorcycle dyno tuning in Utica, NY. V-twin specialists for Harley-Davidson, Indian & Ducati. Powered by DynoAI — 97.5% VE accuracy. Full tunes from $650.',
+    description: 'Professional motorcycle dyno tuning in Utica, NY. V-twin specialists — Harley, Indian & Ducati. Powered by DynoAI: 97.5% VE accuracy. Tunes from $650.',
     path: '/',
   },
   services: {
-    title: 'Dyno Tuning Services & Pricing | Thunderhorse Tuning — Utica, NY',
-    description: 'Full dyno tunes from $650, diagnostic & tune correction from $300. V-twin performance builds, Stage 1 through forced induction. Group & event tuning across Central New York.',
+    title: 'Dyno Tuning Services & Pricing | Thunderhorse, Utica NY',
+    description: 'Full dyno tunes from $650, diagnostic & correction from $300. V-twin builds — Stage 1 to forced induction. Group & event tuning across Central NY.',
     path: '/services/',
   },
   dynoai: {
-    title: 'DynoAI — Proprietary Motorcycle ECU Calibration | Thunderhorse Tuning',
+    title: 'DynoAI — Motorcycle ECU Calibration | Thunderhorse Tuning',
     description: 'DynoAI uses physics-based volumetric-efficiency modeling for 97.5% VE accuracy from one WOT pull. 60–70% less dyno time. Written in-house by Rob Dawson.',
     path: '/dynoai/',
   },
@@ -52,7 +52,8 @@ const LOCAL_BUSINESS_LD = {
   legalName: 'Dawson Motoring LLC',
   description: 'Precision V-twin motorcycle dyno tuning in Utica, NY. Harley-Davidson, Indian & Ducati specialists. Proprietary DynoAI calibration software — 97.5% VE accuracy.',
   url: SITE_URL,
-  telephone: '+16076216885',
+  telephone: '+16077038311',
+  email: 'dawsonmotoring@gmail.com',
   logo: SITE_URL + '/assets/logos/thunderhorse-badge-red.png',
   image: BUSINESS_IMAGE,
   address: {

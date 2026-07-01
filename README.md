@@ -78,7 +78,7 @@ them at the repo root.
 
 **Thunderhorse Tuning** — Dawson Motoring LLC
 609 Columbia St, Utica, NY 13501
-Phone: (607) 621-6885
+Phone: (607) 703-8311
 Website: https://thunderhorsetuning.com
 
 ## License

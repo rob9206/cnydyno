@@ -24,7 +24,7 @@ function Footer({ go }) {
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 18 }}>
             {[
               { icon: 'MapPin', lines: ['609 Columbia St', 'Utica, NY 13501'] },
-              { icon: 'Phone', lines: ['(607) 621-6885', 'Call or text'] },
+              { icon: 'Phone', lines: ['(607) 703-8311', 'Call or text'] },
               { icon: 'Clock', lines: ['Tue – Fri  9am – 6pm', 'Sat  9am – 3pm'] },
               { icon: 'Truck', lines: ['Group / event service', '5+ bikes · CNY'] },
             ].map(({ icon, lines }) => (
@@ -39,7 +39,7 @@ function Footer({ go }) {
 
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <window.DS.Button variant="primary" size="sm" onClick={() => go('book')} iconLeft={<Ico n="Calendar" s={14} />}>Book Your Tune</window.DS.Button>
-            <window.DS.Button variant="secondary" size="sm" iconLeft={<Ico n="Phone" s={14} />} onClick={() => window.open('tel:6076216885')}>Call Now</window.DS.Button>
+            <window.DS.Button variant="secondary" size="sm" iconLeft={<Ico n="Phone" s={14} />} onClick={() => window.open('tel:6077038311')}>Call Now</window.DS.Button>
           </div>
         </div>
 

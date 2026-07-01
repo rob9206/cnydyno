@@ -55,7 +55,7 @@ function Nav({ route, go }) {
             </nav>
             <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 16 }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'var(--steel-300)', fontFamily: 'var(--font-mono)', fontSize: 12.5 }}>
-                <Ico n="Phone" s={14} color="var(--red-400)" /> (607) 621-6885
+                <Ico n="Phone" s={14} color="var(--red-400)" /> (607) 703-8311
               </span>
               <window.DS.Button variant="primary" size="md" onClick={() => navigate('book')} iconLeft={<Ico n="Calendar" s={16} />}>Book Your Tune</window.DS.Button>
             </div>
@@ -103,7 +103,7 @@ function Nav({ route, go }) {
           </div>
           <div style={{ padding: '10px 22px 16px', display: 'flex', alignItems: 'center', gap: 8, borderTop: '1px solid var(--ink-800)' }}>
             <Ico n="Phone" s={14} color="var(--red-400)" />
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--steel-300)' }}>(607) 621-6885</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--steel-300)' }}>(607) 703-8311</span>
           </div>
         </nav>
       )}
