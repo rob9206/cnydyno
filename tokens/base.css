@@ -1,0 +1,27 @@
+/* ============================================================
+   THUNDERHORSE TUNING — BASE / RESET
+   Light global resets + helpers. Components style themselves;
+   this is just enough to make specimen cards & kits sane.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--red-500); color: #fff; }
+
+a { color: var(--text-brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus-visible { outline: none; box-shadow: var(--ring-focus); border-radius: var(--radius-sm); }
+
+/* utility: diagonal hazard rule used as a section/edge accent */
+.th-hazard-rule { height: 6px; background: var(--hazard); width: 100%; }

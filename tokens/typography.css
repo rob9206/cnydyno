@@ -1,0 +1,71 @@
+/* ============================================================
+   THUNDERHORSE TUNING — TYPOGRAPHY TOKENS
+   Oswald (display, condensed/industrial) · Barlow (UI/body)
+   JetBrains Mono (specs, dyno data, PIDs)
+   ============================================================ */
+:root {
+  /* ---- families ---- */
+  --font-display: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --font-ui:      'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:    'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* ---- weights ---- */
+  --fw-regular: 400; /* @kind other */
+  --fw-medium:  500; /* @kind other */
+  --fw-semibold:600; /* @kind other */
+  --fw-bold:    700; /* @kind other */
+
+  /* ---- type scale (rem, 16px base) ---- */
+  --fs-display-xl: 5.25rem;  /* 84 — hero numbers / page hero */
+  --fs-display-lg: 3.75rem;  /* 60 */
+  --fs-display-md: 2.75rem;  /* 44 */
+  --fs-h1: 2.125rem;         /* 34 */
+  --fs-h2: 1.625rem;         /* 26 */
+  --fs-h3: 1.25rem;          /* 20 */
+  --fs-h4: 1.0625rem;        /* 17 */
+  --fs-body-lg: 1.125rem;    /* 18 */
+  --fs-body:    1rem;        /* 16 */
+  --fs-body-sm: 0.875rem;    /* 14 */
+  --fs-caption: 0.75rem;     /* 12 */
+  --fs-micro:   0.6875rem;   /* 11 — eyebrow/labels */
+
+  /* ---- line heights ---- */
+  --lh-tight:   1.02; /* @kind other */
+  --lh-snug:    1.18; /* @kind other */
+  --lh-normal:  1.5; /* @kind other */
+  --lh-relaxed: 1.65; /* @kind other */
+
+  /* ---- tracking ---- */
+  --ls-display: -0.01em; /* @kind other */
+  --ls-tight:   -0.005em; /* @kind other */
+  --ls-normal:  0; /* @kind other */
+  --ls-wide:    0.06em; /* @kind other */
+  --ls-eyebrow: 0.18em; /* @kind other */
+  --ls-mono:    0.02em; /* @kind other */
+}
+
+/* ---------- reusable type classes ---------- */
+.th-eyebrow {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-brand);
+}
+.th-display {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--text-strong);
+}
+.th-h1 { font-family: var(--font-display); font-weight: var(--fw-bold);     font-size: var(--fs-h1); line-height: var(--lh-snug); text-transform: uppercase; letter-spacing: var(--ls-tight); color: var(--text-strong); }
+.th-h2 { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-h2); line-height: var(--lh-snug); text-transform: uppercase; letter-spacing: var(--ls-tight); color: var(--text-strong); }
+.th-h3 { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-h3); line-height: var(--lh-snug); color: var(--text-strong); }
+.th-body    { font-family: var(--font-body); font-weight: var(--fw-regular); font-size: var(--fs-body);    line-height: var(--lh-normal); color: var(--text-body); }
+.th-body-sm { font-family: var(--font-body); font-weight: var(--fw-regular); font-size: var(--fs-body-sm); line-height: var(--lh-normal); color: var(--text-body); }
+.th-mono    { font-family: var(--font-mono); font-weight: var(--fw-medium);  font-size: var(--fs-body-sm); letter-spacing: var(--ls-mono); color: var(--text-body); }
+.th-data    { font-family: var(--font-mono); font-weight: var(--fw-bold);    font-variant-numeric: tabular-nums; letter-spacing: var(--ls-mono); }

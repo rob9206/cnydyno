@@ -1,0 +1,20 @@
+{
+  "name": "Thunderhorse Tuning",
+  "short_name": "Thunderhorse",
+  "description": "Precision V-twin motorcycle dyno tuning in Utica, NY. Powered by DynoAI.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0F0F14",
+  "theme_color": "#0F0F14",
+  "lang": "en-US",
+  "categories": ["automotive", "business"],
+  "icons": [
+    {
+      "src": "/assets/logos/thunderhorse-badge-red.png",
+      "sizes": "850x811",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -21,3 +21,6 @@ npm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# Local pre-render tooling (not deployed; output HTML is committed)
+_build/

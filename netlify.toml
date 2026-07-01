@@ -1,26 +1,42 @@
+# Thunderhorse Tuning — Netlify config
+# Pre-rendered static site. Each route has its own index.html (home, services,
+# dynoai, book, dyno) plus the legacy /worth-the-drive/ landing page. No
+# server-side build step; HTML is generated locally via _build/prerender.js and
+# committed.
+
 [build]
   publish = "."
-  command = "echo 'No build required - static site'"
+  command = "echo 'Pre-rendered static site — no build required'"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# --- Clean-URL redirects (bare path -> trailing-slash directory) ---
+[[redirects]]
+  from = "/services"
+  to = "/services/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/dynoai"
+  to = "/dynoai/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/book"
+  to = "/book/"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/worth-the-drive"
-  to = "/worth-the-drive/index.html"
-  status = 200
+  to = "/worth-the-drive/"
+  status = 301
+  force = true
 
-[[redirects]]
-  from = "/worth-the-drive/"
-  to = "/worth-the-drive/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[build.environment]
-  NODE_VERSION = "18"
-
-# Security headers
+# --- Security headers ---
 [[headers]]
   for = "/*"
   [headers.values]
@@ -30,18 +46,36 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
-# Cache static assets
+# --- Cache headers for static assets (immutable, 1 year) ---
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/tokens/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_ds_bundle.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/styles.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/favicon.svg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Component JSX files are fetched by Babel standalone at runtime; allow them to
+# be cached but not for as long (they may change between deploys).
 [[headers]]
-  for = "/*.jpg"
+  for = "/components/*.jsx"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.png"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=3600"
+    Content-Type = "text/jsx; charset=utf-8"

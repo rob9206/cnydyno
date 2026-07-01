@@ -1,4 +1,11 @@
+# robots.txt — Thunderhorse Tuning
+# https://thunderhorsetuning.com/robots.txt
+
 User-agent: *
 Allow: /
 
+# Internal dashboard — no SEO value, keep out of the index
+Disallow: /dyno/
+
+# Sitemap
 Sitemap: https://thunderhorsetuning.com/sitemap.xml
