@@ -24,7 +24,7 @@ function Booking({ go }) {
     setSubmitting(true);
     setError(null);
     const body = new URLSearchParams({
-      'form-name': 'booking',
+      'form-name': 'booking-request',
       bike: f.bike,
       make: f.make,
       email: f.email,
