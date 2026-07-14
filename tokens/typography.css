@@ -24,6 +24,7 @@
   --fs-h2: 1.625rem;         /* 26 */
   --fs-h3: 1.25rem;          /* 20 */
   --fs-h4: 1.0625rem;        /* 17 */
+  --fs-section-title: clamp(2rem, 1.35rem + 2vw, var(--fs-display-md)); /* 32-44 for major section heads */
   --fs-body-lg: 1.125rem;    /* 18 */
   --fs-body:    1rem;        /* 16 */
   --fs-body-sm: 0.875rem;    /* 14 */

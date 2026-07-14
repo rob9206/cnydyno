@@ -193,6 +193,46 @@ const DYNOAI_FAQ_LD = {
   ],
 };
 
+/* ── Services FAQ JSON-LD ───────────────────────────────────── */
+const SERVICES_FAQ_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What should I bring to my tune appointment?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Bring your bike in good mechanical condition, at least half a tank of fresh premium fuel, and a list of current modifications including intake, exhaust, cam, and displacement changes.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does a full dyno tune take?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most full dyno sessions run around 2–3 hours with DynoAI, depending on setup complexity and baseline condition.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What affects final pricing?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Final cost depends on service type, hardware complexity, and troubleshooting required. Full tunes generally start at $650 and diagnostic correction starts at $300.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you offer group or event tuning?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Thunderhorse offers group and event tuning across Central New York with a five-bike minimum.',
+      },
+    },
+  ],
+};
+
 /* ── DOM helpers ────────────────────────────────────────────── */
 function setMeta(selector, attr, value) {
   var el = document.querySelector(selector);
@@ -269,6 +309,11 @@ function useSEOMeta(route) {
     } else {
       removeLD('ld-faq');
     }
+    if (route === 'services') {
+      injectLD('ld-services-faq', SERVICES_FAQ_LD);
+    } else {
+      removeLD('ld-services-faq');
+    }
   }, [route]);
 }
 
@@ -285,4 +330,4 @@ function SEOMeta(props) {
   return null;
 }
 
-Object.assign(window, { SEOMeta, PAGE_META, LOCAL_BUSINESS_LD, DYNOAI_FAQ_LD });
+Object.assign(window, { SEOMeta, PAGE_META, LOCAL_BUSINESS_LD, DYNOAI_FAQ_LD, SERVICES_FAQ_LD });

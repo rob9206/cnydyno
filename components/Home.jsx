@@ -1,7 +1,7 @@
 /* Marketing homepage — hero, dyno stat panel, services grid, DynoAI process, CTA. */
 function Home({ go }) {
   const { Button, StatReadout, Card, CardTitle, Badge } = window.DS;
-  const { isMobile } = useViewport();
+  const { isMobile, isTablet } = useViewport();
 
   const services = [
     { icon: 'Target', title: 'Precision Calibration', body: 'Custom ECU tuning for your specific bike, mods, and riding conditions — not copy-pasted from someone else’s build.' },
@@ -10,27 +10,51 @@ function Home({ go }) {
     { icon: 'Users', title: 'Group & Event Tuning', body: 'Rallies, MC club meets and shop events across Central New York (5+ bikes).' },
   ];
 
+  const reviews = [
+    {
+      rider: 'Street Glide rider',
+      quote: 'Bike starts cleaner, runs cooler, and pulls way harder up top. Rob explained every change in plain English.',
+    },
+    {
+      rider: 'Indian Challenger owner',
+      quote: 'No guessing and no drama. I got before/after sheets, clean drivability, and real numbers to back it up.',
+    },
+    {
+      rider: 'Club event organizer',
+      quote: 'Professional setup, safe process, and fast turnaround. The whole group left tuned and happy.',
+    },
+  ];
+
+  const sectionTitle = {
+    fontFamily: 'var(--font-display)',
+    fontWeight: 700,
+    fontSize: 'var(--fs-section-title)',
+    textTransform: 'uppercase',
+    letterSpacing: '-0.01em',
+    color: 'var(--text-strong)',
+    margin: '8px 0 0',
+  };
+
   return (
     <div>
       {/* HERO */}
       <section className="th-dark" style={{ position: 'relative', background: 'var(--ink-900)', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(900px 500px at 78% 25%, rgba(209,10,17,0.18), transparent 60%)' }} />
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: 'var(--hazard)' }} />
-        <div style={{ maxWidth: 1180, margin: '0 auto', padding: isMobile ? '52px 20px 56px' : '84px 32px 92px', position: 'relative', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.15fr 0.85fr', gap: isMobile ? 32 : 48, alignItems: 'center' }}>
+        <div style={{ maxWidth: 1180, margin: '0 auto', padding: isMobile ? '44px 20px 52px' : '76px 32px 84px', position: 'relative', display: 'grid', gridTemplateColumns: (isMobile || isTablet) ? '1fr' : '1.15fr 0.85fr', gap: isMobile ? 28 : 40, alignItems: 'center' }}>
           <div>
             <Eyebrow>Utica, NY — Shop &amp; Mobile Service</Eyebrow>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: isMobile ? 40 : 62, lineHeight: 0.98, letterSpacing: '-0.01em', textTransform: 'uppercase', color: 'var(--white)', margin: '14px 0 0' }}>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: isMobile ? 44 : (isTablet ? 54 : 62), lineHeight: 0.96, letterSpacing: '-0.01em', textTransform: 'uppercase', color: 'var(--white)', margin: '14px 0 0' }}>
               Precision<br /><span style={{ color: 'var(--red-500)' }}>V-Twin</span> Performance
             </h1>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 14, letterSpacing: '0.04em', color: 'var(--steel-300)', margin: '18px 0 0' }}>Tuned by Thunder. Powered by Intelligence.</p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.55, color: 'var(--steel-300)', maxWidth: 520, margin: '14px 0 30px' }}>
               <strong style={{ color: 'var(--bone)' }}>V-twin specialists. All bikes welcome.</strong> Professional motorcycle dyno tuning in Central New York — where iron meets algorithm.
             </p>
-            <div style={{ display: 'flex', gap: 14 }}>
+            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
               <Button variant="primary" size="lg" onClick={() => go('book')} iconLeft={<Ico n="Calendar" s={18} />}>Book Your Tune</Button>
               <Button variant="inverse" size="lg" onClick={() => go('services')} iconRight={<Ico n="ArrowRight" s={18} />}>Services &amp; Pricing</Button>
             </div>
-            <div style={{ display: 'flex', gap: 18, marginTop: 26, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 18, marginTop: 24, flexWrap: 'wrap' }}>
               {['Proprietary Tuning Software', 'V-Twin Specialists', 'Full Dyno Sheets Included'].map((t) => (
                 <span key={t} style={{ display: 'flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--steel-400)' }}>
                   <Ico n="Zap" s={13} color="var(--red-500)" /> {t}
@@ -40,8 +64,14 @@ function Home({ go }) {
           </div>
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'relative', border: '1px solid var(--ink-600)', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 24px 60px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(209,10,17,0.18)' }}>
-              <div style={{ height: 5, background: 'var(--hazard)' }} />
-              <img src={window.PHOTO + 'dyno-rider-plaid.jpg'} alt="Customer bike strapped to the dyno at Thunderhorse Tuning" style={{ display: 'block', width: '100%', height: isMobile ? 260 : 460, objectFit: 'cover', objectPosition: '60% center' }} />
+              <Photo
+                name="dyno-rider-plaid.jpg"
+                alt="Customer bike strapped to the dyno at Thunderhorse Tuning"
+                sizes={isMobile ? '100vw' : '(max-width: 1100px) 84vw, 38vw'}
+                loading="eager"
+                fetchPriority="high"
+                style={{ display: 'block', width: '100%', height: isMobile ? 300 : 460, objectFit: 'cover', objectPosition: '60% center' }}
+              />
               <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '28px 16px 12px', background: 'linear-gradient(transparent, rgba(8,8,12,0.92))', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--red-500)', boxShadow: '0 0 8px var(--red-500)' }} />
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.06em', color: 'var(--steel-200)' }}>ON THE DYNO · 609 COLUMBIA ST, UTICA NY</span>
@@ -51,8 +81,9 @@ function Home({ go }) {
         </div>
         {/* dyno result strip */}
         <div className="th-dark" style={{ borderTop: '1px solid var(--ink-700)', background: 'var(--black)' }}>
-          <div style={{ maxWidth: 1180, margin: '0 auto', padding: isMobile ? '16px 20px' : '22px 32px', display: 'flex', gap: isMobile ? 20 : 52, alignItems: 'center', flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--steel-500)' }}>Last pull · M8 117 · Stage 1</span>
+          <div style={{ maxWidth: 1180, margin: '0 auto', padding: isMobile ? '16px 20px' : '22px 32px', display: 'flex', gap: isMobile ? 20 : (isTablet ? 28 : 52), alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--steel-500)' }}>Sample Session · M8 117 · Stage 1</span>
+            <Badge tone="neutral">Example data</Badge>
             <StatReadout label="Peak Power" value="118" unit="whp" delta="+27" />
             <StatReadout label="Torque" value="132" unit="lb-ft" delta="+24" />
             <StatReadout label="AFR" value="13.2" unit="λ" tone="strong" />
@@ -63,10 +94,10 @@ function Home({ go }) {
 
       {/* SERVICES */}
       <Section>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32, flexWrap: 'wrap', gap: 12 }}>
           <div>
             <Eyebrow>What we do</Eyebrow>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, textTransform: 'uppercase', letterSpacing: '-0.01em', color: 'var(--text-strong)', margin: '8px 0 0' }}>Built Different</h2>
+            <h2 style={sectionTitle}>Built Different</h2>
           </div>
           <Button variant="ghost" onClick={() => go('services')} iconRight={<Ico n="ArrowRight" s={16} />}>All services & pricing</Button>
         </div>
@@ -92,7 +123,7 @@ function Home({ go }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 36, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <Eyebrow>How we tune · DynoAI</Eyebrow>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, textTransform: 'uppercase', color: 'var(--white)', margin: '8px 0 0' }}>Stop guessing. Start modeling.</h2>
+            <h2 style={{ ...sectionTitle, color: 'var(--white)' }}>Stop guessing. Start modeling.</h2>
           </div>
           <Button variant="ghost" onClick={() => go('dynoai')} iconRight={<Ico n="ArrowRight" s={16} />}>About DynoAI</Button>
         </div>
@@ -110,7 +141,7 @@ function Home({ go }) {
             </div>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: 56, marginTop: 36, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: isMobile ? 20 : 56, marginTop: 36, flexWrap: 'wrap' }}>
           <StatReadout label="VE Accuracy · 1 pull" value="97.5" unit="%" />
           <StatReadout label="Less Dyno Time" value="60-70" unit="%" tone="strong" />
           <StatReadout label="Bikes / Day" value="2-3x" tone="strong" />
@@ -123,7 +154,7 @@ function Home({ go }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40, flexWrap: 'wrap', gap: 12 }}>
           <div>
             <Eyebrow>From the shop floor</Eyebrow>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 40, lineHeight: 1.05, textTransform: 'uppercase', letterSpacing: '-0.01em', color: 'var(--text-strong)', margin: '8px 0 0' }}>Real bikes. Real pulls.</h2>
+            <h2 style={sectionTitle}>Real bikes. Real pulls.</h2>
           </div>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--text-muted)' }}>Utica, NY · V-twin specialists</span>
         </div>
@@ -133,26 +164,70 @@ function Home({ go }) {
             { src: 'dyno-ve-map.jpg', cap: 'Live VE map — DynoAI', span: 1, pos: 'center 30%' },
             { src: 'laptop-tuning.jpg', cap: 'Datalogging a build', span: 1, pos: '40% center' },
             { src: 'shop-front-609.jpg', cap: '609 Columbia St', span: 1, pos: 'center 65%' },
-            { src: 'tuner-fence.jpg', cap: 'Dialing it in', span: 1, pos: 'center 30%' },
+            { src: 'dyno-rider-plaid.jpg', cap: 'Final validation pull', span: 1, pos: '58% center' },
           ].map((p) => (
-            <figure key={p.src} className="gtile" style={{ gridColumn: p.span === 2 && !isMobile ? 'span 2' : 'span 1', position: 'relative', margin: 0, overflow: 'hidden', borderRadius: 'var(--radius-sm)' }}>
-              <img src={window.PHOTO + p.src} alt={p.cap} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: p.pos, display: 'block', transition: 'transform var(--dur-slow) var(--ease-out)' }} />
+            <figure key={p.src + p.cap} className="gtile" style={{ gridColumn: p.span === 2 && !isMobile ? 'span 2' : 'span 1', position: 'relative', margin: 0, overflow: 'hidden', borderRadius: 'var(--radius-sm)' }}>
+              <Photo
+                name={p.src}
+                alt={p.cap}
+                sizes={isMobile ? '50vw' : '(max-width: 1180px) 33vw, 360px'}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: p.pos, display: 'block', transition: 'transform var(--dur-slow) var(--ease-out)', filter: 'brightness(0.86) contrast(1.07) saturate(0.92)' }}
+              />
               <figcaption style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '24px 12px 9px', background: 'linear-gradient(transparent, rgba(8,8,12,0.88))', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.04em', color: 'var(--steel-200)' }}>{p.cap}</figcaption>
             </figure>
           ))}
         </div>
       </Section>
 
+      {/* TRUST BLOCK */}
+      <Section style={{ paddingTop: 0 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.1fr 0.9fr', gap: 18 }}>
+          <Card padding="0" style={{ overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '240px 1fr' }}>
+              <Photo
+                name="laptop-tuning.jpg"
+                alt="Rob Dawson tuning an ECU at Thunderhorse Tuning"
+                sizes={isMobile ? '100vw' : '240px'}
+                style={{ width: '100%', height: '100%', minHeight: 240, objectFit: 'cover', objectPosition: '38% center', filter: 'brightness(0.84) contrast(1.06)' }}
+              />
+              <div style={{ padding: isMobile ? '20px 18px' : '22px 24px' }}>
+                <Eyebrow>Meet the tuner</Eyebrow>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-h2)', textTransform: 'uppercase', margin: '8px 0 10px', color: 'var(--text-strong)' }}>Rob Dawson</h3>
+                <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: 1.6, color: 'var(--text-muted)' }}>
+                  Owner-operator of Thunderhorse Tuning and builder of DynoAI. Every tune is done in-house on your exact setup, with before/after data and a walkthrough of what changed and why.
+                </p>
+              </div>
+            </div>
+          </Card>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {reviews.map((r) => (
+              <Card key={r.rider} padding="18px 20px">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: 'var(--amber-500)' }}>
+                  <Ico n="Star" s={14} />
+                  <Ico n="Star" s={14} />
+                  <Ico n="Star" s={14} />
+                  <Ico n="Star" s={14} />
+                  <Ico n="Star" s={14} />
+                </div>
+                <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.55, color: 'var(--text-body)' }}>"{r.quote}"</p>
+                <p style={{ margin: '8px 0 0', fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--text-muted)' }}>{r.rider}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </Section>
+
       {/* CTA */}
       <section style={{ background: 'var(--surface-page)', padding: '0 32px 80px' }}>
-        <div style={{ maxWidth: 1180, margin: '0 auto', position: 'relative', overflow: 'hidden', background: 'var(--red-600)', borderRadius: 'var(--radius-lg)', padding: isMobile ? '36px 24px' : '52px 48px', display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', gap: isMobile ? 20 : 32 }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'repeating-linear-gradient(-45deg, transparent 0 18px, rgba(0,0,0,0.06) 18px 36px)' }} />
+        <div style={{ maxWidth: 1180, margin: '0 auto', position: 'relative', overflow: 'hidden', background: 'linear-gradient(120deg, #0F1118, #151824)', border: '1px solid var(--ink-600)', borderRadius: 'var(--radius-lg)', padding: isMobile ? '34px 24px' : '48px 44px', display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', gap: isMobile ? 20 : 32, boxShadow: '0 18px 44px -24px rgba(0,0,0,0.7)' }}>
+          <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: 6, background: 'var(--red-500)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(420px 160px at 14% 55%, rgba(209,10,17,0.22), transparent 68%)' }} />
           <div style={{ position: 'relative' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, textTransform: 'uppercase', color: '#fff', margin: 0, lineHeight: 1 }}>No guesswork. No compromise. Just results.</h2>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'rgba(255,255,255,0.88)', margin: '12px 0 0' }}>Full dyno tunes from $650. Book online — we’ll confirm within 24 hours.</p>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-h1)', textTransform: 'uppercase', color: 'var(--bone)', margin: 0, lineHeight: 1.02 }}>No guesswork. No compromise. Just results.</h2>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: 17, color: 'var(--steel-300)', margin: '12px 0 0' }}>Full dyno tunes from $650. Book online — we’ll confirm within 24 hours.</p>
           </div>
           <div style={{ position: 'relative' }}>
-            <Button variant="inverse" size="lg" onClick={() => go('book')} iconLeft={<Ico n="Calendar" s={18} />}>Book Your Tune</Button>
+            <Button variant="primary" size="lg" onClick={() => go('book')} iconLeft={<Ico n="Calendar" s={18} />}>Book Your Tune</Button>
           </div>
         </div>
       </section>

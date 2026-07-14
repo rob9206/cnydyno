@@ -10,6 +10,24 @@ function Services({ go }) {
     { id: 'build', cat: 'build', name: 'Performance Builds', price: 'Quote', suffix: 'per build', popular: false, blurb: 'Parts, install and calibration — Stage 1 upgrades through big bore, strokers and forced induction. Quoted individually because no two builds are the same.', feats: ['Stage 1 → forced induction', 'Big bore & strokers', 'Parts + install + tune', 'Free consultation', 'Built to your goals'] },
   ];
   const event = { name: 'Group & Event Tuning', area: 'Central New York', blurb: 'Club rides, rallies and shop events across CNY — Utica, Rome, Syracuse, Cooperstown, Oneonta. We bring the operation to you. Five-bike minimum makes the move worth it.' };
+  const faqs = [
+    {
+      q: 'What should I bring to my tune appointment?',
+      a: 'Bring the bike in mechanical good health, at least half a tank of fresh premium fuel, and a list of current mods (exhaust, intake, cams, displacement).',
+    },
+    {
+      q: 'How long does a full dyno tune usually take?',
+      a: 'Most sessions are 2–3 hours with DynoAI, depending on setup complexity and baseline condition. You leave with before/after dyno sheets.',
+    },
+    {
+      q: 'What changes the final price?',
+      a: 'Complex hardware combinations, troubleshooting time, and custom build requirements can shift pricing. We confirm scope before the session starts.',
+    },
+    {
+      q: 'Do you handle group or event tuning?',
+      a: 'Yes. Group/event service is available across Central New York for 5+ bikes. Submit a request and we will coordinate logistics and schedule.',
+    },
+  ];
 
   const filters = [['all', 'All'], ['shop', 'Shop'], ['build', 'Builds'], ['event', 'Group / Event']];
   const showTier = (t) => filter === 'all' || t.cat === filter;
@@ -19,15 +37,21 @@ function Services({ go }) {
     <div>
       {/* PHOTO HERO STRIP */}
       <section className="th-dark" style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
-        <img src={window.PHOTO + 'dyno-rider-plaid.jpg'} alt="Customer bike on the Thunderhorse Tuning dyno" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '60% 35%', display: 'block', filter: 'brightness(0.55)' }} />
+        <Photo
+          name="dyno-pull.jpg"
+          alt="Motorcycle making a pull on the Thunderhorse dyno"
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 38%', display: 'block', filter: 'brightness(0.55)' }}
+        />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(8,8,12,0.85) 0%, rgba(8,8,12,0.3) 60%, transparent)' }} />
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', padding: '0 44px' }}>
           <div>
             <Eyebrow style={{ marginBottom: 8 }}>Utica, NY · All bikes welcome</Eyebrow>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 52, lineHeight: 0.97, textTransform: 'uppercase', color: 'var(--white)', margin: 0 }}>Services<br />&amp; Pricing</h1>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: isMobile ? 'var(--fs-display-md)' : '3.25rem', lineHeight: 0.97, textTransform: 'uppercase', color: 'var(--white)', margin: 0 }}>Services<br />&amp; Pricing</h1>
           </div>
         </div>
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 6, background: 'var(--hazard)' }} />
       </section>
 
       <Section style={{ paddingBottom: 24 }}>
@@ -91,6 +115,21 @@ function Services({ go }) {
           </Card>
         </Section>
       )}
+
+      <Section style={{ paddingTop: 20 }}>
+        <div style={{ marginBottom: 22 }}>
+          <Eyebrow>Before you book</Eyebrow>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-section-title)', textTransform: 'uppercase', letterSpacing: '-0.01em', color: 'var(--text-strong)', margin: '8px 0 0' }}>Frequently Asked Questions</h2>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 12 }}>
+          {faqs.map((f) => (
+            <Card key={f.q} padding="18px 18px">
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 'var(--fs-h4)', textTransform: 'uppercase', letterSpacing: '0.02em', color: 'var(--text-strong)' }}>{f.q}</h3>
+              <p style={{ margin: '8px 0 0', fontFamily: 'var(--font-body)', fontSize: 14.5, lineHeight: 1.55, color: 'var(--text-muted)' }}>{f.a}</p>
+            </Card>
+          ))}
+        </div>
+      </Section>
     </div>
   );
 }

@@ -23,6 +23,15 @@ function DynoAI({ go }) {
     </div>
   );
 
+  const sectionTitle = {
+    fontFamily: 'var(--font-display)',
+    fontWeight: 700,
+    fontSize: 'var(--fs-section-title)',
+    textTransform: 'uppercase',
+    color: 'var(--text-strong)',
+    margin: '8px 0 0',
+  };
+
   return (
     <div>
       {/* HERO */}
@@ -31,7 +40,7 @@ function DynoAI({ go }) {
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: isMobile ? '44px 20px 40px' : '64px 32px 52px', position: 'relative', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.15fr 0.85fr', gap: isMobile ? 28 : 44, alignItems: 'center' }}>
           <div>
             <Eyebrow>Our Technology</Eyebrow>
-            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 76, lineHeight: 0.95, textTransform: 'uppercase', color: 'var(--white)', margin: '10px 0 0' }}>Dyno<span style={{ color: 'var(--red-500)' }}>AI</span></h1>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: isMobile ? '4rem' : '4.75rem', lineHeight: 0.95, textTransform: 'uppercase', color: 'var(--white)', margin: '10px 0 0' }}>Dyno<span style={{ color: 'var(--red-500)' }}>AI</span></h1>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: 15, color: 'var(--steel-300)', margin: '14px 0 0' }}>AI-Powered ECU Calibration. Built for the Real World.</p>
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 18, lineHeight: 1.55, color: 'var(--steel-300)', maxWidth: 560, margin: '16px 0 0' }}>
               Proprietary tuning software developed in-house. It uses <strong style={{ color: 'var(--bone)' }}>physics-based modeling and real-time data analysis</strong> to generate accurate VE tables from minimal dyno pulls — replacing the slow trial-and-error most shops still rely on.
@@ -44,21 +53,26 @@ function DynoAI({ go }) {
             </div>
           </div>
           <div style={{ position: 'relative', border: '1px solid var(--ink-600)', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 24px 60px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(209,10,17,0.18)' }}>
-            <div style={{ height: 5, background: 'var(--hazard)' }} />
-            <img src={window.PHOTO + 'dyno-ve-map.jpg'} alt="DynoAI volumetric-efficiency map on the dyno screen" style={{ display: 'block', width: '100%', height: 440, objectFit: 'cover', objectPosition: 'center 32%' }} />
+            <Photo
+              name="dyno-ve-map.jpg"
+              alt="DynoAI volumetric-efficiency map on the dyno screen"
+              sizes={isMobile ? '100vw' : '(max-width: 1180px) 40vw, 420px'}
+              loading="eager"
+              fetchPriority="high"
+              style={{ display: 'block', width: '100%', height: 440, objectFit: 'cover', objectPosition: 'center 32%' }}
+            />
             <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '28px 14px 11px', background: 'linear-gradient(transparent, rgba(8,8,12,0.92))', display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--green-500)', boxShadow: '0 0 8px var(--green-500)' }} />
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '0.05em', color: 'var(--steel-200)' }}>DYNOAI · LIVE VE TABLE, RUNNING IN THE SHOP</span>
             </div>
           </div>
         </div>
-        <div style={{ height: 6, background: 'var(--hazard)' }} />
       </section>
 
       {/* HOW IT WORKS */}
       <Section>
         <Eyebrow>How it works</Eyebrow>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, textTransform: 'uppercase', color: 'var(--text-strong)', margin: '8px 0 28px' }}>Math &amp; data, not guesswork</h2>
+        <h2 style={{ ...sectionTitle, marginBottom: 28 }}>Math &amp; data, not guesswork</h2>
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2,1fr)', gap: 16 }}>
           {[
             { n: '01', t: 'One-Pull Baseline™', d: 'A single wide-open-throttle pull captures AFR across the entire RPM range. DynoAI builds a physics model of how your engine breathes from that data alone.' },
@@ -82,7 +96,7 @@ function DynoAI({ go }) {
       {/* VE CALCULATOR */}
       <Section dark>
         <Eyebrow>Try the VE calculator</Eyebrow>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, textTransform: 'uppercase', color: 'var(--white)', margin: '8px 0 24px' }}>See VE correction in real time</h2>
+        <h2 style={{ ...sectionTitle, color: 'var(--white)', marginBottom: 24 }}>See VE correction in real time</h2>
         <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16 }}>
           <Card padding="24px 26px" style={{ background: 'var(--ink-800)', borderColor: 'var(--ink-600)' }}>
             <Slider label="Current VE" value={cur} min={50} max={120} step={0.5} onChange={setCur} fmt={(v) => v + '%'} />
@@ -111,7 +125,7 @@ function DynoAI({ go }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16, marginBottom: 20 }}>
           <div>
             <Eyebrow>Who it’s for</Eyebrow>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, textTransform: 'uppercase', color: 'var(--text-strong)', margin: '8px 0 0' }}>The business case</h2>
+            <h2 style={sectionTitle}>The business case</h2>
           </div>
           <Tabs value={audience} onChange={setAudience} tabs={['Customers', 'Shops & Partners']} />
         </div>

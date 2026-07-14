@@ -1,14 +1,28 @@
 /* App.jsx — Thunderhorse Tuning
-   Extracted from the inline shell script so the pre-renderer can import it
-   and the browser can load it as a text/babel module. Route is derived from
+   Loaded by the build step into app.js for client hydration, and imported by
+   the pre-renderer for static HTML generation. Route is derived from
    the URL on the client (so each pre-rendered page hydrates with the right
    view) and from an explicit prop on the server. */
 function Footer({ go }) {
   const { isMobile } = useViewport();
+  const hrefFor = (id) => {
+    const map = window.ROUTE_PATHS || {};
+    if (map[id]) return map[id];
+    return id === 'home' ? '/' : '/' + id + '/';
+  };
+  const routeClick = (e, id) => {
+    if (e.defaultPrevented) return;
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    go(id);
+  };
+  const socialLinks = [
+    { label: 'Instagram', href: 'https://www.instagram.com/thunderhorsetuning/' },
+    { label: 'Facebook', href: 'https://www.facebook.com/thunderhorsetuning' },
+    { label: 'Google Business', href: 'https://maps.google.com/?q=Thunderhorse+Tuning+Utica+NY' },
+  ];
   return (
     <footer className="th-dark" style={{ background: 'var(--black)', borderTop: '1px solid var(--ink-700)' }}>
-      <div style={{ height: 6, background: 'var(--hazard)' }} />
-
       {/* FIND US strip */}
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', minHeight: isMobile ? 'auto' : 260 }}>
         {/* left — contact block */}
@@ -41,11 +55,30 @@ function Footer({ go }) {
             <window.DS.Button variant="primary" size="sm" onClick={() => go('book')} iconLeft={<Ico n="Calendar" s={14} />}>Book Your Tune</window.DS.Button>
             <window.DS.Button variant="secondary" size="sm" iconLeft={<Ico n="Phone" s={14} />} onClick={() => window.open('tel:6077038311')}>Call Now</window.DS.Button>
           </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+            {socialLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6, textDecoration: 'none', fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--steel-400)' }}
+              >
+                <Ico n="Globe" s={12} />
+                {s.label}
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* right — storefront photo */}
         <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <img src={window.PHOTO + 'shop-front-609.jpg'} alt="Thunderhorse Tuning — 609 Columbia St, Utica NY" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 62%', display: 'block', filter: 'brightness(0.65)' }} />
+          <Photo
+            name="shop-front-609.jpg"
+            alt="Thunderhorse Tuning — 609 Columbia St, Utica NY"
+            sizes={isMobile ? '100vw' : '(max-width: 1180px) 50vw, 590px'}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 62%', display: 'block', filter: 'brightness(0.65)' }}
+          />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(8,8,12,0.7) 0%, transparent 55%)' }} />
           <div style={{ position: 'absolute', bottom: 18, right: 18, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.05em', color: 'var(--steel-400)' }}>609 COLUMBIA ST · UTICA, NY 13501</div>
         </div>
@@ -55,7 +88,15 @@ function Footer({ go }) {
       <div style={{ borderTop: '1px solid var(--ink-700)', padding: '16px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
         <div style={{ display: 'flex', gap: 22 }}>
           {[['Home','home'],['Services','services'],['DynoAI','dynoai'],['Dyno','dyno'],['Book','book']].map(([l,r]) => (
-            <button key={r} className="lnk" onClick={() => go(r)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--steel-500)' }}>{l}</button>
+            <a
+              key={r}
+              className="lnk"
+              href={hrefFor(r)}
+              onClick={(e) => routeClick(e, r)}
+              style={{ textDecoration: 'none', fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 12, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--steel-500)' }}
+            >
+              {l}
+            </a>
           ))}
         </div>
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--steel-600)' }}>© 2026 Dawson Motoring LLC · Thunderhorse Tuning</div>

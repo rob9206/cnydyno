@@ -64,23 +64,32 @@ function DynoResults() {
     <div>
       {/* PHOTO STRIP */}
       <section className="th-dark" style={{ position: 'relative', height: 180, overflow: 'hidden' }}>
-        <img src={window.PHOTO + 'tuner-fence.jpg'} alt="Thunderhorse Tuning — dialing in the calibration" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 28%', display: 'block', filter: 'brightness(0.45)' }} />
+        <Photo
+          name="dyno-pull.jpg"
+          alt="Thunderhorse Tuning — motorcycle on the dyno"
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 28%', display: 'block', filter: 'brightness(0.45)' }}
+        />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(8,8,12,0.92) 0%, rgba(8,8,12,0.4) 70%, transparent)' }} />
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', padding: '0 44px', gap: 24 }}>
           <img src={window.ASSET + 'thunderhorse-badge-cream.png'} alt="" style={{ height: 56, opacity: 0.85 }} />
           <div>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--red-400)', marginBottom: 6 }}>Dyno Cell 1 · Utica</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, textTransform: 'uppercase', color: 'var(--white)', lineHeight: 1 }}>Live Session</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-h1)', textTransform: 'uppercase', color: 'var(--white)', lineHeight: 1 }}>Live Session</div>
           </div>
         </div>
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 5, background: 'var(--hazard)' }} />
       </section>
 
       <Section dark style={{ minHeight: 500, paddingTop: 36 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 20, flexWrap: 'wrap', gap: 16 }}>
         <div>
           <Eyebrow>DynoAI · Cell 1 · Utica</Eyebrow>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, textTransform: 'uppercase', color: 'var(--white)', margin: '6px 0 0' }}>M8 117 · Stage 1</h1>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-section-title)', textTransform: 'uppercase', color: 'var(--white)', margin: '6px 0 0' }}>M8 117 · Stage 1</h1>
+          <div style={{ marginTop: 8 }}>
+            <Badge tone="neutral">Sample session data</Badge>
+          </div>
         </div>
         <Button variant="primary" size="lg" iconLeft={<Ico n="Play" s={18} />}>Start Pull</Button>
       </div>
