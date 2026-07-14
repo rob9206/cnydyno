@@ -111,6 +111,8 @@ const ROUTE_PATHS = {
   dynoai: '/dynoai/',
   book: '/book/',
   dyno: '/dyno/',
+  status: '/status/',
+  statusadmin: '/status/admin/',
 };
 
 function pathToRoute(path) {
@@ -120,6 +122,8 @@ function pathToRoute(path) {
   if (clean === 'dynoai') return 'dynoai';
   if (clean === 'book') return 'book';
   if (clean === 'dyno') return 'dyno';
+  if (clean === 'status') return 'status';
+  if (clean === 'status/admin') return 'statusadmin';
   return 'home';
 }
 
@@ -144,6 +148,16 @@ function App({ route: routeProp }) {
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
+
+  /* The status portal is a standalone customer page — no site nav/footer. */
+  if (route === 'status' || route === 'statusadmin') {
+    return (
+      <div>
+        <SEOMeta route={route} />
+        {route === 'status' ? <Status go={go} /> : <StatusAdmin />}
+      </div>
+    );
+  }
 
   return (
     <div>

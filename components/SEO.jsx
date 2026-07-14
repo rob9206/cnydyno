@@ -41,6 +41,18 @@ const PAGE_META = {
     description: 'Live dyno results — peak power, torque, AFR, and knock monitoring. Powered by DynoAI proprietary calibration software.',
     path: '/dyno/',
   },
+  status: {
+    title: 'Live Tune Status | Thunderhorse Tuning',
+    description: 'Follow your bike live while it\u2019s on the dyno or in storage at Thunderhorse Tuning — stage by stage, pull by pull.',
+    path: '/status/',
+    robots: 'noindex, nofollow',
+  },
+  statusadmin: {
+    title: 'Status Console | Thunderhorse Tuning',
+    description: 'Shop-side console for the Thunderhorse live job status portal.',
+    path: '/status/admin/',
+    robots: 'noindex, nofollow',
+  },
 };
 
 /* ── LocalBusiness JSON-LD ──────────────────────────────────── */
@@ -281,7 +293,7 @@ function useSEOMeta(route) {
 
     // Standard
     setMeta('meta[name="description"]', 'content', m.description);
-    setMeta('meta[name="robots"]',      'content', 'index, follow');
+    setMeta('meta[name="robots"]',      'content', m.robots || 'index, follow');
     setLink('canonical', url);
 
     // Open Graph
