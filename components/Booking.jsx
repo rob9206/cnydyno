@@ -5,6 +5,7 @@
 const SQUARE_URL = 'https://book.squareup.com/appointments/xue8icpm57kptx/location/L2V4BHTQFX0AX/services';
 const CALENDLY_URL = 'https://calendly.com/dawsonmotoring/30min';
 const SHOP_EMAIL = 'dawsonmotoring@gmail.com';
+const INTAKE_URL = '/intake/';
 const FORM_ENDPOINT = '/book/'; // path where the hidden Netlify form lives
 
 /* Scheduling policy — dyno time books at least two weeks out, and the shop
@@ -145,9 +146,14 @@ function Booking({ go }) {
           </span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 32, textTransform: 'uppercase', color: 'var(--text-strong)', margin: 0 }}>Request Sent</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--text-muted)', margin: '12px 0 24px' }}>
-            We’ll confirm your <strong style={{ color: 'var(--text-brand)' }}>{f.service}</strong> for the <strong>{f.bike}</strong>{f.date ? <> — requested for <strong>{dateLabel(f.date, { weekday: 'long', month: 'long', day: 'numeric' })}</strong> —</> : ''} within 24 hours. {f.mobile ? 'Include your location in the notes for mobile/event service.' : ''}
+            We’ll confirm your <strong style={{ color: 'var(--text-brand)' }}>{f.service}</strong> for the <strong>{f.bike}</strong>{f.date ? <> — requested for <strong>{dateLabel(f.date, { weekday: 'long', month: 'long', day: 'numeric' })}</strong> —</> : ''} within 24 hours. Next step: complete your bike intake before drop-off. {f.mobile ? 'Include your location in the notes for mobile/event service.' : ''}
           </p>
           <div style={{ height: 1, background: 'var(--divider)', margin: '8px 0 22px' }} />
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 12 }}>Next step</div>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 12 }}>
+            <Button variant="primary" onClick={() => window.open(INTAKE_URL, '_blank', 'noopener')} iconLeft={<Ico n="CalendarDays" s={16} />}>Complete Bike Intake (5 min)</Button>
+          </div>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: 13, color: 'var(--text-muted)', margin: '0 0 20px' }}>Your confirmation message includes this intake link, and we’ll include it again in your 24-hour reminder if intake is still missing.</p>
           <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 12 }}>Or book directly</div>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button variant="primary" onClick={() => window.open(SQUARE_URL, '_blank', 'noopener')} iconLeft={<Ico n="Calendar" s={16} />}>Book via Square</Button>
@@ -166,6 +172,9 @@ function Booking({ go }) {
     <Section style={{ paddingTop: 56 }}>
       <Eyebrow>Book your tune</Eyebrow>
       <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-section-title)', textTransform: 'uppercase', letterSpacing: '-0.01em', color: 'var(--text-strong)', margin: '8px 0 28px' }}>Reserve Dyno Time</h1>
+      <p style={{ margin: '-14px 0 22px', fontFamily: 'var(--font-body)', fontSize: 14, color: 'var(--text-muted)' }}>
+        Already booked? <a href={INTAKE_URL} style={{ color: 'var(--text-brand)', textDecoration: 'none', fontWeight: 600 }}>Complete your intake</a>.
+      </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.4fr 0.9fr', gap: 24, alignItems: 'start' }}>
         <Card padding="28px 30px">
