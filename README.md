@@ -29,6 +29,7 @@ navigation).
 | `/services/` | `services/index.html` | Services & pricing (pre-rendered) |
 | `/dynoai/` | `dynoai/index.html` | DynoAI explainer + FAQ JSON-LD (pre-rendered) |
 | `/book/` | `book/index.html` | Booking flow (pre-rendered) |
+| `/intake/` | `intake/index.html` | Pre-appointment intake form (standalone static page, `noindex`) |
 | `/dyno/` | `dyno/index.html` | Dyno results dashboard (pre-rendered, `robots.txt` disallows) |
 | `/status/` | `status/index.html` | Live job status portal for customers (`noindex`, capability URL) |
 | `/status/admin/` | `status/admin/index.html` | Shop-side status console (`noindex`, admin key required) |
