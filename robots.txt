@@ -10,5 +10,8 @@ Disallow: /dyno/
 # Customer status portal — capability URLs, no SEO value
 Disallow: /status/
 
+# Intake form is operational, not a search destination
+Disallow: /intake/
+
 # Sitemap
 Sitemap: https://thunderhorsetuning.com/sitemap.xml
