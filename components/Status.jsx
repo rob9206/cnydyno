@@ -152,18 +152,67 @@ function gainDelta(base, tuned) {
   return '+' + (Math.round((t - b) * 10) / 10);
 }
 
+/* Normalize shop-pasted watch URLs to iframe-safe embed URLs. */
+function normalizeStreamUrl(raw) {
+  const s = String(raw || '').trim();
+  if (!s) return '';
+  try {
+    const u = new URL(s);
+    const host = u.hostname.replace(/^www\./, '');
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      const id = u.searchParams.get('v');
+      if (id) return 'https://www.youtube.com/embed/' + encodeURIComponent(id);
+      if (u.pathname.startsWith('/embed/')) return u.href;
+    }
+    if (host === 'youtu.be') {
+      const id = u.pathname.replace(/^\//, '').split('/')[0];
+      if (id) return 'https://www.youtube.com/embed/' + encodeURIComponent(id);
+    }
+    return u.href;
+  } catch {
+    return '';
+  }
+}
+
+function resolveBayStreamUrl(job, onDrum) {
+  const jobUrl = (job.streamUrl || '').trim();
+  if (jobUrl) return normalizeStreamUrl(jobUrl);
+  if (onDrum && typeof window !== 'undefined' && window.TH_BAY_STREAM_URL) {
+    return normalizeStreamUrl(window.TH_BAY_STREAM_URL);
+  }
+  return '';
+}
+
 function StatusBike({ job }) {
   const isDyno = job.type === 'dyno';
   const onDrum = isDyno && (job.stage === 1 || job.stage === 3);
   const isReady = job.stage === job.stages.length - 1;
   const bayLabel = (job.bay || 'BAY 1') + (onDrum ? ' · ON THE DRUM' : isReady ? ' · READY' : '');
+  const streamUrl = resolveBayStreamUrl(job, onDrum);
+  const showStream = !!streamUrl;
   return (
     <StatusCard label="Your bike" style={{ overflow: 'hidden' }}>
       <div style={{ position: 'relative' }}>
-        <Photo name="dyno-pull.jpg" alt="Your bike on the dyno" sizes="(max-width: 660px) 100vw, 620px" style={{ display: 'block', width: '100%', height: 240, objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(15,15,20,0) 45%, rgba(15,15,20,0.85) 100%)' }} />
-        <div style={{ position: 'absolute', left: 14, bottom: 12, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 10px', background: 'rgba(8,8,12,0.75)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)' }}>
-          {onDrum && <LivePulseDot />}
+        {showStream ? (
+          <iframe
+            src={streamUrl}
+            title="Live bay cam"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            referrerPolicy="no-referrer-when-downgrade"
+            style={{ display: 'block', width: '100%', height: 240, border: 0, background: 'var(--black)' }}
+          />
+        ) : (
+          <Photo name="dyno-pull.jpg" alt="Your bike on the dyno" sizes="(max-width: 660px) 100vw, 620px" style={{ display: 'block', width: '100%', height: 240, objectFit: 'cover' }} />
+        )}
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(15,15,20,0) 45%, rgba(15,15,20,0.85) 100%)', pointerEvents: 'none' }} />
+        {showStream && (
+          <div style={{ position: 'absolute', left: 14, top: 12, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 9px', background: 'rgba(8,8,12,0.8)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }}>
+            <LivePulseDot />
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--red-400)' }}>Live bay cam</span>
+          </div>
+        )}
+        <div style={{ position: 'absolute', left: 14, bottom: 12, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 10px', background: 'rgba(8,8,12,0.75)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }}>
+          {(onDrum || showStream) && <LivePulseDot />}
           <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 10.5, letterSpacing: '0.08em', color: 'var(--bone)' }}>{bayLabel}</span>
         </div>
       </div>

@@ -39,6 +39,18 @@ function cleanInt(v, min, max, dflt) {
   return Math.max(min, Math.min(max, n));
 }
 
+function cleanUrl(v, max) {
+  const s = cleanString(v, max || 500);
+  if (!s) return '';
+  try {
+    const u = new URL(s);
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') return '';
+    return u.href.slice(0, max || 500);
+  } catch {
+    return '';
+  }
+}
+
 /* Normalize an incoming job patch from the admin console. Only whitelisted
  * fields survive, everything is length-capped and type-coerced. */
 export function sanitizePatch(input) {
@@ -82,6 +94,7 @@ export function sanitizePatch(input) {
       .filter((r) => r.label !== '');
   }
   if (src.due !== undefined) out.due = cleanString(src.due, 24);
+  if (src.streamUrl !== undefined) out.streamUrl = cleanUrl(src.streamUrl, 500);
 
   return out;
 }
@@ -110,6 +123,7 @@ export function newJob(patch) {
     numbers: patch.numbers || null,
     bill: patch.bill || [],
     due: patch.due || '',
+    streamUrl: patch.streamUrl || '',
     archived: false,
     createdAt: now,
     updatedAt: now,
@@ -160,6 +174,7 @@ export function publicView(job) {
     numbers: job.numbers,
     bill: job.bill,
     due: job.due,
+    streamUrl: job.streamUrl || '',
     updatedAt: job.updatedAt,
   };
 }
