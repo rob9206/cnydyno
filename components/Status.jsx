@@ -22,6 +22,18 @@ function fmtStageTime(iso) {
     d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
+function fmtRelativeUpdated(iso, nowMs) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  const sec = Math.max(0, Math.floor(((nowMs || Date.now()) - d.getTime()) / 1000));
+  if (sec < 45) return 'Updated just now';
+  const min = Math.floor(sec / 60);
+  if (min < 60) return 'Updated ' + min + 'm ago';
+  const hr = Math.floor(min / 60);
+  return 'Updated ' + hr + 'h ago';
+}
+
 /* Stage-dependent hero copy for dyno jobs; storage jobs get simpler copy. */
 function statusHero(job) {
   const last = job.stages.length - 1;
@@ -70,7 +82,7 @@ function LivePulseDot({ color, glow }) {
 
 /* ── Sections ──────────────────────────────────────────────── */
 
-function StatusHero({ job }) {
+function StatusHero({ job, nowMs }) {
   const last = job.stages.length - 1;
   const isReady = job.stage === last;
   const hero = statusHero(job);
@@ -83,7 +95,7 @@ function StatusHero({ job }) {
   const queued = isDyno && job.stage === 0;
   const { StatReadout } = window.DS;
 
-  const updated = job.updatedAt ? new Date(job.updatedAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : '';
+  const updatedRel = fmtRelativeUpdated(job.updatedAt, nowMs);
 
   return (
     <StatusCard label="Current status" style={{ boxShadow: 'var(--shadow-md)', padding: '22px 22px 20px' }}>
@@ -107,7 +119,7 @@ function StatusHero({ job }) {
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
           <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 11, letterSpacing: '0.08em', color: 'var(--steel-400)' }}>STEP {job.stage + 1} OF {job.stages.length}</span>
-          {updated && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--steel-500)' }}>UPDATED {updated.toUpperCase()}</span>}
+          {updatedRel && <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--steel-500)' }}>{updatedRel.toUpperCase()}</span>}
         </div>
       </div>
 
@@ -174,14 +186,34 @@ function normalizeStreamUrl(raw) {
   }
 }
 
+const YT_EMBED_PARAMS = { autoplay: '1', mute: '1', playsinline: '1', rel: '0' };
+
+function withYoutubeEmbedParams(url) {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, '');
+    if (host !== 'youtube.com' && host !== 'm.youtube.com') return url;
+    if (!u.pathname.startsWith('/embed/')) return url;
+    Object.entries(YT_EMBED_PARAMS).forEach(([k, v]) => u.searchParams.set(k, v));
+    return u.href;
+  } catch {
+    return url;
+  }
+}
+
+function embedStreamUrl(raw) {
+  return withYoutubeEmbedParams(normalizeStreamUrl(raw));
+}
+
 /* Per-job stream always shows at any stage; site default only when on drum. */
 function jobStreamUrl(job) {
-  return normalizeStreamUrl((job.streamUrl || '').trim());
+  return embedStreamUrl((job.streamUrl || '').trim());
 }
 
 function defaultBayStreamUrl(onDrum) {
   if (!onDrum || typeof window === 'undefined' || !window.TH_BAY_STREAM_URL) return '';
-  return normalizeStreamUrl(window.TH_BAY_STREAM_URL);
+  return embedStreamUrl(window.TH_BAY_STREAM_URL);
 }
 
 function StatusBike({ job }) {
@@ -191,47 +223,59 @@ function StatusBike({ job }) {
   const bayLabel = (job.bay || 'BAY 1') + (onDrum ? ' · ON THE DRUM' : isReady ? ' · READY' : '');
   const streamUrl = jobStreamUrl(job) || defaultBayStreamUrl(onDrum);
   const showStream = !!streamUrl;
+  const mediaWrap = { position: 'relative', width: '100%', aspectRatio: '16 / 9', minHeight: 200, background: 'var(--black)' };
+  const bikeValueStyle = { fontSize: 14.5, fontWeight: 500, color: 'var(--white)', overflowWrap: 'anywhere', wordBreak: 'break-word', minWidth: 0 };
   return (
     <StatusCard label="Your bike" style={{ overflow: 'hidden' }}>
-      <div style={{ position: 'relative' }}>
+      <div style={mediaWrap}>
         {showStream ? (
           <iframe
             src={streamUrl}
             title="Live bay cam"
-            allow="autoplay; encrypted-media; picture-in-picture"
+            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             referrerPolicy="no-referrer-when-downgrade"
-            style={{ display: 'block', width: '100%', height: 240, border: 0, background: 'var(--black)' }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, background: 'var(--black)' }}
           />
         ) : (
-          <Photo name="dyno-pull.jpg" alt="Your bike on the dyno" sizes="(max-width: 660px) 100vw, 620px" style={{ display: 'block', width: '100%', height: 240, objectFit: 'cover' }} />
+          <Photo name="dyno-pull.jpg" alt="Your bike on the dyno" sizes="(max-width: 660px) 100vw, 620px" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         )}
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(15,15,20,0) 45%, rgba(15,15,20,0.85) 100%)', pointerEvents: 'none' }} />
         {showStream && (
-          <div style={{ position: 'absolute', left: 14, top: 12, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 9px', background: 'rgba(8,8,12,0.8)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }}>
+          <div style={{ position: 'absolute', left: 12, top: 10, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 9px', background: 'rgba(8,8,12,0.8)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }}>
             <LivePulseDot />
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--red-400)' }}>Live bay cam</span>
           </div>
         )}
-        <div style={{ position: 'absolute', left: 14, bottom: 12, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 10px', background: 'rgba(8,8,12,0.75)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', left: 12, bottom: 10, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 10px', background: 'rgba(8,8,12,0.75)', border: '1px solid var(--ink-500)', borderRadius: 'var(--radius-sm)', pointerEvents: 'none' }}>
           {(onDrum || showStream) && <LivePulseDot />}
           <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 10.5, letterSpacing: '0.08em', color: 'var(--bone)' }}>{bayLabel}</span>
         </div>
       </div>
-      <div style={{ padding: '16px 20px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px 20px' }}>
+      {showStream && (
+        <p style={{ margin: 0, padding: '8px 20px 0', fontFamily: 'var(--font-body)', fontSize: 12.5, lineHeight: 1.45, color: 'var(--steel-500)' }}>
+          Live when the shop is streaming — tap play if it doesn&rsquo;t start.
+        </p>
+      )}
+      <div style={{ padding: showStream ? '12px 20px 18px' : '16px 20px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px 20px' }}>
         {[
           ['Owner', job.owner || '—'],
           ['Bike', job.bike || '—'],
           ['Package', job.package || '—'],
           ['Work order', job.wo + ' · ' + (job.bay || 'BAY 1')],
         ].map(([k, v], i) => (
-          <div key={k} style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <div key={k} style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 10, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--steel-500)' }}>{k}</span>
             <span style={i === 3
-              ? { fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 13.5, color: 'var(--steel-200)' }
-              : { fontSize: 14.5, fontWeight: 500, color: 'var(--white)' }}>{v}</span>
+              ? { fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 13.5, color: 'var(--steel-200)', overflowWrap: 'anywhere', wordBreak: 'break-word', minWidth: 0 }
+              : bikeValueStyle}>{v}</span>
           </div>
         ))}
       </div>
+      {showStream && (
+        <p style={{ margin: 0, padding: '0 20px 16px', fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.03em', lineHeight: 1.45, color: 'var(--steel-500)' }}>
+          Bay cam is the shop floor — whoever&rsquo;s on the drum.
+        </p>
+      )}
     </StatusCard>
   );
 }
@@ -367,8 +411,8 @@ function StatusContact({ go }) {
       <StatusH2>Questions? Talk to Rob.</StatusH2>
       <p style={{ margin: '4px 0 16px', fontSize: 14, lineHeight: 1.5, color: 'var(--steel-400)' }}>You&rsquo;ll get a text the second it&rsquo;s ready. Until then, this page is the truth.</p>
       <div style={{ display: 'flex', gap: 10 }}>
-        <div style={{ flex: 1 }}><Button variant="primary" size="lg" block onClick={() => window.open('tel:+16077038311')}>Call the shop</Button></div>
-        <div style={{ flex: 1 }}><Button variant="secondary" size="lg" block onClick={() => window.open('sms:+16077038311')}>Text us</Button></div>
+        <div style={{ flex: 1, minHeight: 44 }}><Button variant="primary" size="lg" block onClick={() => window.open('tel:+16077038311')}>Call the shop</Button></div>
+        <div style={{ flex: 1, minHeight: 44 }}><Button variant="secondary" size="lg" block onClick={() => window.open('sms:+16077038311')}>Text us</Button></div>
       </div>
       <div style={{ marginTop: 10 }}>
         <Button variant="ghost" size="md" block onClick={() => go('book')}>Book your next service</Button>
@@ -409,6 +453,7 @@ function Status({ go }) {
   const [token, setToken] = React.useState(null);
   const [job, setJob] = React.useState(null);
   const [gate, setGate] = React.useState('boot');
+  const [nowMs, setNowMs] = React.useState(() => Date.now());
 
   React.useEffect(() => {
     const t = statusToken();
@@ -431,6 +476,7 @@ function Status({ go }) {
         const data = await res.json();
         if (!alive) return;
         setJob(data.job);
+        setNowMs(Date.now());
         setGate('ok');
       } catch (err) {
         if (!alive) return;
@@ -445,7 +491,14 @@ function Status({ go }) {
     return () => { alive = false; if (timer) clearTimeout(timer); document.removeEventListener('visibilitychange', onVis); };
   }, [token]);
 
+  React.useEffect(() => {
+    if (gate !== 'ok' || !job) return undefined;
+    const id = setInterval(() => setNowMs(Date.now()), 30000);
+    return () => clearInterval(id);
+  }, [gate, job && job.updatedAt]);
+
   const live = gate === 'ok' && job && job.stage < job.stages.length - 1;
+  const hasNote = !!(job && job.note && job.note.text);
 
   return (
     <div className="th-dark" style={{ minHeight: '100vh', background: 'var(--ink-900)', fontFamily: 'var(--font-body)', color: 'var(--steel-200)' }}>
@@ -468,11 +521,14 @@ function Status({ go }) {
 
         {gate === 'ok' && job ? (
           <>
-            <StatusHero job={job} />
-            <p style={{ margin: '-6px 2px 0', fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.04em', color: 'var(--steel-500)' }}>This page updates automatically as your {job.type === 'storage' ? 'bike is looked after' : 'tune progresses'}. No need to refresh.</p>
+            <StatusHero job={job} nowMs={nowMs} />
+            <p style={{ margin: '-6px 2px 0', fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.04em', color: 'var(--steel-500)' }}>
+              This page updates automatically as your {job.type === 'storage' ? 'bike is looked after' : 'tune progresses'}. No need to refresh.
+              {job.updatedAt && <> · {fmtRelativeUpdated(job.updatedAt, nowMs)}</>}
+            </p>
             <StatusBike job={job} />
+            {hasNote && <StatusNote note={job.note} />}
             <StatusTimeline job={job} />
-            <StatusNote note={job.note} />
             <StatusNumbers job={job} />
             <StatusBill job={job} />
             <StatusContact go={go} />

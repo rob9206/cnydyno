@@ -150,9 +150,12 @@ function AdminJobCard({ job, apiKey, onSaved }) {
           <input value={f.eta} onChange={set('eta')} placeholder="Today · 4:30 PM" style={{ ...adminInputStyle, width: 170, height: 32 }} />
         </div>
         {job.type === 'dyno' && (Number(f.stage) === 1 || Number(f.stage) === 3) && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0, flex: '1 1 200px', maxWidth: 320 }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--steel-500)', whiteSpace: 'nowrap' }}>Bay cam</span>
-            <input value={f.streamUrl} onChange={set('streamUrl')} placeholder="YouTube embed or live URL" title="Bay stream URL" style={{ ...adminInputStyle, height: 32, flex: 1, minWidth: 0 }} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0, flex: '1 1 200px', maxWidth: 340 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+              <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--steel-500)', whiteSpace: 'nowrap' }}>Bay cam</span>
+              <input value={f.streamUrl} onChange={set('streamUrl')} placeholder="YouTube watch or embed URL" title="Bay stream URL" style={{ ...adminInputStyle, height: 32, flex: 1, minWidth: 0 }} />
+            </div>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.02em', color: 'var(--steel-600)', paddingLeft: 52 }}>Paste YouTube watch or embed URL — not the RTMP or stream key.</span>
           </div>
         )}
         {job.type === 'dyno' && (Number(f.stage) === 1 || Number(f.stage) === 3) && (
@@ -170,7 +173,10 @@ function AdminJobCard({ job, apiKey, onSaved }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, borderTop: '1px solid var(--ink-700)', paddingTop: 14 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12 }}>
             <AdminField label="Bay label"><input value={f.bay} onChange={set('bay')} placeholder="BAY 1" style={adminInputStyle} /></AdminField>
-            <AdminField label="Bay stream URL"><input value={f.streamUrl} onChange={set('streamUrl')} placeholder="YouTube embed or live URL" style={adminInputStyle} /></AdminField>
+            <AdminField label="Bay stream URL">
+              <input value={f.streamUrl} onChange={set('streamUrl')} placeholder="YouTube watch or embed URL" style={adminInputStyle} />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.02em', color: 'var(--steel-600)', marginTop: 2 }}>Paste YouTube watch or embed URL — not the RTMP or stream key.</span>
+            </AdminField>
             <AdminField label="Pulls total"><input type="number" min="0" max="12" value={f.pullsTotal} onChange={set('pullsTotal')} style={adminInputStyle} /></AdminField>
             <AdminField label="Due at pickup"><input value={f.due} onChange={set('due')} placeholder="$650.00" style={adminInputStyle} /></AdminField>
           </div>
