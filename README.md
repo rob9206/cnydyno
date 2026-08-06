@@ -127,4 +127,4 @@ Website: [https://thunderhorsetuning.com](https://thunderhorsetuning.com)
 
 ## License
 
-© 2026 Thunderhorse Tuning · Dawson Motoring LLC · Powered by DynoAI
+© 2026 Thunderhorse Tuning · Dawson Motoring LLC · Powered by [DynoAI](https://rob9206.github.io/dynoai-website/)

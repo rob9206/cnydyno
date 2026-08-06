@@ -99,7 +99,12 @@ function Footer({ go }) {
             </a>
           ))}
         </div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--steel-600)' }}>© 2026 Dawson Motoring LLC · Thunderhorse Tuning</div>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, color: 'var(--steel-600)' }}>
+          © 2026 Dawson Motoring LLC · Thunderhorse Tuning · Powered by{' '}
+          <a href="https://rob9206.github.io/dynoai-website/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+            DynoAI
+          </a>
+        </div>
       </div>
     </footer>
   );
