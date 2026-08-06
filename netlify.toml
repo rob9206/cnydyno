@@ -3,7 +3,7 @@
 # dynoai, book, dyno, status) plus the legacy /worth-the-drive/ landing page.
 # No server-side build step; HTML is generated locally via _build/prerender.js
 # and committed. Netlify Functions power the live status portal API
-# (/api/status, /api/admin/jobs) backed by Netlify Blobs.
+# (/api/status, /api/status/stream, /api/admin/jobs) backed by Netlify Blobs.
 
 [build]
   publish = "."

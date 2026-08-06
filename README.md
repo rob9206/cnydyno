@@ -78,12 +78,14 @@ bike move through dyno or storage stages in real time. The shop manages jobs at
 
 **Architecture:** Netlify Functions (`netlify/functions/`) backed by Netlify
 Blobs store job records keyed by unguessable capability tokens. The customer
-page polls `GET /api/status?t=<token>` every 12 seconds; the admin console
-calls `/api/admin/jobs` with an `X-Admin-Key` header.
+page uses Server-Sent Events at `/api/status/stream?t=<token>` (auto-reconnect,
+~1–2s updates) with a polling fallback to `GET /api/status?t=<token>`; the
+admin console calls `/api/admin/jobs` with an `X-Admin-Key` header.
 
 | Endpoint | Method | Auth | Purpose |
 | --- | --- | --- | --- |
 | `/api/status?t=<token>` | GET | token in URL | Customer-facing job view |
+| `/api/status/stream?t=<token>` | GET | token in URL | SSE live job updates |
 | `/api/admin/jobs` | GET | `X-Admin-Key` | List active jobs |
 | `/api/admin/jobs` | POST | `X-Admin-Key` | Check in a new job (`{ patch }`) |
 | `/api/admin/jobs?t=<token>` | PUT | `X-Admin-Key` | Update a job (`{ patch }`) |

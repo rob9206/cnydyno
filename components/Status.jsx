@@ -1,11 +1,12 @@
 /* Live job status portal — customer view.
  * Reached via the capability link we text at drop-off:
  *   https://thunderhorsetuning.com/status/?t=<token>
- * Polls /api/status every 12s (plus on tab focus) so the page updates on its
- * own while the bike is on the dyno or in storage. Design source:
+ * Prefers SSE at /api/status/stream (~1–2s updates); falls back to polling
+ * /api/status every 5s if the stream is unavailable. Tab focus triggers
+ * reconnect or a one-shot fetch. Design source:
  * "Live Tune Status" mock (Tune Status.dc.html).
  */
-const STATUS_POLL_MS = 12000;
+const STATUS_FALLBACK_POLL_MS = 5000;
 
 function statusToken() {
   if (typeof window === 'undefined' || !window.location) return '';
@@ -465,30 +466,94 @@ function Status({ go }) {
     if (!token) return undefined;
     setGate((g) => (g === 'ok' ? g : 'loading'));
     let alive = true;
-    let timer = null;
+    let pollTimer = null;
+    let es = null;
+    let usingPoll = false;
+    let gotStream = false;
 
-    const load = async () => {
+    const applyData = (data) => {
+      if (!alive || !data || !data.job) return;
+      gotStream = true;
+      setJob(data.job);
+      setNowMs(Date.now());
+      setGate('ok');
+    };
+
+    const loadOnce = async () => {
       try {
         const res = await fetch('/api/status?t=' + encodeURIComponent(token), { headers: { Accept: 'application/json' } });
         if (!alive) return;
         if (res.status === 404 || res.status === 400) { setGate('notfound'); setJob(null); return; }
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        if (!alive) return;
-        setJob(data.job);
-        setNowMs(Date.now());
-        setGate('ok');
+        applyData(await res.json());
       } catch (err) {
         if (!alive) return;
-        setGate((g) => (g === 'ok' ? 'ok' : 'error'));
+        setGate((g) => (g === 'ok' ? g : 'error'));
       }
     };
 
-    const tick = () => { load(); timer = setTimeout(tick, STATUS_POLL_MS); };
-    tick();
-    const onVis = () => { if (document.visibilityState === 'visible') load(); };
+    const startPoll = () => {
+      if (!alive || usingPoll) return;
+      usingPoll = true;
+      if (es) { es.close(); es = null; }
+      const tick = () => {
+        loadOnce().finally(() => {
+          if (alive && usingPoll) pollTimer = setTimeout(tick, STATUS_FALLBACK_POLL_MS);
+        });
+      };
+      tick();
+    };
+
+    const connectSSE = () => {
+      if (!alive) return;
+      if (typeof EventSource === 'undefined') {
+        startPoll();
+        return;
+      }
+      usingPoll = false;
+      if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }
+      if (es) es.close();
+
+      es = new EventSource('/api/status/stream?t=' + encodeURIComponent(token));
+
+      es.onmessage = (ev) => {
+        try { applyData(JSON.parse(ev.data)); } catch (_) { /* ignore malformed */ }
+      };
+
+      es.addEventListener('gone', () => {
+        if (!alive) return;
+        setGate('notfound');
+        setJob(null);
+        es.close();
+      });
+
+      es.onerror = () => {
+        if (!alive) return;
+        if (!gotStream) {
+          es.close();
+          es = null;
+          loadOnce().finally(() => {
+            if (alive && !gotStream) startPoll();
+          });
+        }
+      };
+    };
+
+    connectSSE();
+
+    const onVis = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (usingPoll) loadOnce();
+      else connectSSE();
+    };
     document.addEventListener('visibilitychange', onVis);
-    return () => { alive = false; if (timer) clearTimeout(timer); document.removeEventListener('visibilitychange', onVis); };
+
+    return () => {
+      alive = false;
+      if (pollTimer) clearTimeout(pollTimer);
+      if (es) es.close();
+      document.removeEventListener('visibilitychange', onVis);
+    };
   }, [token]);
 
   React.useEffect(() => {
