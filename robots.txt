@@ -1,4 +1,17 @@
+# robots.txt — Thunderhorse Tuning
+# https://thunderhorsetuning.com/robots.txt
+
 User-agent: *
 Allow: /
 
+# Internal dashboard — no SEO value, keep out of the index
+Disallow: /dyno/
+
+# Customer status portal — capability URLs, no SEO value
+Disallow: /status/
+
+# Intake form is operational, not a search destination
+Disallow: /intake/
+
+# Sitemap
 Sitemap: https://thunderhorsetuning.com/sitemap.xml

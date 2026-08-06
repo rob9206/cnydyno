@@ -10,6 +10,9 @@ desktop.ini
 *.swo
 *~
 
+# Dependencies (root package.json exists for Netlify Functions)
+node_modules/
+
 # Logs
 *.log
 npm-debug.log*
@@ -21,3 +24,6 @@ npm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# Local pre-render tooling (not deployed; output HTML is committed)
+_build/

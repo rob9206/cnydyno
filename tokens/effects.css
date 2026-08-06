@@ -1,0 +1,50 @@
+/* ============================================================
+   THUNDERHORSE TUNING — RADIUS, BORDERS, SHADOWS, MOTION
+   Sharp & industrial: minimal rounding, hard low-blur shadows,
+   a signature voltage-red glow, and one diagonal "hazard" motif.
+   ============================================================ */
+:root {
+  /* ---- radius (kept tight / mechanical) ---- */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 10px;
+  --radius-pill: 999px;
+
+  /* ---- borders ---- */
+  --border-hair:  1px solid var(--border);
+  --border-base:  1px solid var(--border-strong);
+  --border-heavy: 2px solid var(--ink-900);
+
+  /* ---- shadows (hard, industrial, low blur) ---- */
+  --shadow-xs: 0 1px 0 rgba(14,15,17,0.06);
+  --shadow-sm: 0 1px 2px rgba(14,15,17,0.10), 0 1px 1px rgba(14,15,17,0.06);
+  --shadow-md: 0 4px 10px -2px rgba(14,15,17,0.16), 0 2px 4px -2px rgba(14,15,17,0.10);
+  --shadow-lg: 0 12px 28px -6px rgba(14,15,17,0.26), 0 4px 8px -4px rgba(14,15,17,0.14);
+  --shadow-inset: inset 0 1px 0 rgba(255,255,255,0.04), inset 0 0 0 1px rgba(255,255,255,0.02);
+
+  /* signature voltage glow + focus */
+  --glow-voltage: 0 0 18px -2px rgba(209,10,17,0.6);
+  --ring-focus: 0 0 0 3px rgba(209,10,17,0.35);
+
+  /* ---- motion ---- */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-in-out:cubic-bezier(0.65, 0, 0.35, 1); /* @kind other */
+  --ease-mech:  cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur-base: 180ms; /* @kind other */
+  --dur-slow: 280ms; /* @kind other */
+
+  /* ---- hazard stripe motif (diagonal industrial accent) ---- */
+  --hazard: repeating-linear-gradient(
+    -45deg,
+    var(--ink-900) 0 10px,
+    var(--red-500) 10px 20px
+  );
+  --hazard-subtle: repeating-linear-gradient(
+    -45deg,
+    transparent 0 8px,
+    rgba(209,10,17,0.10) 8px 16px
+  ); /* @kind other */
+}

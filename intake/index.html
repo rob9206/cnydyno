@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0F0F14">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://thunderhorsetuning.com/intake/">
+<title>Bike Intake - Thunderhorse Tuning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-900:#0F0F14;--ink-800:#16161D;--ink-700:#1F1F28;--ink-600:#2B2B36;--ink-500:#3A3A47;
+  --steel-600:#565C63;--steel-500:#6B7178;--steel-400:#8A9097;--steel-300:#B2B7BD;--steel-200:#D4D8DC;--steel-100:#E7EAED;--steel-50:#F2F4F5;
+  --bone:#F4F2EC;--white:#FFFFFF;
+  --red-500:#D10A11;--red-600:#B00007;--red-700:#8A0008;--red-50:#FDEEEE;
+  --green-500:#18A957;
+  --font-display:'Oswald',sans-serif;--font-body:'Barlow',sans-serif;--font-mono:'JetBrains Mono',monospace;
+  --radius-sm:2px;--radius-md:4px;
+  --control-md:12px;
+  --hazard:repeating-linear-gradient(135deg,var(--red-500) 0 10px,var(--ink-900) 10px 20px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--steel-100);font-family:var(--font-body);color:var(--ink-700)}
+a{color:var(--red-600);text-decoration:none}
+a:hover{color:var(--red-500)}
+.hidden{display:none !important}
+.hp{position:absolute;left:-9999px;top:-9999px}
+.wrap{max-width:520px;margin:0 auto;padding:0 16px}
+.hazard{height:6px;background:var(--hazard)}
+header.masthead{background:var(--ink-900);padding:24px 0 22px}
+.lockup{display:flex;align-items:baseline;gap:8px;font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:.08em;text-transform:uppercase}
+.lockup .a{color:var(--bone)}.lockup .b{color:var(--red-500)}
+.eyebrow{margin-top:16px;font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--steel-400)}
+h1{margin:6px 0 8px;font-family:var(--font-display);font-size:30px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--bone);line-height:1.1}
+.intro{margin:0;font-size:14.5px;line-height:1.55;color:var(--steel-300);text-wrap:pretty}
+.progress{position:sticky;top:0;z-index:10;background:var(--ink-800);border-bottom:1px solid var(--ink-600);padding:10px 0}
+.progress .wrap{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"count req" "track track" "tag tag";align-items:center;gap:7px 10px}
+.progress .count{grid-area:count;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--bone);white-space:nowrap}
+.progress .req{grid-area:req;justify-self:end;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--steel-300);white-space:nowrap}
+.progress .track{grid-area:track;height:6px;background:var(--ink-600);border-radius:var(--radius-sm);overflow:hidden}
+.progress .fill{height:100%;width:0%;background:var(--red-500);transition:width .25s ease-out}
+.progress .tag{grid-area:tag;font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--steel-400)}
+main{padding:20px 0 40px}
+main .wrap{display:grid;gap:14px}
+.note-restored{background:var(--bone);border:1px solid var(--steel-200);border-radius:var(--radius-md);padding:9px 12px;font-size:13px;color:var(--steel-600)}
+.note-restored .zap{color:var(--red-500)}
+.step{display:grid;gap:14px}
+.card{background:var(--white);border:1px solid var(--steel-200);border-radius:var(--radius-md);padding:18px 16px 20px;box-shadow:0 2px 0 rgba(8,8,12,.06)}
+.card.rail{border-left:3px solid var(--red-500)}
+.card-head{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--steel-100);padding-bottom:10px;margin-bottom:14px}
+.card-head .num{font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--red-500)}
+.card-head h2{margin:0;font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-900)}
+.card-head .aside{margin-left:auto;font-size:12px;color:var(--steel-400)}
+.lbl{display:block;font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--steel-600);margin-bottom:6px}
+.lbl .opt{color:var(--steel-400);text-transform:none;letter-spacing:0;font-family:var(--font-body);font-weight:400}
+.inp,.sel,.ta{width:100%;padding:var(--control-md);border:1px solid var(--steel-300);border-radius:var(--radius-md);font-family:var(--font-body);font-size:16px;color:var(--ink-900);background:var(--white);outline:none}
+.ta{resize:vertical}
+.inp.mono{font-family:var(--font-mono);font-size:14px}
+.inp:focus,.sel:focus,.ta:focus{border-color:var(--red-500);box-shadow:0 0 0 1px var(--red-500)}
+.inp::placeholder,.ta::placeholder{color:var(--steel-400);opacity:1}
+input[type="checkbox"],input[type="radio"]{accent-color:var(--red-500);width:18px;height:18px;flex:0 0 auto;margin:0}
+.field{margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-yr{display:grid;grid-template-columns:88px 1fr;gap:10px}
+.grid-vin{display:grid;grid-template-columns:1fr 110px;gap:10px}
+.choice{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--steel-200);border-radius:var(--radius-md);cursor:pointer;font-size:15px}
+.choice .t{display:block;font-weight:600;font-size:15px;color:var(--ink-900)}
+.choice .s{display:block;font-size:13px;color:var(--steel-500)}
+.choice .price{margin-left:auto;font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--red-600);white-space:nowrap}
+.choice .hint{color:var(--steel-500);font-size:13px}
+.stack{display:grid;gap:8px}
+.chk{display:flex;align-items:center;gap:9px;font-size:14.5px;padding:4px 0;cursor:pointer}
+.chk.strong{font-weight:600}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detail{margin:2px 0 4px;padding:10px 12px;font-size:15px;background:#F9FAFA}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-family:var(--font-body);font-size:13px;font-weight:600;padding:7px 10px;border:1px solid var(--steel-300);background:var(--white);color:var(--ink-700);border-radius:var(--radius-sm);cursor:pointer}
+.chip.sel{border-color:var(--red-500);background:var(--red-50);color:var(--red-700)}
+.subhint{margin:10px 0 0;font-size:12.5px;color:var(--steel-400)}
+.photo-grid{display:grid;gap:10px}
+.photo-grid .slot{display:grid;gap:6px}
+.photo-grid .slot-label{font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-600)}
+.photo-input{font-size:14px}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.thumbs .ph{position:relative}
+.thumbs img{width:100%;height:84px;object-fit:cover;border:1px solid var(--steel-200);border-radius:var(--radius-sm);display:block}
+.thumbs button{position:absolute;top:4px;right:4px;width:22px;height:22px;line-height:1;border:none;border-radius:var(--radius-sm);background:var(--ink-900);color:var(--bone);font-size:14px;cursor:pointer}
+.waiver-box{background:var(--bone);border:1px solid var(--steel-200);border-radius:var(--radius-md);padding:12px 14px;max-height:170px;overflow:auto;font-size:13px;line-height:1.6;color:var(--ink-700);margin-bottom:14px}
+.waiver-box p{margin:0 0 8px}.waiver-box p:last-child{margin:0}
+.sig-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.sig-ok{font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--green-500)}
+#sig-pad{width:100%;height:140px;display:block;background:var(--white);border:1px dashed var(--steel-400);border-radius:var(--radius-md);touch-action:none;cursor:crosshair}
+#sig-pad.err{border-color:var(--red-500);box-shadow:0 0 0 1px var(--red-500)}
+.sig-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.sig-foot .meta{font-size:12.5px;color:var(--steel-400)}
+.sig-foot .meta .mono{font-family:var(--font-mono)}
+.btn-ghost{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--steel-600);background:var(--steel-50);border:1px solid var(--steel-300);border-radius:var(--radius-md);padding:11px 12px;cursor:pointer}
+.btn-ghost:hover{border-color:var(--steel-600);color:var(--ink-900)}
+.btn-ghost:active{transform:translateY(1px)}
+.alert{background:var(--red-50);border:1px solid var(--red-500);border-radius:var(--radius-md);padding:12px 14px;font-size:14px;color:var(--red-700);line-height:1.6}
+.alert strong{font-family:var(--font-display);text-transform:uppercase;letter-spacing:.08em;font-size:12px;display:block;margin-bottom:2px}
+.wizard-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wizard-actions .full{grid-column:1 / -1}
+.btn-primary{width:100%;padding:16px;background:var(--red-500);color:var(--white);border:none;border-radius:var(--radius-md);font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .15s ease-out}
+.btn-primary:hover{background:var(--red-600);box-shadow:0 0 0 1px var(--red-500),0 0 24px -2px rgba(209,10,17,.55)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-primary[disabled]{opacity:.6;cursor:wait}
+.undernote{margin:10px 0 0;text-align:center;font-size:13px;color:var(--steel-500)}
+.success-eyebrow{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--steel-600)}
+.success h2{margin:8px 0 10px;font-family:var(--font-display);font-size:34px;font-weight:700;text-transform:uppercase;color:var(--ink-900);line-height:1.05}
+.success h2 .zap{color:var(--red-500)}
+.success p{margin:0;font-size:15px;line-height:1.6}
+.success ul{margin:0;padding:0 0 0 18px;font-size:14.5px;line-height:1.9}
+.success h3{margin:0 0 12px;font-family:var(--font-display);font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-900)}
+.shop-card{background:var(--ink-900);border-radius:var(--radius-md);padding:18px;color:var(--bone)}
+.shop-card .k{font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--steel-400);margin-bottom:8px}
+.shop-card .v{font-size:14.5px;line-height:1.8;color:var(--steel-200)}
+.shop-card a{color:var(--bone);font-family:var(--font-mono);font-size:14px}
+footer{max-width:520px;margin:0 auto;padding:8px 16px 32px;text-align:center;font-size:12px;color:var(--steel-400);line-height:1.8}
+@media (max-width:480px){
+  .grid2,.grid-yr,.grid-vin,.chk-grid{grid-template-columns:1fr}
+  .progress .wrap{grid-template-columns:1fr;grid-template-areas:"count" "track" "tag" "req"}
+  .progress .req{justify-self:start}
+}
+</style>
+<noscript>
+  <style>.progress{display:none}</style>
+</noscript>
+</head>
+<body>
+<div class="hazard"></div>
+<header class="masthead">
+  <div class="wrap">
+    <div class="lockup"><span class="a">Thunderhorse</span><span class="b">Tuning</span></div>
+    <div class="eyebrow">Pre-appointment intake</div>
+    <h1>Before you drop off.</h1>
+    <p class="intro">The rundown on your bike so dyno day goes fast. About 5 minutes. Saves as you go.</p>
+  </div>
+</header>
+
+<div class="progress" id="wizard-progress">
+  <div class="wrap">
+    <span class="count" id="step-count">Step 1 of 4</span>
+    <span class="req" id="required-count">0/11 required</span>
+    <div class="track"><div class="fill" id="step-fill"></div></div>
+    <span class="tag" id="step-tag">You + appointment</span>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="note-restored hidden" id="note-restored"><span class="zap">!</span> Picked up where you left off.</div>
+
+    <form id="intake-form" name="bike-intake" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" action="/intake/" novalidate style="display:grid;gap:14px">
+      <input type="hidden" name="form-name" value="bike-intake">
+      <p class="hp"><label>Do not fill this out if you are human: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <input type="hidden" name="signature_data" id="signature_data">
+      <input type="hidden" name="signature_date" id="signature_date">
+
+      <div class="step" data-step="1">
+        <section class="card">
+          <div class="card-head"><span class="num">01</span><h2>You &amp; the appointment</h2></div>
+          <div class="field">
+            <label class="lbl" for="f-name">Name *</label>
+            <input class="inp" id="f-name" type="text" name="name" autocomplete="name" required>
+          </div>
+          <div class="grid2 field">
+            <div>
+              <label class="lbl" for="f-phone">Phone *</label>
+              <input class="inp" id="f-phone" type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="(607) 703-8311" required>
+            </div>
+            <div>
+              <label class="lbl" for="f-city">City</label>
+              <input class="inp" id="f-city" type="text" name="city" placeholder="Utica">
+            </div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="f-email">Email *</label>
+            <input class="inp" id="f-email" type="email" name="email" inputmode="email" autocomplete="email" placeholder="For your dyno sheet" required>
+          </div>
+          <span class="lbl">Service *</span>
+          <div class="stack" style="margin-bottom:16px">
+            <label class="choice"><input type="radio" name="service" value="Full Dyno Tune" required><span><span class="t">Full Dyno Tune</span><span class="s">Baseline pulls, DynoAI calibration, verified + dyno sheet</span></span><span class="price">from $650</span></label>
+            <label class="choice"><input type="radio" name="service" value="Diagnostic &amp; Tune Correction"><span><span class="t">Diagnostic &amp; Tune Correction</span><span class="s">Fix a bad tune or chase a problem</span></span><span class="price">from $300</span></label>
+            <label class="choice"><input type="radio" name="service" value="Performance build"><span><span class="t">Performance build</span><span class="s">Stage 1 and up - we will quote it</span></span><span class="price">quoted</span></label>
+            <label class="choice"><input type="radio" name="service" value="Group / event tuning"><span><span class="t">Group / event tuning</span><span class="s">Rally, club, shop day - 5+ bikes</span></span><span class="price">quoted</span></label>
+            <label class="choice"><input type="radio" name="service" value="Not sure"><span><span class="t">Not sure - recommend for me</span><span class="s">Rob will call it after a look</span></span></label>
+          </div>
+          <div class="grid2">
+            <div>
+              <label class="lbl" for="f-date">Appt. date *</label>
+              <input class="inp mono" id="f-date" type="date" name="appointment_date" required>
+            </div>
+            <div>
+              <label class="lbl" for="f-tod">Time of day</label>
+              <select class="sel" id="f-tod" name="time_of_day">
+                <option value="" selected>Select...</option>
+                <option>Morning</option><option>Midday</option><option>Afternoon</option><option>Whenever</option>
+              </select>
+            </div>
+          </div>
+          <p class="subhint">Booked or not, pick a date that works. We pair this with your Square booking.</p>
+        </section>
+      </div>
+
+      <div class="step" data-step="2">
+        <section class="card">
+          <div class="card-head"><span class="num">02</span><h2>The bike</h2></div>
+          <div class="grid-yr field">
+            <div>
+              <label class="lbl" for="f-year">Year *</label>
+              <input class="inp" id="f-year" type="text" name="year" inputmode="numeric" maxlength="4" placeholder="2021" required>
+            </div>
+            <div>
+              <label class="lbl" for="f-make">Make *</label>
+              <select class="sel" id="f-make" name="make" required>
+                <option value="" selected>Select...</option>
+                <option>Harley-Davidson</option><option>Indian</option><option>Ducati</option><option>Honda</option><option>Yamaha</option><option>Suzuki</option><option>Kawasaki</option><option>Triumph</option><option>BMW</option><option>KTM</option><option>Other / custom</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="f-model">Model *</label>
+            <input class="inp" id="f-model" type="text" name="model" placeholder="Road Glide, Chief, Panigale..." required>
+            <div class="chips hidden" id="chips"></div>
+          </div>
+          <div class="grid-vin field">
+            <div>
+              <label class="lbl" for="f-vin">VIN <span class="opt">(optional)</span></label>
+              <input class="inp mono" id="f-vin" type="text" name="vin" placeholder="If handy - it is on the steering neck">
+            </div>
+            <div>
+              <label class="lbl" for="f-miles">Mileage</label>
+              <input class="inp mono" id="f-miles" type="text" name="mileage" inputmode="numeric" placeholder="18,400">
+            </div>
+          </div>
+          <div class="field">
+            <label class="lbl" for="f-tire">Rear tire condition</label>
+            <select class="sel" id="f-tire" name="rear_tire">
+              <option value="" selected>Optional - it is what sits on the drum</option>
+              <option>Fresh - under a year old</option><option>Good tread, some age</option><option>Squared off / getting thin</option><option>Not sure</option>
+            </select>
+          </div>
+          <span class="lbl">Dyno tuned before?</span>
+          <div class="grid2">
+            <label class="choice"><input type="radio" name="previously_tuned" value="Yes">Yes</label>
+            <label class="choice"><input type="radio" name="previously_tuned" value="No">No / not sure</label>
+          </div>
+          <div id="prev-detail-wrap" class="hidden" style="margin-top:8px">
+            <input class="inp" type="text" name="previous_tune_detail" placeholder="By whom? What maps are loaded?">
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><span class="num">03</span><h2>ECU &amp; fuel</h2></div>
+          <div class="field">
+            <label class="lbl" for="f-device">Flash device / tuner</label>
+            <select class="sel" id="f-device" name="flash_device">
+              <option value="" selected>Select...</option>
+              <option>Stock ECU - no flash device</option><option>Dynojet Power Vision</option><option>TTS MasterTune</option><option>Fuelpak FP3 / FP4</option><option>ThunderMax</option><option>Dynojet Power Commander</option><option>Something else</option><option>Not sure</option>
+            </select>
+          </div>
+          <div class="field hidden" id="device-access">
+            <span class="lbl">Where is the device?</span>
+            <div class="stack">
+              <label class="choice"><input type="radio" name="device_location" value="I will bring it">I have it - I will bring it</label>
+              <label class="choice"><input type="radio" name="device_location" value="Stays on the bike">It stays on the bike</label>
+              <label class="choice"><input type="radio" name="device_location" value="Not sure">Not sure</label>
+            </div>
+          </div>
+          <div>
+            <label class="lbl" for="f-fuel">Fuel you run</label>
+            <select class="sel" id="f-fuel" name="fuel_octane">
+              <option value="" selected>Optional</option>
+              <option>87 octane</option><option>89 octane</option><option>91 premium</option><option>93 premium</option><option>Ethanol-free / rec fuel</option><option>Race fuel</option><option>Not sure</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><span class="num">04</span><h2>What is on it</h2><span class="aside">Check what applies</span></div>
+          <div class="stack" style="gap:6px">
+            <label class="chk"><input type="checkbox" name="mod_exhaust" value="Yes" data-detail="det-exhaust">Exhaust / slip-ons</label>
+            <input class="inp detail hidden" id="det-exhaust" type="text" name="mod_exhaust_detail" placeholder="Brand / pipe? e.g. Bassani Road Rage 2-1">
+            <label class="chk"><input type="checkbox" name="mod_intake" value="Yes" data-detail="det-intake">Intake / air cleaner</label>
+            <input class="inp detail hidden" id="det-intake" type="text" name="mod_intake_detail" placeholder="Which one?">
+            <label class="chk"><input type="checkbox" name="mod_cams" value="Yes" data-detail="det-cams">Cams</label>
+            <input class="inp detail hidden" id="det-cams" type="text" name="mod_cams_detail" placeholder="Grind? e.g. S&amp;S 475">
+            <label class="chk"><input type="checkbox" name="mod_bigbore" value="Yes" data-detail="det-bigbore">Big bore / engine work</label>
+            <input class="inp detail hidden" id="det-bigbore" type="text" name="mod_bigbore_detail" placeholder="Displacement, heads, compression...">
+            <label class="chk"><input type="checkbox" name="mod_injectors" value="Yes" data-detail="det-injectors">Injectors / throttle body</label>
+            <input class="inp detail hidden" id="det-injectors" type="text" name="mod_injectors_detail" placeholder="Size / brand?">
+            <label class="chk"><input type="checkbox" name="mod_clutch" value="Yes" data-detail="det-clutch">Clutch / drivetrain</label>
+            <input class="inp detail hidden" id="det-clutch" type="text" name="mod_clutch_detail" placeholder="What is changed?">
+          </div>
+          <input class="inp" style="margin-top:10px" type="text" name="mods_other" placeholder="Anything else - head work, turbo, nitrous...">
+          <div style="margin-top:14px">
+            <span class="lbl">Photos <span class="opt">- optional, up to 3</span></span>
+            <div class="photo-grid">
+              <div class="slot">
+                <span class="slot-label">Photo 1</span>
+                <input class="inp photo-input" type="file" name="photo_1" id="f-photo-1" accept="image/*">
+              </div>
+              <div class="slot">
+                <span class="slot-label">Photo 2</span>
+                <input class="inp photo-input" type="file" name="photo_2" id="f-photo-2" accept="image/*">
+              </div>
+              <div class="slot">
+                <span class="slot-label">Photo 3</span>
+                <input class="inp photo-input" type="file" name="photo_3" id="f-photo-3" accept="image/*">
+              </div>
+            </div>
+            <p class="subhint">Large images are compressed before send. Or text photos to (607) 703-8311.</p>
+            <div class="thumbs hidden" id="thumbs"></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="step" data-step="3">
+        <section class="card">
+          <div class="card-head"><span class="num">05</span><h2>How it runs</h2></div>
+          <label class="chk strong" style="margin-bottom:8px"><input type="checkbox" name="symptom_none" value="Yes" id="f-sym-none">Nothing wrong - just want it right</label>
+          <div id="symptom-extra">
+            <div class="chk-grid" style="margin-bottom:12px">
+              <label class="chk"><input type="checkbox" name="symptom_decel_pop" value="Yes">Decel popping</label>
+              <label class="chk"><input type="checkbox" name="symptom_runs_hot" value="Yes">Runs hot</label>
+              <label class="chk"><input type="checkbox" name="symptom_flat_spots" value="Yes">Flat spots / hesitation</label>
+              <label class="chk"><input type="checkbox" name="symptom_hard_start" value="Yes">Hard starting</label>
+              <label class="chk"><input type="checkbox" name="symptom_poor_mpg" value="Yes">Poor fuel mileage</label>
+              <label class="chk"><input type="checkbox" name="symptom_cel" value="Yes">Check engine light</label>
+            </div>
+            <textarea class="ta" rows="3" name="symptom_notes" placeholder="When does it act up? Cold starts, highway speed, two-up..."></textarea>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><span class="num">06</span><h2>Goals</h2></div>
+          <div class="chk-grid" style="margin-bottom:12px">
+            <label class="chk"><input type="checkbox" name="goal_max_power" value="Yes">Max power</label>
+            <label class="chk"><input type="checkbox" name="goal_drivability" value="Yes">Street drivability</label>
+            <label class="chk"><input type="checkbox" name="goal_run_cooler" value="Yes">Run cooler</label>
+            <label class="chk"><input type="checkbox" name="goal_economy" value="Yes">Fuel economy</label>
+          </div>
+          <input class="inp" type="text" name="goal_notes" placeholder="What does done right look like to you?">
+        </section>
+
+        <section class="card">
+          <div class="card-head"><span class="num">07</span><h2>Drop-off</h2></div>
+          <div class="stack" style="margin-bottom:14px">
+            <label class="choice"><input type="radio" name="drop_plan" value="Night before">Night before <span class="hint">- easiest for everyone</span></label>
+            <label class="choice"><input type="radio" name="drop_plan" value="Morning of">Morning of the appointment</label>
+            <label class="choice"><input type="radio" name="drop_plan" value="Wait with it">I would like to wait with it <span class="hint">- schedule allowing</span></label>
+          </div>
+          <label class="chk" style="margin-bottom:14px"><input type="checkbox" name="keys_with_bike" value="Yes">Key + fob will be with the bike</label>
+          <textarea class="ta" rows="2" name="drop_notes" placeholder="Trailer? After-hours drop? Anything we should know."></textarea>
+        </section>
+
+        <section class="card">
+          <div class="card-head"><span class="num">08</span><h2>How did you find us?</h2></div>
+          <select class="sel" name="referral">
+            <option value="" selected>Optional - pick one</option>
+            <option>Google</option><option>Facebook / Instagram</option><option>Word of mouth</option><option>Rally or event</option><option>Repeat customer</option><option>Rode past the shop</option><option>Other</option>
+          </select>
+        </section>
+      </div>
+
+      <div class="step" data-step="4">
+        <section class="card rail">
+          <div class="card-head"><span class="num">09</span><h2>Release of liability</h2></div>
+          <!-- OWNER: have counsel review before relying on this release text. -->
+          <div class="waiver-box" role="region" aria-label="Release of liability" tabindex="0">
+            <p><strong>Read it - it is short.</strong> Dyno tuning runs your motorcycle at wide-open throttle under load. That is the job. Mechanical failure on a machine we did not build is rare, but real. By signing:</p>
+            <p>1. You confirm the bike is yours (or you are authorized to act for the owner), it is mechanically sound to your knowledge, and you have disclosed every known issue in this form.</p>
+            <p>2. You release Dawson Motoring LLC (DBA Thunderhorse Tuning) from liability for pre-existing conditions and failures of parts we did not install or modify - worn clutches, tired gaskets, aged tires, hidden electrical faults.</p>
+            <p>3. We abort any pull the moment the data says something is wrong. You authorize us to make that call.</p>
+            <p>4. Bikes left more than 7 days after completed work may incur storage fees. We treat every bike like the name on the tank is ours. - Rob Dawson</p>
+          </div>
+          <label class="chk strong" style="margin-bottom:14px;font-size:15px"><input type="checkbox" name="waiver_agree" value="Agreed" required>I have read it and I agree. *</label>
+          <div class="field">
+            <label class="lbl" for="f-legal">Full legal name *</label>
+            <input class="inp" id="f-legal" type="text" name="legal_name" autocomplete="name" required>
+          </div>
+          <div class="sig-head">
+            <span class="lbl" style="margin:0">Signature *</span>
+            <span class="sig-ok hidden" id="sig-ok">SIGNED OK</span>
+          </div>
+          <canvas id="sig-pad" width="640" height="160"></canvas>
+          <div class="sig-foot">
+            <span class="meta">Sign with your finger · <span class="mono">DATE: <span id="sig-date-label"></span></span></span>
+            <button type="button" class="btn-ghost" id="sig-clear">Clear</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="alert hidden" id="form-alert"><strong>Still need:</strong><span id="form-alert-text"></span></div>
+
+      <div class="wizard-actions">
+        <button type="button" class="btn-ghost hidden" id="prev-btn">Back</button>
+        <button type="button" class="btn-primary hidden" id="next-btn">Next step</button>
+        <button type="submit" class="btn-primary full" id="submit-btn">Send it to the shop</button>
+      </div>
+      <p class="undernote" id="wizard-note">Saves automatically. Nothing is charged today.</p>
+    </form>
+
+    <div id="success" class="hidden" style="display:grid;gap:14px">
+      <section class="card success">
+        <div class="success-eyebrow">Build sheet received</div>
+        <h2><span class="zap">!</span> Got it.</h2>
+        <p>We will review it before your dyno day and text you to confirm drop-off. Nothing is charged today. <em style="color:var(--steel-600)">"If my name is on it, it is right." - Rob</em></p>
+      </section>
+      <section class="card rail success">
+        <h3>Bring at drop-off</h3>
+        <ul>
+          <li>Key + fob</li>
+          <li>Flash device or its login, if you have one</li>
+          <li>The fuel you actually run - half tank or better</li>
+          <li>Prior dyno sheets or tune files, if any</li>
+        </ul>
+      </section>
+      <section class="shop-card">
+        <div class="k">The shop</div>
+        <div class="v">609 Columbia St, Utica, NY 13501<br>Tue-Fri 9-6 · Sat 9-3<br><a href="tel:16077038311">(607) 703-8311</a></div>
+      </section>
+      <p style="text-align:center;margin:4px 0 0;font-size:14px"><a href="https://www.thunderhorsetuning.com">Back to thunderhorsetuning.com</a></p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Thunderhorse Tuning · 609 Columbia St, Utica, NY 13501<br>Tue-Fri 9-6 · Sat 9-3 · <a href="tel:16077038311">(607) 703-8311</a>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var SHOP_PHONE = '(607) 703-8311';
+  var SHOP_EMAIL = 'dawsonmotoring@gmail.com';
+  var form = document.getElementById('intake-form');
+  var alertBox = document.getElementById('form-alert');
+  var alertText = document.getElementById('form-alert-text');
+  var saveKey = 'th-intake-v2';
+  var stepKey = saveKey + ':step';
+  var currentStep = 0;
+  var signed = false;
+
+  var stepTitles = ['You + appointment', 'Bike + build', 'Goals + logistics', 'Waiver + sign'];
+  var stepFields = [
+    ['name', 'phone', 'email', 'service', 'appointment_date'],
+    ['year', 'make', 'model'],
+    [],
+    ['waiver_agree', 'legal_name']
+  ];
+  var requiredFields = ['name', 'phone', 'email', 'service', 'appointment_date', 'year', 'make', 'model', 'waiver_agree', 'legal_name'];
+  var labels = {
+    name: 'Name',
+    phone: 'Phone',
+    email: 'Email',
+    service: 'Service',
+    appointment_date: 'Appointment date',
+    year: 'Bike year',
+    make: 'Make',
+    model: 'Model',
+    waiver_agree: 'Waiver agreement',
+    legal_name: 'Full legal name'
+  };
+
+  var steps = Array.prototype.slice.call(form.querySelectorAll('.step'));
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  var submitBtn = document.getElementById('submit-btn');
+  var wizardNote = document.getElementById('wizard-note');
+
+  function clamp(n, min, max) {
+    return Math.max(min, Math.min(max, n));
+  }
+
+  function firstControl(name) {
+    var controls = form.elements[name];
+    if (!controls) return null;
+    if (controls instanceof RadioNodeList) return controls[0] || null;
+    return controls;
+  }
+
+  function isFilled(name) {
+    var controls = form.elements[name];
+    if (!controls) return false;
+    if (controls instanceof RadioNodeList) return !!String(controls.value || '').trim();
+    if (controls.type === 'checkbox') return controls.checked;
+    return !!String(controls.value || '').trim();
+  }
+
+  function clearControl(control) {
+    if (!control) return;
+    if (control.type === 'checkbox' || control.type === 'radio') {
+      control.checked = false;
+    } else if (control.type === 'file') {
+      control.value = '';
+    } else if (control.type !== 'hidden') {
+      control.value = '';
+    }
+  }
+
+  function clearWithin(node) {
+    if (!node) return;
+    Array.prototype.forEach.call(node.querySelectorAll('input,select,textarea'), function (control) {
+      if (!control.name || control.name === 'bot-field' || control.type === 'hidden') return;
+      clearControl(control);
+    });
+  }
+
+  function serialize() {
+    var out = {};
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.type === 'file' || el.type === 'hidden' || el.name === 'bot-field') return;
+      if (el.type === 'radio') {
+        if (el.checked) out[el.name] = el.value;
+      } else if (el.type === 'checkbox') {
+        if (el.checked) out[el.name] = true;
+      } else if (String(el.value || '').trim()) {
+        out[el.name] = el.value;
+      }
+    });
+    return out;
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(saveKey, JSON.stringify(serialize()));
+      localStorage.setItem(stepKey, String(currentStep));
+    } catch (err) {}
+  }
+
+  function restore() {
+    var raw = null;
+    try { raw = localStorage.getItem(saveKey); } catch (err) {}
+    if (raw) {
+      var data = null;
+      try { data = JSON.parse(raw); } catch (err2) {}
+      if (data && typeof data === 'object' && Object.keys(data).length) {
+        Object.keys(data).forEach(function (name) {
+          var controls = form.elements[name];
+          if (!controls) return;
+          if (controls instanceof RadioNodeList) {
+            controls.value = data[name];
+            return;
+          }
+          if (controls.type === 'checkbox') {
+            controls.checked = data[name] === true;
+            return;
+          }
+          if (controls.type !== 'file' && controls.type !== 'hidden') {
+            controls.value = data[name];
+          }
+        });
+        document.getElementById('note-restored').classList.remove('hidden');
+      }
+    }
+
+    var savedStep = null;
+    try { savedStep = parseInt(localStorage.getItem(stepKey), 10); } catch (err3) {}
+    if (!isNaN(savedStep)) currentStep = clamp(savedStep, 0, steps.length - 1);
+  }
+
+  function setRequiredCount() {
+    var done = requiredFields.filter(isFilled).length + (signed ? 1 : 0);
+    document.getElementById('required-count').textContent = done + '/' + (requiredFields.length + 1) + ' required';
+  }
+
+  function updateProgress() {
+    document.getElementById('step-count').textContent = 'Step ' + (currentStep + 1) + ' of ' + steps.length;
+    document.getElementById('step-tag').textContent = stepTitles[currentStep];
+    document.getElementById('step-fill').style.width = Math.round(((currentStep + 1) / steps.length) * 100) + '%';
+    setRequiredCount();
+  }
+
+  function showStep(index, opts) {
+    opts = opts || {};
+    currentStep = clamp(index, 0, steps.length - 1);
+    steps.forEach(function (stepNode, idx) {
+      stepNode.classList.toggle('hidden', idx !== currentStep);
+    });
+
+    prevBtn.classList.toggle('hidden', currentStep === 0);
+    nextBtn.classList.toggle('hidden', currentStep === steps.length - 1);
+    submitBtn.classList.toggle('hidden', currentStep !== steps.length - 1);
+
+    if (currentStep === steps.length - 1) {
+      wizardNote.textContent = 'Final step: sign and send. Saves automatically.';
+    } else {
+      wizardNote.textContent = 'Saves automatically. Nothing is charged today.';
+    }
+
+    updateProgress();
+    save();
+    if (!opts.silent) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function collectMissing(fields, includeSignature) {
+    var missing = [];
+    fields.forEach(function (name) {
+      if (!isFilled(name)) missing.push(name);
+    });
+    if (includeSignature && !signed) missing.push('Signature');
+    return missing;
+  }
+
+  function showAlert(missing) {
+    if (!missing.length) {
+      alertBox.classList.add('hidden');
+      alertText.textContent = '';
+      return;
+    }
+    alertText.textContent = missing.map(function (name) { return labels[name] || name; }).join(' · ');
+    alertBox.classList.remove('hidden');
+  }
+
+  function focusFirstMissing(missingNames, includeSignature) {
+    var firstName = missingNames.find(function (name) { return name !== 'Signature'; });
+    if (firstName) {
+      var control = firstControl(firstName);
+      if (control && control.focus) control.focus();
+      return;
+    }
+    if (includeSignature && !signed) {
+      document.getElementById('sig-pad').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('sig-pad').classList.add('err');
+    }
+  }
+
+  function stepForField(fieldName) {
+    for (var i = 0; i < stepFields.length; i += 1) {
+      if (stepFields[i].indexOf(fieldName) !== -1) return i;
+    }
+    return -1;
+  }
+
+  function revealStepForMissing(missing) {
+    for (var i = 0; i < missing.length; i += 1) {
+      var name = missing[i];
+      if (name === 'Signature') {
+        showStep(steps.length - 1);
+        return;
+      }
+      var idx = stepForField(name);
+      if (idx >= 0) {
+        showStep(idx);
+        return;
+      }
+    }
+  }
+
+  function toggleReveal(nodeId, show) {
+    var node = document.getElementById(nodeId);
+    if (!node) return;
+    node.classList.toggle('hidden', !show);
+    if (!show) clearWithin(node);
+  }
+
+  function syncReveals() {
+    var device = form.elements.flash_device.value;
+    var showAccess = !!device && device !== 'Stock ECU - no flash device' && device !== 'Not sure';
+    toggleReveal('device-access', showAccess);
+
+    var noSymptoms = document.getElementById('f-sym-none').checked;
+    toggleReveal('symptom-extra', !noSymptoms);
+
+    var prevTuned = form.elements.previously_tuned.value === 'Yes';
+    toggleReveal('prev-detail-wrap', prevTuned);
+
+    Array.prototype.forEach.call(form.querySelectorAll('[data-detail]'), function (check) {
+      var detail = document.getElementById(check.getAttribute('data-detail'));
+      if (!detail) return;
+      detail.classList.toggle('hidden', !check.checked);
+      if (!check.checked) detail.value = '';
+    });
+  }
+
+  var MODELS = {
+    'Harley-Davidson': ['Road Glide', 'Street Glide', 'Road King', 'Softail', 'Fat Bob', 'Low Rider S', 'Sportster', 'Pan America'],
+    'Indian': ['Chief', 'Chieftain', 'Challenger', 'Springfield', 'Scout', 'FTR'],
+    'Ducati': ['Panigale', 'Monster', 'Multistrada', 'Diavel', 'Streetfighter', 'Scrambler']
+  };
+  var chipsBox = document.getElementById('chips');
+  var modelInput = document.getElementById('f-model');
+
+  function renderChips() {
+    var make = form.elements.make.value;
+    var options = MODELS[make] || [];
+    chipsBox.textContent = '';
+    chipsBox.classList.toggle('hidden', !options.length);
+    options.forEach(function (value) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'chip' + (modelInput.value === value ? ' sel' : '');
+      button.textContent = value;
+      button.addEventListener('click', function () {
+        modelInput.value = value;
+        renderChips();
+        save();
+        updateProgress();
+      });
+      chipsBox.appendChild(button);
+    });
+  }
+
+  var photoInputs = [
+    document.getElementById('f-photo-1'),
+    document.getElementById('f-photo-2'),
+    document.getElementById('f-photo-3')
+  ];
+  var thumbs = document.getElementById('thumbs');
+  var photoObjectUrls = [];
+
+  function assignSingleFile(input, file) {
+    try {
+      var dt = new DataTransfer();
+      if (file) dt.items.add(file);
+      input.files = dt.files;
+    } catch (err) {
+      if (!file) input.value = '';
+    }
+  }
+
+  function compressImage(file) {
+    return new Promise(function (resolve) {
+      if (!file || !/^image\//.test(file.type)) {
+        resolve(file);
+        return;
+      }
+
+      var img = new Image();
+      var objectUrl = URL.createObjectURL(file);
+      img.onload = function () {
+        var maxSide = 1600;
+        var width = img.naturalWidth;
+        var height = img.naturalHeight;
+        var scale = Math.min(1, maxSide / Math.max(width, height));
+        var targetW = Math.max(1, Math.round(width * scale));
+        var targetH = Math.max(1, Math.round(height * scale));
+
+        if (scale === 1 && file.size <= (2 * 1024 * 1024)) {
+          URL.revokeObjectURL(objectUrl);
+          resolve(file);
+          return;
+        }
+
+        var canvas = document.createElement('canvas');
+        canvas.width = targetW;
+        canvas.height = targetH;
+        var context = canvas.getContext('2d');
+        context.drawImage(img, 0, 0, targetW, targetH);
+        canvas.toBlob(function (blob) {
+          URL.revokeObjectURL(objectUrl);
+          if (!blob) {
+            resolve(file);
+            return;
+          }
+          var stem = file.name.replace(/\.[^.]+$/, '') || 'photo';
+          resolve(new File([blob], stem + '.jpg', { type: 'image/jpeg', lastModified: Date.now() }));
+        }, 'image/jpeg', 0.82);
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(objectUrl);
+        resolve(file);
+      };
+      img.src = objectUrl;
+    });
+  }
+
+  function clearThumbUrls() {
+    photoObjectUrls.forEach(function (url) { URL.revokeObjectURL(url); });
+    photoObjectUrls = [];
+  }
+
+  function renderPhotoThumbs() {
+    clearThumbUrls();
+    thumbs.textContent = '';
+    var count = 0;
+    photoInputs.forEach(function (input) {
+      var file = input.files && input.files[0];
+      if (!file) return;
+      count += 1;
+      var card = document.createElement('div');
+      card.className = 'ph';
+      var image = document.createElement('img');
+      var url = URL.createObjectURL(file);
+      photoObjectUrls.push(url);
+      image.src = url;
+      image.alt = file.name;
+      var remove = document.createElement('button');
+      remove.type = 'button';
+      remove.textContent = 'x';
+      remove.setAttribute('aria-label', 'Remove photo');
+      remove.addEventListener('click', function () {
+        assignSingleFile(input, null);
+        renderPhotoThumbs();
+        save();
+      });
+      card.appendChild(image);
+      card.appendChild(remove);
+      thumbs.appendChild(card);
+    });
+    thumbs.classList.toggle('hidden', count === 0);
+  }
+
+  function processPhotoInput(input) {
+    var file = input.files && input.files[0];
+    if (!file) {
+      renderPhotoThumbs();
+      save();
+      return;
+    }
+    compressImage(file).then(function (compressed) {
+      if (compressed && compressed !== file) assignSingleFile(input, compressed);
+      renderPhotoThumbs();
+      save();
+    });
+  }
+
+  var pad = document.getElementById('sig-pad');
+  var context = pad.getContext('2d');
+  context.lineWidth = 2.4;
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+  context.strokeStyle = '#0F0F14';
+  var drawing = false;
+
+  function canvasPoint(event) {
+    var rect = pad.getBoundingClientRect();
+    return [
+      (event.clientX - rect.left) * (pad.width / rect.width),
+      (event.clientY - rect.top) * (pad.height / rect.height)
+    ];
+  }
+
+  pad.addEventListener('pointerdown', function (event) {
+    event.preventDefault();
+    pad.setPointerCapture(event.pointerId);
+    drawing = true;
+    var point = canvasPoint(event);
+    context.beginPath();
+    context.moveTo(point[0], point[1]);
+    context.lineTo(point[0] + 0.1, point[1]);
+    context.stroke();
+    if (!signed) {
+      signed = true;
+      document.getElementById('sig-ok').classList.remove('hidden');
+      pad.classList.remove('err');
+      updateProgress();
+    }
+  });
+
+  pad.addEventListener('pointermove', function (event) {
+    if (!drawing) return;
+    var point = canvasPoint(event);
+    context.lineTo(point[0], point[1]);
+    context.stroke();
+  });
+
+  ['pointerup', 'pointercancel'].forEach(function (evt) {
+    pad.addEventListener(evt, function () {
+      drawing = false;
+    });
+  });
+
+  document.getElementById('sig-clear').addEventListener('click', function () {
+    context.clearRect(0, 0, pad.width, pad.height);
+    signed = false;
+    document.getElementById('sig-ok').classList.add('hidden');
+    updateProgress();
+    save();
+  });
+
+  function openMailFallback() {
+    function val(name) {
+      var control = form.elements[name];
+      if (!control) return '';
+      if (control instanceof RadioNodeList) return String(control.value || '').trim();
+      if (control.type === 'checkbox') return control.checked ? 'Yes' : 'No';
+      return String(control.value || '').trim();
+    }
+
+    var mods = [];
+    function modIf(flag, detailName, label) {
+      if (!form.elements[flag].checked) return;
+      var detail = val(detailName);
+      mods.push(label + (detail ? ': ' + detail : ''));
+    }
+    modIf('mod_exhaust', 'mod_exhaust_detail', 'Exhaust');
+    modIf('mod_intake', 'mod_intake_detail', 'Intake');
+    modIf('mod_cams', 'mod_cams_detail', 'Cams');
+    modIf('mod_bigbore', 'mod_bigbore_detail', 'Big bore');
+    modIf('mod_injectors', 'mod_injectors_detail', 'Injectors/TB');
+    modIf('mod_clutch', 'mod_clutch_detail', 'Clutch');
+    if (val('mods_other')) mods.push('Other: ' + val('mods_other'));
+
+    var lines = [
+      'Name: ' + val('name'),
+      'Phone: ' + val('phone'),
+      'Email: ' + val('email'),
+      'City: ' + val('city'),
+      'Service: ' + val('service'),
+      'Appointment date: ' + val('appointment_date'),
+      'Time of day: ' + val('time_of_day'),
+      'Bike: ' + [val('year'), val('make'), val('model')].filter(Boolean).join(' '),
+      'VIN: ' + val('vin'),
+      'Mileage: ' + val('mileage'),
+      'Rear tire: ' + val('rear_tire'),
+      'Previously tuned: ' + val('previously_tuned'),
+      'Previous tune detail: ' + val('previous_tune_detail'),
+      'Flash device: ' + val('flash_device'),
+      'Device access: ' + val('device_location'),
+      'Fuel octane: ' + val('fuel_octane'),
+      'Mods: ' + (mods.length ? mods.join('; ') : 'None listed'),
+      'Symptoms: ' + (form.elements.symptom_none.checked ? 'Nothing wrong' : 'See notes/checks'),
+      'Symptom notes: ' + val('symptom_notes'),
+      'Goals notes: ' + val('goal_notes'),
+      'Drop plan: ' + val('drop_plan'),
+      'Keys with bike: ' + val('keys_with_bike'),
+      'Drop notes: ' + val('drop_notes'),
+      'Referral: ' + val('referral'),
+      '',
+      'Photo attachments could not be included in email fallback.',
+      'Please text photos to ' + SHOP_PHONE + '.'
+    ];
+    var subjectBike = [val('year'), val('make'), val('model')].filter(Boolean).join(' ');
+    var subject = 'Bike intake - ' + (subjectBike || 'Thunderhorse rider');
+    window.location.href = 'mailto:' + SHOP_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  nextBtn.addEventListener('click', function () {
+    var missing = collectMissing(stepFields[currentStep], false);
+    showAlert(missing);
+    if (missing.length) {
+      focusFirstMissing(missing, false);
+      return;
+    }
+    showStep(currentStep + 1);
+  });
+
+  prevBtn.addEventListener('click', function () {
+    showAlert([]);
+    showStep(currentStep - 1);
+  });
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (form.elements['bot-field'].value) return;
+
+    var missingNames = [];
+    requiredFields.forEach(function (name) {
+      if (!isFilled(name)) missingNames.push(name);
+    });
+    if (!signed) missingNames.push('Signature');
+
+    if (missingNames.length) {
+      revealStepForMissing(missingNames);
+      showAlert(missingNames);
+      focusFirstMissing(missingNames, true);
+      return;
+    }
+
+    showAlert([]);
+    document.getElementById('signature_data').value = pad.toDataURL('image/png');
+    document.getElementById('signature_date').value = new Date().toISOString().slice(0, 10);
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    fetch(form.getAttribute('action') || '/', { method: 'POST', body: new FormData(form) })
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        try {
+          localStorage.removeItem(saveKey);
+          localStorage.removeItem(stepKey);
+        } catch (err) {}
+        form.classList.add('hidden');
+        document.getElementById('wizard-progress').classList.add('hidden');
+        document.getElementById('note-restored').classList.add('hidden');
+        document.getElementById('success').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send it to the shop';
+        alertText.textContent = 'Could not send online. Your email app will open with this intake pre-filled.';
+        alertBox.classList.remove('hidden');
+        openMailFallback();
+      });
+  });
+
+  form.addEventListener('input', function () {
+    save();
+    updateProgress();
+  });
+
+  form.addEventListener('change', function (event) {
+    if (event.target && (event.target.name === 'make' || event.target.id === 'f-model')) {
+      renderChips();
+    }
+    syncReveals();
+    save();
+    updateProgress();
+  });
+
+  photoInputs.forEach(function (input) {
+    input.addEventListener('change', function () { processPhotoInput(input); });
+  });
+
+  document.getElementById('f-date').min = new Date().toISOString().slice(0, 10);
+  document.getElementById('sig-date-label').textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  restore();
+  syncReveals();
+  renderChips();
+  renderPhotoThumbs();
+  showStep(currentStep, { silent: true });
+})();
+</script>
+</body>
+</html>
