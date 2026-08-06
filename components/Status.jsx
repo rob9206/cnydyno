@@ -174,13 +174,14 @@ function normalizeStreamUrl(raw) {
   }
 }
 
-function resolveBayStreamUrl(job, onDrum) {
-  const jobUrl = (job.streamUrl || '').trim();
-  if (jobUrl) return normalizeStreamUrl(jobUrl);
-  if (onDrum && typeof window !== 'undefined' && window.TH_BAY_STREAM_URL) {
-    return normalizeStreamUrl(window.TH_BAY_STREAM_URL);
-  }
-  return '';
+/* Per-job stream always shows at any stage; site default only when on drum. */
+function jobStreamUrl(job) {
+  return normalizeStreamUrl((job.streamUrl || '').trim());
+}
+
+function defaultBayStreamUrl(onDrum) {
+  if (!onDrum || typeof window === 'undefined' || !window.TH_BAY_STREAM_URL) return '';
+  return normalizeStreamUrl(window.TH_BAY_STREAM_URL);
 }
 
 function StatusBike({ job }) {
@@ -188,7 +189,7 @@ function StatusBike({ job }) {
   const onDrum = isDyno && (job.stage === 1 || job.stage === 3);
   const isReady = job.stage === job.stages.length - 1;
   const bayLabel = (job.bay || 'BAY 1') + (onDrum ? ' · ON THE DRUM' : isReady ? ' · READY' : '');
-  const streamUrl = resolveBayStreamUrl(job, onDrum);
+  const streamUrl = jobStreamUrl(job) || defaultBayStreamUrl(onDrum);
   const showStream = !!streamUrl;
   return (
     <StatusCard label="Your bike" style={{ overflow: 'hidden' }}>
