@@ -8,6 +8,20 @@ const SHOP_EMAIL = 'dawsonmotoring@gmail.com';
 const INTAKE_URL = '/intake/';
 const FORM_ENDPOINT = '/book/'; // path where the hidden Netlify form lives
 
+/* Syntax only: this cannot prove a mailbox exists or identify a real customer.
+ * Accept common public email addresses, including +tags and long TLDs. */
+function assessBookingEmail(value) {
+  const email = typeof value === 'string' ? value.trim() : '';
+  if (!email) return { email, error: 'Enter your email so we can confirm your request.' };
+  const parts = email.split('@');
+  const local = parts[0];
+  const syntax = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+  if (email.length > 254 || local.length > 64 || local.startsWith('.') || local.endsWith('.') || local.includes('..') || !syntax.test(email)) {
+    return { email, error: 'Enter a valid email address, like you@example.com.' };
+  }
+  return { email, error: null };
+}
+
 /* Scheduling policy — dyno time books at least two weeks out, and the shop
  * floor is closed Sunday & Monday (Saturday runs short hours). Date math is
  * local-time on purpose: "two weeks out" means the rider's wall calendar. */
@@ -63,11 +77,25 @@ function Booking({ go }) {
   const [done, setDone] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const formRef = React.useRef(null);
+  const submissionInFlight = React.useRef(false);
+  const [emailTouched, setEmailTouched] = React.useState(false);
   const [f, setF] = React.useState({
     bike: '2021 Harley Street Glide', make: 'Harley-Davidson', email: '', service: 'Full Dyno Tune',
     date: '', diag: false, mobile: false, notes: '',
   });
-  const set = (k) => (e) => setF((s) => ({ ...s, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
+  const set = (k) => (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setF((s) => ({ ...s, [k]: value }));
+    setError(null);
+  };
+  const emailCheck = assessBookingEmail(f.email);
+  const showEmailError = emailTouched && !!emailCheck.error;
+  const touchEmail = (event) => {
+    const value = event.target.value;
+    setF((s) => ({ ...s, email: value }));
+    setEmailTouched(true);
+  };
   const price = f.service === 'Full Dyno Tune' ? '650' : f.service === 'Diagnostic & Correction' ? '300' : 'Quote';
 
   /* The pages are pre-rendered to static HTML, so anything derived from
@@ -84,30 +112,45 @@ function Booking({ go }) {
   const applySuggestion = (d) => { setDateTouched(true); setF((s) => ({ ...s, date: toISODate(d) })); };
   const dateLabel = (iso, opts) => parseISODate(iso).toLocaleDateString('en-US', opts || { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
 
-  async function submit() {
+  async function submit(event) {
+    event.preventDefault();
+    // A ref closes the same-tick double-submit gap before React re-renders.
+    if (submissionInFlight.current) return;
+    const fields = new FormData(formRef.current);
+    const botField = String(fields.get('bot-field') || '');
+    if (botField) {
+      setError('Could not send this request. Please call or text (607) 703-8311 for help booking.');
+      return;
+    }
+    // Read the field itself as well as state so browser autofill is respected.
+    const contact = assessBookingEmail(fields.get('email'));
+    setF((s) => ({ ...s, email: contact.email }));
+    setEmailTouched(true);
     // Re-validate against a fresh clock (the page may have sat open for days)
     // and sync `now` so the field-level message agrees with this verdict.
     const t = new Date();
     const c = assessDate(f.date, t);
-    if (!c.ok) {
-      setNow(t);
-      setDateTouched(true);
-      setError('Fix the preferred date above to send your request.');
+    setNow(t);
+    setDateTouched(true);
+    if (contact.error || !c.ok) {
+      setError('Check the highlighted fields above to send your request.');
+      formRef.current.querySelector(contact.error ? '#booking-email' : '#booking-date').focus();
       return;
     }
+    submissionInFlight.current = true;
     setSubmitting(true);
     setError(null);
     const body = new URLSearchParams({
       'form-name': 'booking-request',
       bike: f.bike,
       make: f.make,
-      email: f.email,
+      email: contact.email,
       service: f.service,
       preferred_date: dateLabel(f.date) + ' (' + f.date + ')',
       diag: f.diag ? 'Yes (+$300)' : 'No',
       mobile: f.mobile ? 'Yes' : 'No',
       notes: f.notes || '(none)',
-      'bot-field': '',
+      'bot-field': botField,
     }).toString();
     try {
       const res = await fetch(FORM_ENDPOINT, {
@@ -124,7 +167,7 @@ function Booking({ go }) {
         'Service: ' + f.service,
         'Bike: ' + f.bike,
         'Make: ' + f.make,
-        'Email: ' + f.email,
+        'Email: ' + contact.email,
         'Preferred date: ' + dateLabel(f.date) + ' (' + f.date + ')',
         'Diagnostic pull: ' + (f.diag ? 'Yes (+$300)' : 'No'),
         'Group / event: ' + (f.mobile ? 'Yes' : 'No'),
@@ -133,6 +176,7 @@ function Booking({ go }) {
       setError('Could not submit online. Your email app will open with the request pre-filled.');
       window.location.href = 'mailto:' + SHOP_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyText);
     } finally {
+      submissionInFlight.current = false;
       setSubmitting(false);
     }
   }
@@ -146,7 +190,7 @@ function Booking({ go }) {
           </span>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 32, textTransform: 'uppercase', color: 'var(--text-strong)', margin: 0 }}>Request Sent</h2>
           <p style={{ fontFamily: 'var(--font-body)', fontSize: 16, color: 'var(--text-muted)', margin: '12px 0 24px' }}>
-            We’ll confirm your <strong style={{ color: 'var(--text-brand)' }}>{f.service}</strong> for the <strong>{f.bike}</strong>{f.date ? <> — requested for <strong>{dateLabel(f.date, { weekday: 'long', month: 'long', day: 'numeric' })}</strong> —</> : ''} within 24 hours. Next step: complete your bike intake before drop-off. {f.mobile ? 'Include your location in the notes for mobile/event service.' : ''}
+            We’ll respond about your <strong style={{ color: 'var(--text-brand)' }}>{f.service}</strong> for the <strong>{f.bike}</strong>{f.date ? <> — requested for <strong>{dateLabel(f.date, { weekday: 'long', month: 'long', day: 'numeric' })}</strong> —</> : ''} within 24 hours. Your appointment is only booked once we confirm it. Next step: complete your bike intake before drop-off. {f.mobile ? 'Include your location in the notes for mobile/event service.' : ''}
           </p>
           <div style={{ height: 1, background: 'var(--divider)', margin: '8px 0 22px' }} />
           <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--text-faint)', marginBottom: 12 }}>Next step</div>
@@ -176,16 +220,30 @@ function Booking({ go }) {
         Already booked? <a href={INTAKE_URL} style={{ color: 'var(--text-brand)', textDecoration: 'none', fontWeight: 600 }}>Complete your intake</a>.
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.4fr 0.9fr', gap: 24, alignItems: 'start' }}>
+      {/* Use one submit path for clicks and Enter. Custom validation provides
+          accessible inline errors; required/type remain on the email field. */}
+      <form ref={formRef} method="POST" action={FORM_ENDPOINT} onSubmit={submit} noValidate style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.4fr 0.9fr', gap: 24, alignItems: 'start' }}>
+        <div hidden aria-hidden="true">
+          <label>Leave this field empty<input name="bot-field" type="text" tabIndex={-1} autoComplete="off" /></label>
+        </div>
         <Card padding="28px 30px">
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 18 }}>
             <Input label="Year / Make / Model" value={f.bike} onChange={set('bike')} iconLeft={<Ico n="Bike" s={16} />} />
-            <Input label="Email" type="email" value={f.email} onChange={set('email')} placeholder="you@email.com" iconLeft={<Ico n="Mail" s={16} />} />
+            <Input
+              id="booking-email" name="email" label="Email" type="email" required
+              autoComplete="email" inputMode="email" autoCapitalize="none" spellCheck={false}
+              value={f.email} onChange={set('email')} onBlurCapture={touchEmail}
+              placeholder="you@email.com" iconLeft={<Ico n="Mail" s={16} />}
+              aria-invalid={showEmailError} aria-describedby={showEmailError ? 'booking-email-error' : 'booking-email-hint'}
+              error={showEmailError ? <span id="booking-email-error" role="alert">{emailCheck.error}</span> : null}
+              hint={<span id="booking-email-hint">We’ll use this email to confirm availability.</span>}
+            />
             <Select label="Make" value={f.make} onChange={set('make')} options={['Harley-Davidson', 'Indian', 'Ducati', 'Metric / Sport', 'Other']} />
             <Select label="Service" value={f.service} onChange={set('service')} options={['Full Dyno Tune', 'Diagnostic & Correction', 'Performance Build']} />
           </div>
           <div style={{ marginTop: 18 }}>
             <Input
+              id="booking-date"
               label="Preferred Date"
               type="date"
               value={f.date}
@@ -193,7 +251,9 @@ function Booking({ go }) {
               min={minISO}
               max={maxISO}
               iconLeft={<Ico n="CalendarDays" s={16} />}
-              error={showDateError ? check.error : null}
+              aria-invalid={showDateError}
+              aria-describedby={showDateError ? 'booking-date-error' : undefined}
+              error={showDateError ? <span id="booking-date-error" role="alert">{check.error}</span> : null}
               hint={check && check.ok ? (check.hint || dateLabel(f.date, { weekday: 'long', month: 'long', day: 'numeric' }) + ' works — we’ll confirm the exact slot by email.') : 'Dyno time books at least 2 weeks out. Closed Sun & Mon.'}
             />
             {now && (!f.date || showDateError) && (
@@ -244,8 +304,8 @@ function Booking({ go }) {
               <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Est. From</span>
               <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: 28, color: 'var(--text-brand)' }}>{price === 'Quote' ? 'Quote' : '$' + (f.diag && price !== 'Quote' ? (parseInt(price) + 300).toLocaleString() : price)}</span>
             </div>
-            <Button block size="lg" style={{ marginTop: 18 }} onClick={submit} disabled={submitting} iconRight={submitting ? null : <Ico n="ArrowRight" s={18} />}>{submitting ? 'Sending…' : 'Submit Request'}</Button>
-            {error && <p style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--red-500)', textAlign: 'center', margin: '10px 0 0' }}>{error}</p>}
+            <Button type="submit" block size="lg" style={{ marginTop: 18 }} disabled={submitting || !now} iconRight={submitting ? null : <Ico n="ArrowRight" s={18} />}>{submitting ? 'Sending…' : 'Submit Request'}</Button>
+            {error && <p role="alert" style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--red-500)', textAlign: 'center', margin: '10px 0 0' }}>{error}</p>}
             <p style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--text-faint)', textAlign: 'center', margin: '12px 0 0' }}>No charge until your appointment is confirmed.</p>
 
             <div style={{ height: 1, background: 'var(--divider)', margin: '18px 0' }} />
@@ -256,8 +316,8 @@ function Booking({ go }) {
             </div>
           </div>
         </Card>
-      </div>
+      </form>
     </Section>
   );
 }
-Object.assign(window, { Booking, BookingSchedule: { MIN_LEAD_DAYS, MAX_LEAD_DAYS, CLOSED_DAYS, earliestSlot, assessDate, toISODate, parseISODate } });
+Object.assign(window, { Booking, assessBookingEmail, BookingSchedule: { MIN_LEAD_DAYS, MAX_LEAD_DAYS, CLOSED_DAYS, earliestSlot, assessDate, toISODate, parseISODate } });
