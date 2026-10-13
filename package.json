@@ -5,5 +5,17 @@
   "description": "Thunderhorse Tuning — pre-rendered static site + Netlify Functions for the live job status portal.",
   "dependencies": {
     "@netlify/blobs": "^10.0.10"
+  },
+  "devDependencies": {
+    "@babel/core": "7.29.7",
+    "@babel/preset-react": "7.29.7",
+    "@playwright/test": "1.56.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "scripts": {
+    "build:booking": "node scripts/build-booking.cjs",
+    "check:booking": "node scripts/build-booking.cjs --check",
+    "test": "playwright test"
   }
 }

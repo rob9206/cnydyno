@@ -70,6 +70,63 @@ HTML.
 `node verify-deploy.js` runs a self-contained check that every route file,
 asset, and referenced path is present and consistent.
 
+### Focused booking rebuild and tests
+
+The original `_build/` tooling is not tracked. For a booking-only change,
+the tracked helper below compiles `components/Booking.jsx` into the existing
+`app.js`, preserves all other compiled components, renders the booking page,
+and refreshes the app cache key on all seven React entry pages:
+
+```bash
+npm ci
+npm run build:booking
+npm run check:booking
+npx playwright install chromium --only-shell
+npm test
+```
+
+Commit the generated files along with the source. The helper checks known
+bundle/HTML boundaries and stops if they change. A later full prerender can
+replace its output; it is not a general replacement for `_build/prerender.js`.
+Browser tests load committed HTML and JavaScript from disk, serve React
+locally, and mock every booking POST. They never submit to Netlify or Square.
+
+### Booking validation and spam protection
+
+The visible form uses one submit handler for clicks and Enter. It trims and
+checks email syntax, reports accessible inline errors, rechecks the existing
+date rules, and prevents simultaneous duplicate sends. The real hidden
+`bot-field` is read from the form and a filled trap stops the request. The
+deploy-time `booking-request` schema and existing Netlify URL-encoded field
+names are preserved, as are Square, Calendly, and mailto fallback behavior.
+
+These are **client-side checks**, not mailbox verification or a server-side
+email validation guarantee. Direct HTTP requests can bypass JavaScript.
+Netlify's documented Akismet filtering and registered honeypot remain the
+server-side defenses; a successful HTTP response also does not prove a
+notification was delivered or that an appointment is confirmed. No CAPTCHA,
+email provider allowlist, or artificial wait is added for legitimate riders.
+
+Before an authorized rollout, check the Netlify form detail page for the
+registered `bot-field` extra spam protection, form detection, and notification
+configuration. These dashboard settings have not been verified by the local
+tests. After deployment is separately authorized, send one clearly labeled
+request using a controlled real email address and confirm the stored fields,
+Reply-To, and notification delivery. Check both verified and spam submissions.
+Use a staging form to test direct malformed POSTs and honeypot rejection.
+If nuisance submissions persist, consider Netlify-validated reCAPTCHA 2 or a
+server-validated intake endpoint with protection against the legacy endpoint
+being used to bypass it. Either requires separate implementation and platform
+verification; adding a client CAPTCHA widget alone is not sufficient.
+
+References: [Netlify form setup](https://docs.netlify.com/manage/forms/setup/),
+[spam filters](https://docs.netlify.com/manage/forms/spam-filters/),
+[troubleshooting](https://docs.netlify.com/manage/forms/troubleshooting-tips/).
+
+For review without deployment, include `[skip netlify]` in both the commit
+message and pull request title. Do not merge or remove those markers until
+deployment is authorized. See [Netlify's skip-deploy behavior](https://docs.netlify.com/deploy/manage-deploys/manage-deploys-overview/).
+
 ## Live status portal
 
 Customers get a text with a link like `/status/?t=<token>` and can watch their
